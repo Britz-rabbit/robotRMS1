@@ -2,54 +2,51 @@
   <div>
     <topMenu></topMenu>
     <div class="container">
-    <div class="s1 session"></div>
-    <div class="s2 session">
-      <!-- 子路由展示区域 -->
-
-      <div class="s2-1 session">
-        <dv-border-box-7 style="width:100%;height:100%">
-          <div class="con flex">
-            <router-view></router-view>
-          </div>
-        </dv-border-box-7>
-      </div>
-
-      <!-- 右侧内容填充，该图标太占用性能，需要优化 -->
-      <div class="s2-2 session">
-        <div style="margin-left: 1vw;position: relative;">
-          <warningRadar> </warningRadar>
+      <div class="s1 session"></div>
+      <div class="s2 session">
+        <!-- 子路由展示区域 -->
+        <div class="s2-1 session">
+          <dv-border-box-7 style="width:100%;height:100%">
+            <div class="con flex">
+              <router-view></router-view>
+            </div>
+          </dv-border-box-7>
         </div>
+        <!-- 右侧内容填充，该图标太占用性能，需要优化 -->
+        <div class="s2-2 session">
+          <div style="margin-left: 1vw;position: relative;">
+            <warningRadar> </warningRadar>
+          </div>
+        </div>
+      </div>
+      <div class="s3 session">
+        <!-- 路由按钮 -->
+        <div class="s3-1 session">
+          <div class="flex btnCon">
+            <div class="btn" v-for="(item, index) in routeList" @click="changeRoute(item)">
+              <span>{{ item.title }}</span>
+            </div>
+          </div>
+        </div>
+        <!-- 轮播图 -->
+        <div class="s3-2 session">
+          <div class="">
+            <div class="block">
+              <el-carousel height="30vh" type="card">
+                <el-carousel-item v-for="(item, index) in imgList" :key="item">
+                  <img :src="item" style="width: 100%; height: 100%" @click="showDialog(item)" />
+                </el-carousel-item>
+              </el-carousel>
+            </div>
+          </div>
+        </div>
+        <!-- 对话框 -->
+        <el-dialog title="查看详细图" :modal="false" center :visible.sync="dialogVisible" width="50%">
+          <img :src="choseImg" alt="" style="width: 100%;height:100%;">
+        </el-dialog>
       </div>
     </div>
-    <div class="s3 session">
-      <!-- 路由按钮 -->
-      <div class="s3-1 session">
-        <div class="flex btnCon">
-          <div class="btn" v-for="(item, index) in routeList" @click="changeRoute(item)">
-            <span>{{ item.title }}</span>
-          </div>
-        </div>
-      </div>
-      <!-- 轮播图 -->
-      <div class="s3-2 session">
-        <div class="">
-          <div class="block">
-            <el-carousel height="30vh" type="card">
-              <el-carousel-item v-for="(item, index) in imgList" :key="item">
-                <img :src="item" style="width: 100%; height: 100%" @click="showDialog(item)"/>
-              </el-carousel-item>
-            </el-carousel>
-          </div>
-        </div>
-      </div>
-      <!-- 对话框 -->
-      <el-dialog title="查看详细图" :modal="false" center :visible.sync="dialogVisible" width="50%">
-        <img :src="choseImg" alt="" style="width: 100%;height:100%;">
-      </el-dialog>
-    </div>
   </div>
-  </div>
-  
 </template>
 
 <script>
@@ -67,9 +64,9 @@ export default {
       //报警抓拍列表
       imgList: ["", ""],
       //是否打开对话框的标识符
-      dialogVisible:false,
+      dialogVisible: false,
       //选中查看的大图路径
-      choseImg:''
+      choseImg: ''
     };
   },
   props: {},
@@ -103,16 +100,17 @@ export default {
       if (item.path === this.$route.fullPath) return;
       this.$router.push(item.path);
     },
-    showDialog(src){
+    showDialog(src) {
       console.log(src);
-      this.dialogVisible=true
-      this.choseImg=src
+      this.dialogVisible = true
+      this.choseImg = src
     }
   },
 };
 </script>
 
 <style lang='less' scoped >
+@import "@/assets/css/common.css";
 .border {
   border: 1px solid red;
 }
@@ -132,7 +130,7 @@ span {
 
 .s1 {
   width: 100%;
-  height: 4%;
+  height: 2%;
 }
 
 .s2 {

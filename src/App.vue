@@ -1,9 +1,10 @@
 <template>
   <div id="app">
     <dv-full-screen-container ref="appRef">
-          <transition :name="transitionName">
+          <!-- <transition :name="transitionName">
               <router-view></router-view> 
-          </transition>
+          </transition> -->
+          <router-view></router-view> 
     </dv-full-screen-container>
    
     </div>
@@ -94,6 +95,7 @@ export default {
 #dv-full-screen-container{
   background: url('./assets/img/background.png');
   background-size: cover;
+  //border: 1px solid red;
 }
 
 ::-webkit-scrollbar {display:none}
@@ -104,7 +106,7 @@ export default {
 .slide-left-enter-active,
 .slide-left-leave-active {
   will-change: transform;
-  transition: all 300ms;
+  transition: all 150ms;
   position: absolute;
 }
 

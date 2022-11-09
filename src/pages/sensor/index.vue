@@ -1,22 +1,23 @@
 <template>
   <div>
-    <topMenu></topMenu>
-    <div class="container">
-    <dv-border-box-10>
-      <!-- 上方筛选框 -->
-      <div class="bar ">
-        <el-button type="success" size="mini" @click="changeData('all')">全部设备</el-button>
-        <el-badge :value="sensorDangerNum" class="item">
-          <el-button type="danger" size="mini" @click="changeData('danger')">异常设备</el-button>
-        </el-badge>
-        <el-button type="warning" size="mini">一键确认</el-button>
+      <topMenu></topMenu>
+      <div class="container">
+        <dv-border-box-10>
+          <!-- 上方筛选框 -->
+          <div class="bar ">
+            <el-button type="success" size="mini" @click="changeData('all')">全部设备</el-button>
+            <el-badge :value="sensorDangerNum" class="item">
+              <el-button type="danger" size="mini" @click="changeData('danger')">异常设备</el-button>
+            </el-badge>
+            <el-button type="warning" size="mini">一键确认</el-button>
+          </div>
+          <!-- 列表，作为组件需要将数据传入 -->
+          <list :data="robotTableDate"></list>
+        </dv-border-box-10>
       </div>
-      <!-- 列表，作为组件需要将数据传入 -->
-      <list :data="robotTableDate"></list>
-    </dv-border-box-10>
+
   </div>
-  </div>
-  
+
 </template>
 
 <script>
@@ -30,7 +31,7 @@ export default {
       //传感器的数据的占位符
       robotTableDate: [],
       //当前的传感器异常且未确认的数量数量
-      sensorDangerNum:0
+      sensorDangerNum: 0
     }
   },
   props: {
@@ -55,25 +56,27 @@ export default {
         case 'all':
           //alert('显示全部数据')
           this.robotTableDate = this.$store.state.sensorInfo
-          this.sensorDangerNum=this.$store.state.sensorInfo.filter((item)=>!item.isConfirm).length
+          this.sensorDangerNum = this.$store.state.sensorInfo.filter((item) => !item.isConfirm).length
           break;
         case 'danger':
           //alert('仅显示异常数据')
-          this.robotTableDate = this.$store.state.sensorInfo.filter((item)=>item.isDanger)
-          this.sensorDangerNum=this.$store.state.sensorInfo.filter((item)=>!item.isConfirm).length
+          this.robotTableDate = this.$store.state.sensorInfo.filter((item) => item.isDanger)
+          this.sensorDangerNum = this.$store.state.sensorInfo.filter((item) => !item.isConfirm).length
           break;
         default:
           break;
       }
     },
   },
-  watch:{
-    
+  watch: {
+
   }
 }
 </script>
 
 <style lang='less' scoped>
+@import "@/assets/css/common.css";
+
 .border {
   border: 1px solid red;
 }

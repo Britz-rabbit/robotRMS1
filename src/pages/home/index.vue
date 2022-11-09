@@ -1,161 +1,163 @@
 <template>
+  <!-- 更改背景直接在这里面改 -->
+  <!-- <div style="background-color:#32ce84;"> -->
   <div>
-    <topMenu></topMenu>
-    <div class="container flex">
-      <!-- 左侧区域-->
-      <div class="session s1">
-        <dv-border-box-12>
-          <titleBar :title="'实时数据检测'"></titleBar>
-          <!-- logo及连接状态 -->
-          <div class="con con1" style="height: 15%;padding-top: 5%;">
-            <img src="@/assets/img/logo2.png" width="50%;height:100%;">
-            <div class="connect con con1-1">
-              <span>连接状态</span>
-              <!-- 成功或失败状态，因定位需要，未使用v-else -->
-              <i v-if="isConnect" class="success iconfont icon-connection"></i>
-              <span v-if="isConnect" class="success">已连接</span>
-
-              <i v-if="!isConnect" class="error iconfont icon-disconnect"></i>
-              <span v-if="!isConnect" class="error">未连接</span>
-            </div>
-          </div>
-          <!-- 电池电量 -->
-          <div class="con con2 " style="height: 15%;margin-top: 5%;">
-            <span>当前电量</span>
-            <dv-percent-pond :config="powerConfig" style="width:100%;height:80%;margin-top: 5%;" />
-          </div>
-          <!-- 温湿度及氧气 -->
-          <div class="con con3 " style="height:25%;margin-top: 10%;">
-
-            <div class="con3Item ">
-              <div>
-                <span>红外温度</span>
-                <span>72°C</span>
-              </div>
-              <div class="success">
-                <span>正常</span>
-              </div>
-            </div>
-
-            <div class="con3Item ">
-              <div>
-                <span>环境温度</span>
-                <span>36°C</span>
-              </div>
-              <div class="success">
-                <span>正常</span>
-              </div>
-            </div>
-
-            <div class="con3Item ">
-              <div>
-                <span>环境湿度</span>
-                <span>44%</span>
-              </div>
-              <div class="error">
-                <span>异常</span>
-              </div>
-            </div>
-
-            <div class="con3Item">
-              <div>
-                <span>氧气浓度</span>
-                <span>36%</span>
-              </div>
-              <div class="success ">
-                <span>正常</span>
-              </div>
-            </div>
-
-            <!-- <dv-water-level-pond :config="waterConfig" style="width:6vw;height:6vw;margin-left: 2vw;" /> -->
-
-
-          </div>
-          <!-- pm粉尘显示 -->
-          <div class="con con4 " style="height:20%;">
-            <!-- <dv-capsule-chart :config="PMconfig" style="width:100%;height:100%" /> -->
-            <homeBar></homeBar>
-          </div>
-          <!-- 机器人位置及速度 -->
-          <div class="con con5 " style="height:12%;">
-            <div><span>机器人当前速度</span><span>80cm/s</span></div>
-            <div><span>机器人当前位置</span><span>32m</span></div>
-
-          </div>
-        </dv-border-box-12>
-
-      </div>
-
-      <!-- 中间及右侧区域 -->
-      <div class="session s2 flex">
-        <!-- 中间区域 -->
-        <div class="session s2-1 flex">
-
-          <titleBar :title="'主视频窗口'"></titleBar>
-          <!--主视频 -->
-          <div class="session s2-1-1 " style="width:100%;height:70%;overflow: hidden;">
-            <ws v-if="main_viceFlag"></ws>
-            <IR_video v-else></IR_video>
-          </div>
-          <!-- 中间底部图表 -->
-          <div class="flex " style="height: 30%; width: 100%">
-            <div class="session s2-1-2 ">
-              <!-- 异常状态及巡检完成率 -->
-              <homePie1></homePie1>
-              <homePie2></homePie2>
-            </div>
-            <div class="session s2-1-3 ">
-              <!-- 电机信息轮播表 -->
-              <dv-border-box-6>
-                <dv-scroll-board :config="ListConfig1" style="width:96%;height:92%;margin: 0 auto;padding-top: 2%;" />
-              </dv-border-box-6>
-
-            </div>
-          </div>
-
-
-        </div>
-
-        <!-- 右侧区域 -->
-        <div class="session s2-2">
+      <topMenu></topMenu>
+      <div class="container flex">
+        <!-- 左侧区域-->
+        <div class="session s1">
           <dv-border-box-12>
-            <titleBar :title="'副视频窗口'"></titleBar>
-            <!-- 副视频 -->
-            <div class="con s2-2-1 " @click="main_viceFlag = !main_viceFlag" style="height:35%;padding-top: 3%;">
-              <ws v-if="!main_viceFlag"></ws>
-              <IR_video v-else></IR_video>
+            <titleBar :title="'实时数据检测'"></titleBar>
+            <!-- logo及连接状态 -->
+            <div class="con con1" style="height: 15%;padding-top: 5%;">
+              <img src="@/assets/img/logo2.png" width="50%;height:100%;">
+              <div class="connect con con1-1">
+                <span>连接状态</span>
+                <!-- 成功或失败状态，因定位需要，未使用v-else -->
+                <i v-if="isConnect" class="success iconfont icon-connection"></i>
+                <span v-if="isConnect" class="success">已连接</span>
+
+                <i v-if="!isConnect" class="error iconfont icon-disconnect"></i>
+                <span v-if="!isConnect" class="error">未连接</span>
+              </div>
             </div>
-            <!-- 机器人控制 -->
-            <div class="s2-2-2 " style="height:29%;">
-              <!-- 模型和在线状态 -->
-              <div class="" style="width:100%;height:35%;display: flex;justify-content: space-around;">
-                <div class="img ">
-                  <img :src="modelSrc">
+            <!-- 电池电量 -->
+            <div class="con con2 " style="height: 15%;margin-top: 5%;">
+              <span>当前电量</span>
+              <dv-percent-pond :config="powerConfig" style="width:100%;height:80%;margin-top: 5%;" />
+            </div>
+            <!-- 温湿度及氧气 -->
+            <div class="con con3 " style="height:25%;margin-top: 10%;">
+
+              <div class="con3Item ">
+                <div>
+                  <span>红外温度</span>
+                  <span>72°C</span>
                 </div>
-                <div class="robotStatus " style="height:80%;width:55%;margin-top: 1.6vh;">
-                  <dv-border-box-12>
-                    <span class="">
-                      <!-- <dv-border-box-12>机器人当前在线</dv-border-box-12> -->
-                      机器人当前在线
-                    </span>
-                  </dv-border-box-12>
+                <div class="success">
+                  <span>正常</span>
                 </div>
               </div>
-              <!-- 启动停止按钮 -->
-              <div class="btnCon " style="display:flex;justify-content:space-around;align-items:center">
-                <div class="btn "></div>
-                <div class="btn "></div>
+
+              <div class="con3Item ">
+                <div>
+                  <span>环境温度</span>
+                  <span>36°C</span>
+                </div>
+                <div class="success">
+                  <span>正常</span>
+                </div>
               </div>
-              <!-- 待定区域 -->
+
+              <div class="con3Item ">
+                <div>
+                  <span>环境湿度</span>
+                  <span>44%</span>
+                </div>
+                <div class="error">
+                  <span>异常</span>
+                </div>
+              </div>
+
+              <div class="con3Item">
+                <div>
+                  <span>氧气浓度</span>
+                  <span>36%</span>
+                </div>
+                <div class="success ">
+                  <span>正常</span>
+                </div>
+              </div>
+
+              <!-- <dv-water-level-pond :config="waterConfig" style="width:6vw;height:6vw;margin-left: 2vw;" /> -->
+
+
             </div>
-            <div class="con s2-2-3 flex " style="height:29%;">
-              <homeBar2></homeBar2>
+            <!-- pm粉尘显示 -->
+            <div class="con con4 " style="height:20%;">
+              <!-- <dv-capsule-chart :config="PMconfig" style="width:100%;height:100%" /> -->
+              <homeBar></homeBar>
+            </div>
+            <!-- 机器人位置及速度 -->
+            <div class="con con5 " style="height:12%;">
+              <div><span>机器人当前速度</span><span>80cm/s</span></div>
+              <div><span>机器人当前位置</span><span>32m</span></div>
+
             </div>
           </dv-border-box-12>
 
         </div>
+
+        <!-- 中间及右侧区域 -->
+        <div class="session s2 flex">
+          <!-- 中间区域 -->
+          <div class="session s2-1 flex">
+
+            <titleBar :title="'主视频窗口'"></titleBar>
+            <!--主视频 -->
+            <div class="session s2-1-1 " style="width:100%;height:70%;overflow: hidden;">
+              <ws v-if="main_viceFlag"></ws>
+              <IR_video v-else></IR_video>
+            </div>
+            <!-- 中间底部图表 -->
+            <div class="flex " style="height: 30%; width: 100%">
+              <div class="session s2-1-2 ">
+                <!-- 异常状态及巡检完成率 -->
+                <homePie1></homePie1>
+                <homePie2></homePie2>
+              </div>
+              <div class="session s2-1-3 ">
+                <!-- 电机信息轮播表 -->
+                <dv-border-box-6>
+                  <dv-scroll-board :config="ListConfig1" style="width:96%;height:92%;margin: 0 auto;padding-top: 2%;" />
+                </dv-border-box-6>
+
+              </div>
+            </div>
+
+
+          </div>
+
+          <!-- 右侧区域 -->
+          <div class="session s2-2">
+            <dv-border-box-12>
+              <titleBar :title="'副视频窗口'"></titleBar>
+              <!-- 副视频 -->
+              <div class="con s2-2-1 " @click="main_viceFlag = !main_viceFlag" style="height:35%;padding-top: 3%;">
+                <ws v-if="!main_viceFlag"></ws>
+                <IR_video v-else></IR_video>
+              </div>
+              <!-- 机器人控制 -->
+              <div class="s2-2-2 " style="height:29%;">
+                <!-- 模型和在线状态 -->
+                <div class="" style="width:100%;height:35%;display: flex;justify-content: space-around;">
+                  <div class="img ">
+                    <img :src="modelSrc">
+                  </div>
+                  <div class="robotStatus " style="height:80%;width:55%;margin-top: 1.6vh;">
+                    <dv-border-box-12>
+                      <span class="">
+                        <!-- <dv-border-box-12>机器人当前在线</dv-border-box-12> -->
+                        机器人当前在线
+                      </span>
+                    </dv-border-box-12>
+                  </div>
+                </div>
+                <!-- 启动停止按钮 -->
+                <div class="btnCon " style="display:flex;justify-content:space-around;align-items:center">
+                  <div class="btn "></div>
+                  <div class="btn "></div>
+                </div>
+                <!-- 待定区域 -->
+              </div>
+              <div class="con s2-2-3 flex " style="height:29%;">
+                <homeBar2></homeBar2>
+              </div>
+            </dv-border-box-12>
+
+          </div>
+        </div>
       </div>
-    </div>
   </div>
 
 </template>

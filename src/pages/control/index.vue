@@ -18,7 +18,7 @@
 
       <div class="s2 session">
         <titleBar :title="'控制面板'"></titleBar>
-        <div class="con con1 border">
+        <div class="con con1">
           <ctlPanel></ctlPanel>
         </div>
         <div class="con flex con2">
@@ -104,6 +104,7 @@ export default {
 
 <style lang='less' scoped >
 @import '@/assets/css/common.less';
+
 
 .border {
   border: 1px solid red;
