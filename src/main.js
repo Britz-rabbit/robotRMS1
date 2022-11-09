@@ -12,20 +12,15 @@ import '@/plugins/video'
 
 //挂载全局组件
 import titleBar from './components/titleBar'
-import ctlPanel from './components/ctlPanel'
-//import batteryInfo from './components/batteryInfo'
+import topMenu from './components/topMenu'
 import waterBall from './components/ehcarts/waterBall'
-//import warningList from './components/warningList'
-import ws from './components/ws'
 import IR_video from './components/IR_video'
 
 Vue.component('titleBar',titleBar)
-Vue.component('ctlPanel',ctlPanel)
-//Vue.component('batteryInfo',batteryInfo)
 Vue.component('waterBall',waterBall)
-//Vue.component('warningList',warningList)
-Vue.component('ws',ws)
+Vue.component('topMenu',topMenu)
 Vue.component('IR_video',IR_video)
+
 
 //创建并挂载$bus
 class Bus {

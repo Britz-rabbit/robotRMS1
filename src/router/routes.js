@@ -1,6 +1,16 @@
 import home from '@/pages/home'
 import control from '@/pages/control'
 export default [
+    //登陆界面，用于展示或重定向
+    {
+        path:'/login',
+        meta:{
+            title:'登陆界面',
+            index:0
+        },
+        component: () => import('../pages/login/index')
+       //component:home
+    },
     //首页，用于展示或重定向
     {
         path:'/home',
@@ -11,9 +21,10 @@ export default [
         component: () => import('../pages/home/index')
        //component:home
     },
+
     {
         path: '*',//匹配未定义的路由
-        redirect: 'home'//重定向
+        redirect: 'home'//重定向到首页
     },
      //控制中心
      {
@@ -60,7 +71,7 @@ export default [
             title:'传感系统',
             index:3
         },
-        component:()=>import('../pages/sensor/newIndex')
+        component:()=>import('../pages/sensor/index')
     },
      //数据分析
      {

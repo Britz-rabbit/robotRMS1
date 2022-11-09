@@ -1,92 +1,97 @@
 <template>
-  <div class='flex container'>
-
-    <div class="s1 ">
-      <dv-border-box-10>
-        <div class="icons ">
-          <i class="iconfont icon-jiqiren"></i>
-          <i class="iconfont icon-dengguang"></i>
-          <i class="iconfont icon-connection"></i>
-        </div>
-        <div class="img">
-          <ws v-if="main_viceFlag"></ws>
-          <IR_video v-else></IR_video>
-        </div>
-      </dv-border-box-10>
-    </div>
-
-    <div class="s2 session">
-      <titleBar :title="'控制面板'"></titleBar>
-      <div class="con con1">
-        <ctlPanel></ctlPanel>
+  <div>
+    <topMenu></topMenu>
+    <div class='flex container'>
+      <div class="s1 ">
+        <dv-border-box-10>
+          <div class="icons ">
+            <i class="iconfont icon-jiqiren"></i>
+            <i class="iconfont icon-dengguang"></i>
+            <i class="iconfont icon-connection"></i>
+          </div>
+          <div class="img">
+            <ws v-if="main_viceFlag"></ws>
+            <IR_video v-else></IR_video>
+          </div>
+        </dv-border-box-10>
       </div>
-      <div class="con flex con2">
-        <div class="chose " @click="main_viceFlag=true" :class="main_viceFlag? 'chosed' : ''">
-          <ws></ws>
+
+      <div class="s2 session">
+        <titleBar :title="'控制面板'"></titleBar>
+        <div class="con con1 border">
+          <ctlPanel></ctlPanel>
         </div>
-        <div class="chose " @click="main_viceFlag=false" :class="!main_viceFlag? 'chosed' : ''">
-          <IR_video></IR_video>
-        </div>
-      </div>
-      <!-- 按钮区域 -->
-      <div class="con con3 flex">
-        <div class="panel ">
-          <div class="title">
-            <span>机器人控制</span>
+        <div class="con flex con2">
+          <div class="chose " @click="main_viceFlag = true" :class="main_viceFlag ? 'chosed' : ''">
+            <ws></ws>
           </div>
-          <div class="line line1 ">
-            <div @click="" class="btn pluse"></div>
-          </div>
-          <div class="line line2 ">
-            <div class="btn left"></div>
-            <div class="btn pause"></div>
-            <div class="btn right"></div>
-          </div>
-          <div class="line line1 ">
-            <div class="btn min"></div>
+          <div class="chose " @click="main_viceFlag = false" :class="!main_viceFlag ? 'chosed' : ''">
+            <IR_video></IR_video>
           </div>
         </div>
-        <div class="panel ">
-          <div class="title">
-            <span>云台控制</span>
+        <!-- 按钮区域 -->
+        <div class="con con3 flex">
+          <div class="panel ">
+            <div class="title">
+              <span>机器人控制</span>
+            </div>
+            <div class="line line1 ">
+              <div @click="" class="btn pluse"></div>
+            </div>
+            <div class="line line2 ">
+              <div class="btn left"></div>
+              <div class="btn pause"></div>
+              <div class="btn right"></div>
+            </div>
+            <div class="line line1 ">
+              <div class="btn min"></div>
+            </div>
           </div>
-          <div class="line line1 ">
-            <div class="btn up"></div>
-          </div>
-          <div class="line line2 ">
-            <div class="btn left"></div>
-            <div class="btn right"></div>
-          </div>
-          <div class=" line line1 ">
-            <div class="btn down"></div>
+          <div class="panel ">
+            <div class="title">
+              <span>云台控制</span>
+            </div>
+            <div class="line line1 ">
+              <div class="btn up"></div>
+            </div>
+            <div class="line line2 ">
+              <div class="btn left"></div>
+              <div class="btn right"></div>
+            </div>
+            <div class=" line line1 ">
+              <div class="btn down"></div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+
 </template>
 
 <script>
+import ws from './components/ws.vue'
+import ctlPanel from './components/ctlPanel.vue'
 export default {
   name: '',
   data() {
     return {
       //主副视频的播放次序占位符
-      main_viceFlag:true
+      main_viceFlag: true
 
     }
   },
   props: {
   },
   components: {
-
+    ws, ctlPanel
   },
   computed: {
 
   },
   beforeMount() {
-  
- 
+
+
   },
   mounted() {
     console.log(this);
@@ -99,12 +104,6 @@ export default {
 
 <style lang='less' scoped >
 @import '@/assets/css/common.less';
-
-.container {
-  justify-content: space-around;
-  width: 100%;
-  height: 100%;
-}
 
 .border {
   border: 1px solid red;
@@ -129,11 +128,11 @@ img {
 }
 
 .s1 {
-  height: 98%;
+  height: 100%;
   width: 70%;
   background-color: rgba(6, 80, 109, 0.2);
   border-radius: 4%;
-  margin-top: 2vh;
+  margin-top: 1vh;
   overflow: hidden;
 
   .dv-border-box-10 {

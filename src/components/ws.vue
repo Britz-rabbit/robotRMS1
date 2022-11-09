@@ -13,8 +13,9 @@ export default {
     created() {
         this.initWebSocket()
     },
-    destroyed: function () {
-        this.websocketclose();
+    destroyed() {
+        // this.websocketclose();
+        // this.websocket.close();
     },
     methods: {
         initWebSocket() {
@@ -27,15 +28,17 @@ export default {
         },
         websocketonopen() {
             console.log("WebSocket连接成功");
+            console.log("111");
         },
         websocketonerror(e) {
-            console.log("WebSocket连接发生错误" + e);
+            console.log( e);
         },
         websocketonmessage(e) {
             this.rgb_msg = "data:image/jpeg;base64," + e.data;
         },
         websocketclose() {
             console.log("connection closed");
+            this.websocket.close();
         },
     }
 }

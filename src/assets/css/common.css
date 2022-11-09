@@ -6,20 +6,9 @@
   align-items: center;
 }
 .container {
-  display: flex;
-}
-
-@keyframes externalHalo {
-  0%{
-    transform: rotate(0deg);
-  }
-  25%{
-    transform: rotate(90deg);
-  }
-  50%{
-    transform: rotate(180deg);
-  }
-  100%{
-    transform: rotate(360deg);
-  }
+  height: 94vh;
+  margin-top: 2vh;
+  overflow: hidden;
+  justify-content: space-around;
+  white-space: no-warp;
 }

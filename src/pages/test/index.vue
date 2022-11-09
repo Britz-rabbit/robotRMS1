@@ -1,6 +1,9 @@
 <template>
   <div>
-      <ws/>
+    <div style="width: 600px;height:400px">
+        <ws/> 
+    </div>
+     
   </div>
 </template>
 <script>

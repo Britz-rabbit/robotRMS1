@@ -1,5 +1,7 @@
 <template>
-  <div class="container">
+  <div>
+    <topMenu></topMenu>
+    <div class="container">
     <div class="s1 session"></div>
     <div class="s2 session">
       <!-- 子路由展示区域 -->
@@ -46,6 +48,8 @@
       </el-dialog>
     </div>
   </div>
+  </div>
+  
 </template>
 
 <script>
@@ -109,13 +113,6 @@ export default {
 </script>
 
 <style lang='less' scoped >
-.container {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
 .border {
   border: 1px solid red;
 }

@@ -1,12 +1,9 @@
 <template>
   <div id="app">
     <dv-full-screen-container ref="appRef">
-       <topMenu></topMenu>
-      <div style="height: 95vh;">
           <transition :name="transitionName">
               <router-view></router-view> 
           </transition>
-      </div>
     </dv-full-screen-container>
    
     </div>
@@ -93,9 +90,6 @@ export default {
 #app {
   margin: 0;
   padding: 0;
-  // background: url('./assets/img/background.png');
-  // background-size: cover;
-  //scrollbar-width: none;
 }
 #dv-full-screen-container{
   background: url('./assets/img/background.png');

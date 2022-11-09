@@ -6,6 +6,7 @@
 
 <script>
 import * as echarts from 'echarts';
+import resize from '@/utils/resizeEchart'
 export default {
     name: '',
     data() {
@@ -108,6 +109,17 @@ export default {
             ]
         };
         option && myChart.setOption(option);
+        if (window.onresize) {
+            window.onresize = function () {
+                //console.log(123);
+                myChart.resize()
+            }
+        } else {
+            window.addEventListener('resize', function () {
+                //console.log(321);
+                myChart.resize()
+            })
+        }
     },
     methods: {
 

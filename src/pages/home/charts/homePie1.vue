@@ -335,6 +335,17 @@ export default {
         };
 
         myChart.setOption(option)
+        if (window.onresize) {
+            window.onresize = function () {
+                //console.log(123);
+                myChart.resize()
+            }
+        } else {
+            window.addEventListener('resize', function () {
+                //console.log(321);
+                myChart.resize()
+            })
+        }
     },
     beforeDestroy() {
         this.timer = null

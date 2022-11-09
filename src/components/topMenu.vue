@@ -1,6 +1,5 @@
 <template>
-    <div class='container '>
-
+    <div class='topMenuCon '>
         <div class="time  flex">
             <span>{{time}}</span>
         </div>
@@ -97,9 +96,12 @@ export default {
 
 <style lang='less' scoped >
 @import '@/assets/css/common.less';
-.container {
+.topMenuCon {
     height: 5vh;
     position: relative;
+    width: 100%;
+    display: flex;
+    //border: 1px soild red;
 }
 
 .time {

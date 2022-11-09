@@ -5,11 +5,211 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
     state: {
+        //气体数据
         gasInfo: [],
+        //机器人相关数据
         robotInfo: [],
-        sensorInfo: [],
+        //传感器相关数据
+        sensorInfo: [
+            {
+              //名称
+              name: '烟雾传感器',
+              //时间
+              date: 123658652,
+              //根据不同传感器添加不同单位，value同理
+              position: `32米`,
+              value: `160`,
+              //是否异常
+              isDanger: true,
+              //是否确认
+              isConfirm: false,
+              //详细情况
+              detail: {}
+            },
+            {
+              name: '烟雾传感器',
+              //根据不同传感器添加不同单位，value同理
+              position: `32米`,
+              value: `160`,
+              //是否异常
+              isDanger: false,
+              //是否确认
+              isConfirm: true,
+              //详细情况
+              detail: {}
+            },
+            {
+              name: '烟雾传感器',
+              //根据不同传感器添加不同单位，value同理
+              position: `32米`,
+              value: `160`,
+              //是否异常
+              isDanger: true,
+              //是否确认
+              isConfirm: false,
+              //详细情况
+              detail: {}
+            },
+            {
+              name: '烟雾传感器',
+              //根据不同传感器添加不同单位，value同理
+              position: `32米`,
+              value: `160`,
+              //是否异常
+              isDanger: true,
+              //是否确认
+              isConfirm: true,
+              //详细情况
+              detail: {}
+            },
+            {
+              name: '烟雾传感器',
+              //根据不同传感器添加不同单位，value同理
+              position: `32米`,
+              value: `160`,
+              //是否异常
+              isDanger: true,
+              //是否确认
+              isConfirm: true,
+              //详细情况
+              detail: {}
+            },
+            {
+              name: '烟雾传感器',
+              //根据不同传感器添加不同单位，value同理
+              position: `32米`,
+              value: `160`,
+              //是否异常
+              isDanger: true,
+              //是否确认
+              isConfirm: false,
+              //详细情况
+              detail: {}
+            },
+            {
+              name: '烟雾传感器',
+              //根据不同传感器添加不同单位，value同理
+              position: `32米`,
+              value: `160`,
+              //是否异常
+              isDanger: false,
+              //是否确认
+              isConfirm: true,
+              //详细情况
+              detail: {}
+            },
+            {
+              name: '烟雾传感器',
+              //根据不同传感器添加不同单位，value同理
+              position: `32米`,
+              value: `160`,
+              //是否异常
+              isDanger: false,
+              //是否确认
+              isConfirm: true,
+              //详细情况
+              detail: {}
+            },
+            {
+              name: '烟雾传感器',
+              //根据不同传感器添加不同单位，value同理
+              position: `32米`,
+              value: `160`,
+              //是否异常
+              isDanger: true,
+              //是否确认
+              isConfirm: false,
+              //详细情况
+              detail: {}
+            },
+            {
+              name: '烟雾传感器',
+              //根据不同传感器添加不同单位，value同理
+              position: `32米`,
+              value: `160`,
+              //是否异常
+              isDanger: false,
+              //是否确认
+              isConfirm: true,
+              //详细情况
+              detail: {}
+            },
+            {
+              name: '烟雾传感器',
+              //根据不同传感器添加不同单位，value同理
+              position: `32米`,
+              value: `160`,
+              //是否异常
+              isDanger: true,
+              //是否确认
+              isConfirm: false,
+              //详细情况
+              detail: {}
+            },
+            {
+              name: '烟雾传感器',
+              //根据不同传感器添加不同单位，value同理
+              position: `32米`,
+              value: `160`,
+              //是否异常
+              isDanger: true,
+              //是否确认
+              isConfirm: true,
+              //详细情况
+              detail: {}
+            },
+            {
+              name: '烟雾传感器',
+              //根据不同传感器添加不同单位，value同理
+              position: `32米`,
+              value: `160`,
+              //是否异常
+              isDanger: true,
+              //是否确认
+              isConfirm: true,
+              //详细情况
+              detail: {}
+            },
+            {
+              name: '烟雾传感器',
+              //根据不同传感器添加不同单位，value同理
+              position: `32米`,
+              value: `160`,
+              //是否异常
+              isDanger: true,
+              //是否确认
+              isConfirm: false,
+              //详细情况
+              detail: {}
+            },
+            {
+              name: '烟雾传感器',
+              //根据不同传感器添加不同单位，value同理
+              position: `32米`,
+              value: `160`,
+              //是否异常
+              isDanger: false,
+              //是否确认
+              isConfirm: true,
+              //详细情况
+              detail: {}
+            },
+            {
+              name: '烟雾传感器',
+              //根据不同传感器添加不同单位，value同理
+              position: `32米`,
+              value: `160`,
+              //是否异常
+              isDanger: false,
+              //是否确认
+              isConfirm: true,
+              //详细情况
+              detail: {}
+            },
+          ],
+        //电池相关数据
         batteryInfo:[],
-        positionInfo:[]
+        positionInfo:[],
     },
 
     mutations: {

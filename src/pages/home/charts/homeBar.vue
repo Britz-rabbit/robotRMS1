@@ -42,11 +42,11 @@ export default {
                 {
                     show: true,
                     text: '粉尘变化',
-                    left:'150',
-                    textStyle:{
-                        color:'#ffffff',
-                        align:'center',
-                        verticalAlign:'middle',
+                    left: '150',
+                    textStyle: {
+                        color: '#ffffff',
+                        align: 'center',
+                        verticalAlign: 'middle',
                     }
                 },],
             tooltip: {
@@ -95,11 +95,11 @@ export default {
                     show: false,
                     lineStyle: {
                         color: '#ffffff',
-                        
+
                     },
                 },
-                axisLabel:{
-                    fontSize: '16', 
+                axisLabel: {
+                    fontSize: '16',
                 },
                 data: ['pm1', 'pm2.5', 'pm10',]
             }
@@ -147,6 +147,17 @@ export default {
             ]
         };
         myChart.setOption(option)
+        if (window.onresize) {
+            window.onresize = function () {
+                //console.log(123);
+                myChart.resize()
+            }
+        } else {
+            window.addEventListener('resize', function () {
+                //console.log(321);
+                myChart.resize()
+            })
+        }
     },
     methods: {
 
