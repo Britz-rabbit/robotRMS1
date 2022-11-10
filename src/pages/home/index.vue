@@ -96,7 +96,8 @@
             <titleBar :title="'主视频窗口'"></titleBar>
             <!--主视频 -->
             <div class="session s2-1-1 " style="width:100%;height:70%;overflow: hidden;">
-              <ws v-if="main_viceFlag"></ws>
+              <!-- <ws v-if="main_viceFlag"></ws> -->
+              <robot_video v-if="main_viceFlag"></robot_video>
               <IR_video v-else></IR_video>
             </div>
             <!-- 中间底部图表 -->
@@ -124,7 +125,8 @@
               <titleBar :title="'副视频窗口'"></titleBar>
               <!-- 副视频 -->
               <div class="con s2-2-1 " @click="main_viceFlag = !main_viceFlag" style="height:35%;padding-top: 3%;">
-                <ws v-if="!main_viceFlag"></ws>
+                <!-- <ws v-if="!main_viceFlag"></ws> -->
+                <robot_video v-if="!main_viceFlag"></robot_video>
                 <IR_video v-else></IR_video>
               </div>
               <!-- 机器人控制 -->
@@ -137,8 +139,7 @@
                   <div class="robotStatus " style="height:80%;width:55%;margin-top: 1.6vh;">
                     <dv-border-box-12>
                       <span class="">
-                        <!-- <dv-border-box-12>机器人当前在线</dv-border-box-12> -->
-                        机器人当前在线
+                        快速控制
                       </span>
                     </dv-border-box-12>
                   </div>
@@ -150,8 +151,8 @@
                 </div>
                 <!-- 待定区域 -->
               </div>
-              <div class="con s2-2-3 flex " style="height:29%;">
-                <homeBar2></homeBar2>
+              <div class="con s2-2-3 flex border" style="height:29%;">
+               <span>巡检模式</span>
               </div>
             </dv-border-box-12>
 
@@ -183,8 +184,8 @@ export default {
         lineDash: [60, 3],
         borderRadius: 8
       },
-      //氧气浓度水球图配置
-      waterConfig: {
+      //氧气浓度水球图配置 
+      waterConfig: { 
         data: [55],
         shape: 'round',
         waveHeight: 16
@@ -405,6 +406,9 @@ export default {
         this.modelSrc = require('@/assets/img/home/model/xmytjqr00020.png')
       }, 1900);
 
+      for(let i=0;i<20;i++){
+        clearTimeout(`t${i}`)
+      }
       t1 = t2 = t3 = t4 = t5 = t6 = t7 = t8 = t9 = t10 = t11 = t12 = t13 = t14 = t15 = t16 = t17 = t18 = t19 = t20 = null
     }
   },
@@ -475,7 +479,7 @@ span {
         top: 8px;
       }
 
-      .icon-connection {
+      .icon-connection,.icon-disconnect {
         position: absolute;
         left: 28%;
         top: 16%;
@@ -523,6 +527,7 @@ span {
       justify-content: space-between;
       border: 1px double #32ce8460;
       background: url('@/assets/img/home/glassBox.png') no-repeat;
+      
       background-size: cover;
 
       div:first-of-type {
@@ -561,12 +566,12 @@ span {
         align-items: center;
         background: url('@/assets/img/home/cirLeft.png') no-repeat;
         background-size: cover;
-        animation: externalHalo 5s infinite linear;
+        animation: cir 5s infinite linear;
 
         span {
           color: #ffffff;
           //color: #32ce84;
-          animation: externalHalo 5s infinite reverse linear;
+          animation: cir 5s infinite reverse linear;
         }
 
       }
@@ -657,6 +662,7 @@ span {
           margin: auto;
           font-size: 32px;
           text-align: center;
+          padding-bottom: 8px;
         }
       }
 
@@ -696,11 +702,7 @@ span {
     }
 
     .s2-2-3 {
-      .calendarCon {
-        width: 100%;
-        height: 100%;
-
-      }
+      
 
     }
 

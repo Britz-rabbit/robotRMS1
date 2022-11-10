@@ -93,7 +93,8 @@ span {
 .bar {
   width: 100%;
   height: 5vh;
-  margin: 1.6vh;
+  margin: 1vh;
+  padding-top: 0.2vh;
   display: flex;
   // justify-content: center;
   align-items: center;

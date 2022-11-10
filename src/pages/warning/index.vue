@@ -7,9 +7,7 @@
         <!-- 子路由展示区域 -->
         <div class="s2-1 session">
           <dv-border-box-7 style="width:100%;height:100%">
-            <div class="con flex">
-              <router-view></router-view>
-            </div>
+            <router-view></router-view>
           </dv-border-box-7>
         </div>
         <!-- 右侧内容填充，该图标太占用性能，需要优化 -->
@@ -57,9 +55,9 @@ export default {
     return {
       //路由切换信息
       routeList: [
-        { title: "廊道设施设备", path: "/warning/gallery" },
-        { title: "机器人报警检测", path: "/warning/robot" },
         { title: "多功能及撕裂", path: "/warning/multifunction" },
+        { title: "机器人报警检测", path: "/warning/robot" },
+        { title: "廊道设施设备", path: "/warning/gallery" },
       ],
       //报警抓拍列表
       imgList: ["", ""],
@@ -92,7 +90,7 @@ export default {
     this.imgList[2] = require("../../assets/img/wrong.jpeg");
   },
   mounted() {
-    this.$router.push("/warning/gallery");
+    this.$router.push("/warning/multifunction");
   },
   methods: {
     changeRoute(item) {
@@ -111,6 +109,7 @@ export default {
 
 <style lang='less' scoped >
 @import "@/assets/css/common.css";
+
 .border {
   border: 1px solid red;
 }
@@ -202,55 +201,5 @@ span {
     height: 100%;
     width: 50%;
   }
-}
-
-//中间子路由
-
-//底部轮播列表
-
-/* 设置路由切换的动画效果 */
-.slide-right-enter-active,
-.slide-right-leave-active,
-.slide-left-enter-active,
-.slide-left-leave-active {
-  will-change: transform;
-  transition: all 300ms;
-  position: absolute;
-}
-
-// 右滑初始装状态
-.slide-right-enter {
-  opacity: 0;
-  transform: translate3d(-100%, 0, 0);
-}
-
-// 右滑执行状态
-.slide-right-leave-active {
-  opacity: 0;
-  transform: translate3d(100%, 0, 0);
-}
-
-// 右滑最终状态
-.slide-right-enter-to {
-  opacity: 1;
-  transform: translate3d(0, 0, 0);
-}
-
-// 左滑初始装状态
-.slide-left-enter {
-  opacity: 0;
-  transform: translate3d(100%, 0, 0);
-}
-
-// 左滑执行状态
-.slide-left-leave-active {
-  opacity: 0;
-  transform: translate3d(-100%, 0, 0);
-}
-
-// 左滑最终状态
-.slide-right-enter-to {
-  opacity: 1;
-  transform: translate3d(0, 0, 0);
 }
 </style>

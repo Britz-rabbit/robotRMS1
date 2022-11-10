@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import {Icon,Table,TableColumn,Button,Carousel,CarouselItem,
     Dialog,Card,Select,Option,Tooltip,Calendar,Badge,Popover,Tag,
-    Tabs,TabPane,Switch,Input,Row,FormItem,Col,Form
+    Tabs,TabPane,Switch,Input,Row,FormItem,Col,Form,Loading
 } from 'element-ui';
 
 Vue.use(Icon)
@@ -27,6 +27,7 @@ Vue.use(Row)
 Vue.use(FormItem)
 Vue.use(Col)
 Vue.use(Form)
+Vue.use(Loading)
 //顺便引入echarts的水球图插件
 import 'echarts-liquidfill'
 

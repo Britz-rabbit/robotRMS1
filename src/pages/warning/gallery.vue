@@ -1,5 +1,5 @@
 <template>
-  <div class='container'>
+  <div class='galleryCon'>
     <div class="infoBlock">
       <div v-show="choseDeviceInfo.name">
         <div class="con" style="height:25%;">
@@ -101,7 +101,7 @@ export default {
 </script>
 
 <style lang='less' scoped >
-.container {
+.galleryCon {
   width: 100%;
   height: 100%;
   position: relative;
@@ -179,17 +179,17 @@ export default {
 }
 
 .d1 {
-  bottom: 100px;
+  bottom: 150px;
   left: 50px;
 }
 
 .d2 {
-  bottom: 80px;
+  bottom: 125px;
   left: 320px;
 }
 
 .d3 {
-  bottom: 40px;
+  bottom: 90px;
   left: 520px;
 }
 

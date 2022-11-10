@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="robotCon">
     <warnLine></warnLine>
   </div>
 </template>
@@ -22,6 +22,9 @@ export default {
 </script>
 
 <style lang='less' scoped >
+// .robotCon{
+
+// }
 .circular {
   width: 200px;
   height: 200px;

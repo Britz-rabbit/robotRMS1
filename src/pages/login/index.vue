@@ -11,24 +11,18 @@
       <div class="right">
         <h1>量子智能登录</h1>
         <div class="inputs">
-          <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px"
-            class="demo-ruleForm">
-            <el-form-item label="密码" prop="pass">
-              <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
+          <el-form :model="userForm" status-icon ref="ruleForm" label-width="100px" class="ruleForm ">
+            <el-form-item label="用户名" prop="user">
+              <el-input type="text" prefix-icon="el-icon-user" v-model="userForm.user" autocomplete="off"></el-input>
             </el-form-item>
-            <el-form-item label="确认密码" prop="checkPass">
-              <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
-            </el-form-item>
-            <el-form-item label="年龄" prop="age">
-              <el-input v-model.number="ruleForm.age"></el-input>
-            </el-form-item>
-            <el-form-item>
-              <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
-              <el-button @click="resetForm('ruleForm')">重置</el-button>
+            <el-form-item label="密码" prop="password">
+              <el-input type="password" prefix-icon="el-icon-lock" v-model="userForm.password" autocomplete="off">
+              </el-input>
             </el-form-item>
           </el-form>
         </div>
-        <div class="confirm">
+        <div class="confirm" v-loading.fullscreen.lock="isLoading" element-loading-text="正在验证信息"
+          element-loading-background="rgba(255, 255, 255,0.6)" @click="login">
           <span>登</span>
           <span>录</span>
         </div>
@@ -43,78 +37,45 @@
 </template>
 
 <script>
+
+
 export default {
-    data() {
-      var checkAge = (rule, value, callback) => {
-        if (!value) {
-          return callback(new Error('年龄不能为空'));
-        }
-        setTimeout(() => {
-          if (!Number.isInteger(value)) {
-            callback(new Error('请输入数字值'));
-          } else {
-            if (value < 18) {
-              callback(new Error('必须年满18岁'));
-            } else {
-              callback();
-            }
-          }
-        }, 1000);
-      };
-      var validatePass = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error('请输入密码'));
-        } else {
-          if (this.ruleForm.checkPass !== '') {
-            this.$refs.ruleForm.validateField('checkPass');
-          }
-          callback();
-        }
-      };
-      var validatePass2 = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error('请再次输入密码'));
-        } else if (value !== this.ruleForm.pass) {
-          callback(new Error('两次输入密码不一致!'));
-        } else {
-          callback();
-        }
-      };
-      return {
-        ruleForm: {
-          pass: '',
-          checkPass: '',
-          age: ''
-        },
-        rules: {
-          pass: [
-            { validator: validatePass, trigger: 'blur' }
-          ],
-          checkPass: [
-            { validator: validatePass2, trigger: 'blur' }
-          ],
-          age: [
-            { validator: checkAge, trigger: 'blur' }
-          ]
-        }
-      };
-    },
-    methods: {
-      submitForm(formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            alert('submit!');
-          } else {
-            console.log('error submit!!');
-            return false;
-          }
-        });
+  data() {
+    return {
+      //用户名和密码信息
+      userForm: {
+        user: '',
+        password: ''
       },
-      resetForm(formName) {
-        this.$refs[formName].resetFields();
-      }
+      //是否加载中
+      isLoading: false
+
     }
+  },
+  methods: {
+    login() {
+      //模拟时间:200-600
+      let loadTime = Math.random() * 400 + 200
+      this.isLoading = true
+    
+      function timeout(ms) {
+        return new Promise((resolve, reject) => {
+          setTimeout(resolve, ms, false);
+        });
+      }
+
+      timeout(loadTime).then((value) => {
+        this.isLoading=value
+        console.log('login success');
+        this.$router.push('./home')
+      });
+
+    }
+
+
+
   }
+}
 </script>
 
 <style lang='less' scoped >
@@ -124,8 +85,12 @@ export default {
   height: 100%;
   //border: 1px solid transparent;
   position: relative;
-  // background: url('@/assets/img/loginBackground.jpg') no-repeat;
-  // background-size: cover;
+  background: url('@/assets/img/loginBackground.png') no-repeat;
+  background-size: cover;
+}
+
+.border {
+  border: 1px solid red;
 }
 
 .login {
@@ -163,34 +128,44 @@ export default {
     .inputs {
       width: 100%;
       height: 60%;
-      border: 1px solid red;
+      //border: 1px solid red;
 
-      .user {
-        height: 100px;
+      .ruleForm {
+        width: 86%;
+        height: 60%;
+        margin-top: 10%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
       }
 
     }
 
     .confirm {
-      width: 60%;
-      height: 10%;
-      margin-top: 6%;
-      border-radius: 26px;
+      width: 205px;
+      height: 42px;
+      margin-top: 3px;
+      border-radius: 6px;
       border: 1px solid rgb(126, 121, 121);
-      box-shadow: 0 0 2px 1px rgb(197, 194, 194);
+      //box-shadow: 0 0 2px 1px rgb(197, 194, 194);
+      box-shadow: none;
       display: flex;
       justify-content: space-around;
       align-items: center;
-      transition: all 0.3s;
+      transition: all 0.2s;
+      background-color: #1669DB;
+      color: #fff;
 
       &:hover {
         cursor: pointer;
-        margin-top: 5%;
+        margin-top: 1px;
+        //box-shadow: none;
+        box-shadow: 0 0 2px 1px rgb(197, 194, 194);
       }
 
       span {
         text-align: center;
-        font-size: 26px;
+        font-size: 16px;
         font-weight: 100;
       }
     }
@@ -198,12 +173,13 @@ export default {
   }
 }
 
-.background {
-  width: 200%;
-  height: 60%;
-  background-color: #05A2EC;
-  // background: url('@/assets/img/loginBackground.jpg') no-repeat;
-  //background-size: cover;
-  transform: rotate(30deg);
-}
+// .background {
+//   //color: rgba(255, 255, 255,0.6);
+//   width: 200%;
+//   height: 90%;
+//   background-color: #04a5f0;
+//   // background: url('@/assets/img/loginBackground.jpg') no-repeat;
+//   //background-size: cover;
+//   transform: rotate(45deg);
+// }
 </style>

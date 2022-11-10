@@ -1,24 +1,18 @@
 <template>
   <div>
-    <div style="width: 600px;height:400px">
-        <ws/> 
-    </div>
-     
+      <video class="demo-video" ref="player" muted autoplay></video>
   </div>
 </template>
 <script>
 import flvjs from "flv.js";
-import ws from '@/components/ws.vue'
 export default {
-  //mixins:[ws],
   data () {
       return {
         id: "1",
-        rtsp: "http://192.168.2.91:8000/live/test.flv",
-        player: null
+        rtsp: "rtsp://admin:qwe,asd.@192.168.2.243:554/Streaming/channels/102",
+          player: null
       }
   },
-  components:{ws},
   mounted () {
       if (flvjs.isSupported()) {
           let video = this.$refs.player;
@@ -26,13 +20,14 @@ export default {
               this.player = flvjs.createPlayer({
                   type: "flv",
                   isLive: true,
-                  url: this.rtsp
+                  url: `ws://192.168.2.103:8888/rtsp/${this.id}/?url=${this.rtsp}`
               });
               this.player.attachMediaElement(video);
               try {
                   this.player.load();
                   this.player.play();
               } catch (error) {
+                  console.log(error);
               };
           }
           // if (video) {

@@ -210,6 +210,11 @@ const store = new Vuex.Store({
         //电池相关数据
         batteryInfo:[],
         positionInfo:[],
+        //用户的相关信息
+        userInfo:[{
+          user:'admin',
+          password:'123'
+        }]
     },
 
     mutations: {
