@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <dv-full-screen-container ref="appRef">
     <topMenu></topMenu>
     <div class='flex container'>
       <div class="s1 ">
@@ -10,9 +10,9 @@
             <i class="iconfont icon-connection"></i>
           </div>
           <div class="img">
-            <!-- <ws v-if="main_viceFlag"></ws> -->
-            <robot_video v-if="main_viceFlag"></robot_video>
-            <IR_video v-else></IR_video>
+            <ws v-show="main_viceFlag"></ws>
+            <!-- <robot_video v-if="main_viceFlag"></robot_video> -->
+            <IR_video v-show="!main_viceFlag"></IR_video>
           </div>
         </dv-border-box-10>
       </div>
@@ -24,8 +24,8 @@
         </div>
         <div class="con flex con2">
           <div class="chose " @click="main_viceFlag = true" :class="main_viceFlag ? 'chosed' : ''">
-            <!-- <ws></ws> -->
-            <robot_video></robot_video>
+            <ws></ws>
+            <!-- <robot_video></robot_video> -->
           </div>
           <div class="chose " @click="main_viceFlag = false" :class="!main_viceFlag ? 'chosed' : ''">
             <IR_video></IR_video>
@@ -67,7 +67,11 @@
         </div>
       </div>
     </div>
-  </div>
+
+  </dv-full-screen-container>
+
+
+
 
 </template>
 
@@ -118,6 +122,12 @@ export default {
 
 .chosed {
   border: #32CE84 1px solid;
+}
+
+#dv-full-screen-container {
+  background: url('@/assets/img/BG.png');
+  background-size: cover;
+  //border: 1px solid red;
 }
 
 .con {

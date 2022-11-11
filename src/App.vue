@@ -1,12 +1,9 @@
 <template>
   <div id="app">
-    <dv-full-screen-container ref="appRef">
           <!-- <transition :name="transitionName">
               <router-view></router-view> 
           </transition> -->
           <router-view></router-view> 
-    </dv-full-screen-container>
-   
     </div>
 </template>
 
@@ -91,11 +88,6 @@ export default {
 #app {
   margin: 0;
   padding: 0;
-}
-#dv-full-screen-container{
-  background: url('./assets/img/background.png');
-  background-size: cover;
-  //border: 1px solid red;
 }
 
 ::-webkit-scrollbar {display:none}

@@ -9,7 +9,8 @@
     data () {
         return {
           id: "1",
-          rtsp: "rtsp://admin:qwe,asd.@192.168.2.243:554/Streaming/channels/102",
+          //需求：每次重新加载后channels后面在101 102 103之间随机切换，且下一次值必定发生变化，与上一次不同，可以101 102 103顺序切换
+          rtsp: "rtsp://admin:qwe,asd.@192.168.2.243:554/Streaming/channels/101",
             player: null
         }
     },

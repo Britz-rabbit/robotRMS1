@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <dv-full-screen-container ref="appRef">
     <topMenu></topMenu>
     <div class='container flex '>
       <div class="s1 session">
@@ -8,7 +8,6 @@
       <div class="s2 session ">
         <!-- 报表部分 -->
         <dv-border-box-7>
-
           <!-- 标题 -->
           <div class="con title" style="height:5%;">
             <span>龙首矿区数据报表</span>
@@ -27,7 +26,8 @@
           <!-- 中间展示区域 -->
           <div class="con reportMiddle" style="height:50%;">
             <div class="item">
-              <div class="icon" style="background: url('@/assets/img/analyze/sensor.png') no-repeat;background-size:contain"></div>
+              <div class="icon"
+                style="background: url('@/assets/img/analyze/sensor.png') no-repeat;background-size:contain"></div>
               <div></div>
             </div>
             <div class="item">
@@ -43,6 +43,8 @@
           <div class="con inscribe " style="height:13%;">
             <div class="insLeft">
               <el-button type="success">立即保存</el-button>
+              <!-- 保存按钮 -->
+              <div class="save"></div>
             </div>
             <div class="insRight ">
               <div class="">
@@ -52,13 +54,14 @@
               <div class="">
                 <span class="">签字：</span>
               </div>
-
             </div>
           </div>
         </dv-border-box-7>
       </div>
     </div>
-  </div>
+
+  </dv-full-screen-container>
+
 </template>
 
 <script>
@@ -97,6 +100,12 @@ export default {
 
 .con {
   width: 100%;
+  //border: 1px solid red;
+}
+
+#dv-full-screen-container{
+  background: url('@/assets/img/BG.png');
+  background-size: cover;
   //border: 1px solid red;
 }
 
@@ -189,10 +198,12 @@ export default {
   //下方落款
   .inscribe {
     display: flex;
-    .el-button{
+
+    .el-button {
       width: 180px;
       border-radius: 9px;
       font-size: 20px;
+
     }
 
     .insLeft {
@@ -216,6 +227,7 @@ export default {
         display: flex;
         flex-direction: column;
         justify-content: space-around;
+
         span {
           color: #ffffff;
           font-size: 20px;
@@ -228,8 +240,8 @@ export default {
         height: 100%;
         display: flex;
         align-items: center;
-        
-        span{
+
+        span {
           font-size: 26px;
           margin-left: 32px;
         }

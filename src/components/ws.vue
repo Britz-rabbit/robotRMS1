@@ -32,6 +32,8 @@ export default {
         },
         websocketonerror(e) {
             console.log( e);
+            const wsuri = 'ws://192.168.2.228:40001';
+            this.websocket = new WebSocket(wsuri);
         },
         websocketonmessage(e) {
             this.rgb_msg = "data:image/jpeg;base64," + e.data;

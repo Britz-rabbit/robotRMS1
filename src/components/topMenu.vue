@@ -32,7 +32,7 @@
             <div class="user flex">
                 <i class="iconfont icon-user"></i>
                 <span>admin</span>
-                <i class="iconfont icon-denglu"></i>
+                <i class="iconfont icon-denglu" @click="logOut"></i>
             </div>
 
         </div>
@@ -88,7 +88,26 @@ export default {
             }, 100)()
 
         },
-
+        //退出登录
+        logOut(){
+            //alert('退出登录')
+            this.$confirm('是否退出登录', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$message({
+            type: 'success',
+            message: '成功退出!'
+          });
+          this.$router.push('./login')
+        }).catch(() => {
+        //   this.$message({
+        //     type: 'info',
+        //     message: '已取消'
+        //   });          
+        });
+        }
 
     },
 }

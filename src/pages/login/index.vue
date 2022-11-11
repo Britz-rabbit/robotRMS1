@@ -1,5 +1,6 @@
 <template>
-  <div class='loginCon'>
+  <dv-full-screen-container ref="appRef">
+    <div class='loginCon'>
 
     <!-- 登录框 -->
     <div class="login">
@@ -33,7 +34,9 @@
     <div class="background">
 
     </div>
-  </div>
+  </div> 
+  </dv-full-screen-container>
+ 
 </template>
 
 <script>

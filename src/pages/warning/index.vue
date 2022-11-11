@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <dv-full-screen-container ref="appRef">
     <topMenu></topMenu>
     <div class="container">
       <div class="s1 session"></div>
@@ -44,7 +44,8 @@
         </el-dialog>
       </div>
     </div>
-  </div>
+  </dv-full-screen-container>
+
 </template>
 
 <script>
@@ -112,6 +113,12 @@ export default {
 
 .border {
   border: 1px solid red;
+}
+
+#dv-full-screen-container{
+  background: url('@/assets/img/BG.png');
+  background-size: cover;
+  //border: 1px solid red;
 }
 
 .session {

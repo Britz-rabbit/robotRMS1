@@ -14,8 +14,8 @@ export default {
         this.initWebSocket()
     },
     destroyed() {
-        // this.websocketclose();
-        // this.websocket.close();
+         this.websocketclose();
+         this.websocket.close();
     },
     methods: {
         initWebSocket() {
@@ -31,7 +31,10 @@ export default {
             console.log("111");
         },
         websocketonerror(e) {
-            console.log( e);
+            console.log(e);
+            //出问题后打印出对象，然后自动重连ws
+            const wsuri = 'ws://192.168.2.228:40001';
+            this.websocket = new WebSocket(wsuri);
         },
         websocketonmessage(e) {
             this.rgb_msg = "data:image/jpeg;base64," + e.data;

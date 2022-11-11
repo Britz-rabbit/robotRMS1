@@ -1,166 +1,189 @@
-<template>
-  <!-- 更改背景直接在这里面改 -->
-  <!-- <div style="background-color:#32ce84;"> -->
-  <div>
-      <topMenu></topMenu>
-      <div class="container flex">
-        <!-- 左侧区域-->
-        <div class="session s1">
+<template> 
+  <dv-full-screen-container ref="appRef">
+<topMenu></topMenu>
+    <div class="container flex">
+      <!-- 左侧区域-->
+      <div class="session s1">
+        <dv-border-box-12>
+          <titleBar :title="'实时数据检测'"></titleBar>
+          <!-- logo及连接状态 -->
+          <div class="con con1" style="height: 15%;padding-top: 5%;">
+            <img src="@/assets/img/logo2.png" width="50%;height:100%;">
+            <div class="connect con con1-1">
+              <span>连接状态</span>
+              <!-- 成功或失败状态，因定位需要，未使用v-else -->
+              <i v-if="isConnect" class="success iconfont icon-connection"></i>
+              <span v-if="isConnect" class="success">已连接</span>
+
+              <i v-if="!isConnect" class="error iconfont icon-disconnect"></i>
+              <span v-if="!isConnect" class="error">未连接</span>
+            </div>
+          </div>
+          <!-- 电池电量 -->
+          <div class="con con2 " style="height: 15%;margin-top: 5%;">
+            <span>当前电量</span>
+            <dv-percent-pond :config="powerConfig" style="width:100%;height:80%;margin-top: 5%;" />
+          </div>
+          <!-- 温湿度及氧气 -->
+          <div class="con con3 " style="height:25%;margin-top: 10%;">
+
+            <div class="con3Item ">
+              <div>
+                <span>红外温度</span>
+                <span>72°C</span>
+              </div>
+              <div class="success">
+                <span>正常</span>
+              </div>
+            </div>
+
+            <div class="con3Item ">
+              <div>
+                <span>环境温度</span>
+                <span>36°C</span>
+              </div>
+              <div class="success">
+                <span>正常</span>
+              </div>
+            </div>
+
+            <div class="con3Item ">
+              <div>
+                <span>环境湿度</span>
+                <span>44%</span>
+              </div>
+              <div class="error">
+                <span>异常</span>
+              </div>
+            </div>
+
+            <div class="con3Item">
+              <div>
+                <span>氧气浓度</span>
+                <span>36%</span>
+              </div>
+              <div class="success ">
+                <span>正常</span>
+              </div>
+            </div>
+
+            <!-- <dv-water-level-pond :config="waterConfig" style="width:6vw;height:6vw;margin-left: 2vw;" /> -->
+
+
+          </div>
+          <!-- pm粉尘显示 -->
+          <div class="con con4 " style="height:20%;">
+            <!-- <dv-capsule-chart :config="PMconfig" style="width:100%;height:100%" /> -->
+            <homeBar></homeBar>
+          </div>
+          <!-- 机器人位置及速度 -->
+          <div class="con con5 " style="height:12%;">
+            <div><span>机器人当前速度</span><span>80cm/s</span></div>
+            <div><span>机器人当前位置</span><span>32m</span></div>
+
+          </div>
+        </dv-border-box-12>
+
+      </div>
+
+      <!-- 中间及右侧区域 -->
+      <div class="session s2 flex">
+        <!-- 中间区域 -->
+        <div class="session s2-1 flex">
+
+          <titleBar :title="'主视频窗口'"></titleBar>
+          <!--主视频 -->
+          <div class="session s2-1-1 " style="width:100%;height:70%;overflow: hidden;">
+            <ws v-show="main_viceFlag"></ws>
+            <!-- <robot_video v-if="main_viceFlag"></robot_video> -->
+            <IR_video v-show="main_viceFlag"></IR_video>
+          </div>
+          <!-- 中间底部图表 -->
+          <div class="flex " style="height: 30%; width: 100%">
+            <div class="session s2-1-2 ">
+              <!-- 异常状态及巡检完成率 -->
+              <homePie1></homePie1>
+              <homePie2></homePie2>
+            </div>
+            <div class="session s2-1-3 ">
+              <!-- 电机信息轮播表 -->
+              <dv-border-box-6>
+                <dv-scroll-board :config="ListConfig1" 
+                style="width:96%;height:92%;margin: 0 auto;padding-top: 2%;" />
+              </dv-border-box-6>
+
+            </div>
+          </div>
+
+
+        </div>
+
+        <!-- 右侧区域 -->
+        <div class="session s2-2">
           <dv-border-box-12>
-            <titleBar :title="'实时数据检测'"></titleBar>
-            <!-- logo及连接状态 -->
-            <div class="con con1" style="height: 15%;padding-top: 5%;">
-              <img src="@/assets/img/logo2.png" width="50%;height:100%;">
-              <div class="connect con con1-1">
-                <span>连接状态</span>
-                <!-- 成功或失败状态，因定位需要，未使用v-else -->
-                <i v-if="isConnect" class="success iconfont icon-connection"></i>
-                <span v-if="isConnect" class="success">已连接</span>
-
-                <i v-if="!isConnect" class="error iconfont icon-disconnect"></i>
-                <span v-if="!isConnect" class="error">未连接</span>
-              </div>
+            <titleBar :title="'副视频窗口'"></titleBar>
+            <!-- 副视频 -->
+            <div class="con s2-2-1 " @click="main_viceFlag = !main_viceFlag" 
+            style="height:35%;padding-top: 3%;">
+              <!-- <ws v-if="!main_viceFlag"></ws> -->
+              <robot_video v-show="!main_viceFlag"></robot_video>
+              <IR_video v-show="main_viceFlag"></IR_video>
             </div>
-            <!-- 电池电量 -->
-            <div class="con con2 " style="height: 15%;margin-top: 5%;">
-              <span>当前电量</span>
-              <dv-percent-pond :config="powerConfig" style="width:100%;height:80%;margin-top: 5%;" />
+            <!-- 机器人控制 -->
+            <div class="s2-2-2 " style="height:29%;">
+              <!-- 模型和在线状态 -->
+              <div class="" style="width:100%;height:35%;display: flex;justify-content: space-around;">
+                <div class="img ">
+                  <img :src="modelSrc">
+                </div>
+                <div class="robotStatus " style="height:80%;width:55%;margin-top: 1.6vh;">
+                  <dv-border-box-12>
+                    <span class="">
+                      快速控制
+                    </span>
+                  </dv-border-box-12>
+                </div>
+              </div>
+              <!-- 启动停止按钮 -->
+              <div class="btnCon " style="display:flex;justify-content:space-around;align-items:center">
+                <div class="btn "></div>
+                <div class="btn "></div>
+              </div>
+              <!-- 待定区域 -->
             </div>
-            <!-- 温湿度及氧气 -->
-            <div class="con con3 " style="height:25%;margin-top: 10%;">
-
-              <div class="con3Item ">
-                <div>
-                  <span>红外温度</span>
-                  <span>72°C</span>
+            <div class="con s2-2-3 flex " style="height:29%;">
+              <span style="width:100%;text-align: center;font-size: 26px;" class=""> 巡检模式 </span>
+              <div class="ItemCon ">
+                <div class="insItem"><span>自动巡检</span>
+                  <el-tooltip>
+                    <div slot="content"><span style="font-size:14px">机器人将以匀速进行往返巡检，直至电量耗尽则自动回程充电</span></div>
+                     <div class="" @click="changeMode(1)"><img :class="inspectionMode===1?'':'active'"
+                     src="@/assets/img/home/switch.png"></div>
+                  </el-tooltip>
+                 
                 </div>
-                <div class="success">
-                  <span>正常</span>
+                <div class="insItem"><span>快速巡检</span>
+                  <el-tooltip >
+                    <div slot="content"><span style="font-size:14px">机器人将以较快的速度巡检一圈，便于快速检测工区情况</span></div>
+                    <div class="" @click="changeMode(2)"><img :class="inspectionMode===2?'':'active'" 
+                    src="@/assets/img/home/switch.png"></div>
+                  </el-tooltip>
                 </div>
-              </div>
-
-              <div class="con3Item ">
-                <div>
-                  <span>环境温度</span>
-                  <span>36°C</span>
-                </div>
-                <div class="success">
-                  <span>正常</span>
-                </div>
-              </div>
-
-              <div class="con3Item ">
-                <div>
-                  <span>环境湿度</span>
-                  <span>44%</span>
-                </div>
-                <div class="error">
-                  <span>异常</span>
+                <div class="insItem"><span>那啥巡检</span>
+                  <el-tooltip>
+                    <div slot="content"><span style="font-size:14px">暂时不知道这个模式咋设计</span></div>
+                    <div class="" @click="changeMode(3)"><img :class="inspectionMode===3?'':'active'"
+                     src="@/assets/img/home/switch.png"></div>
+                  </el-tooltip>                  
                 </div>
               </div>
-
-              <div class="con3Item">
-                <div>
-                  <span>氧气浓度</span>
-                  <span>36%</span>
-                </div>
-                <div class="success ">
-                  <span>正常</span>
-                </div>
-              </div>
-
-              <!-- <dv-water-level-pond :config="waterConfig" style="width:6vw;height:6vw;margin-left: 2vw;" /> -->
-
-
-            </div>
-            <!-- pm粉尘显示 -->
-            <div class="con con4 " style="height:20%;">
-              <!-- <dv-capsule-chart :config="PMconfig" style="width:100%;height:100%" /> -->
-              <homeBar></homeBar>
-            </div>
-            <!-- 机器人位置及速度 -->
-            <div class="con con5 " style="height:12%;">
-              <div><span>机器人当前速度</span><span>80cm/s</span></div>
-              <div><span>机器人当前位置</span><span>32m</span></div>
-
             </div>
           </dv-border-box-12>
 
         </div>
-
-        <!-- 中间及右侧区域 -->
-        <div class="session s2 flex">
-          <!-- 中间区域 -->
-          <div class="session s2-1 flex">
-
-            <titleBar :title="'主视频窗口'"></titleBar>
-            <!--主视频 -->
-            <div class="session s2-1-1 " style="width:100%;height:70%;overflow: hidden;">
-              <!-- <ws v-if="main_viceFlag"></ws> -->
-              <robot_video v-if="main_viceFlag"></robot_video>
-              <IR_video v-else></IR_video>
-            </div>
-            <!-- 中间底部图表 -->
-            <div class="flex " style="height: 30%; width: 100%">
-              <div class="session s2-1-2 ">
-                <!-- 异常状态及巡检完成率 -->
-                <homePie1></homePie1>
-                <homePie2></homePie2>
-              </div>
-              <div class="session s2-1-3 ">
-                <!-- 电机信息轮播表 -->
-                <dv-border-box-6>
-                  <dv-scroll-board :config="ListConfig1" style="width:96%;height:92%;margin: 0 auto;padding-top: 2%;" />
-                </dv-border-box-6>
-
-              </div>
-            </div>
-
-
-          </div>
-
-          <!-- 右侧区域 -->
-          <div class="session s2-2">
-            <dv-border-box-12>
-              <titleBar :title="'副视频窗口'"></titleBar>
-              <!-- 副视频 -->
-              <div class="con s2-2-1 " @click="main_viceFlag = !main_viceFlag" style="height:35%;padding-top: 3%;">
-                <!-- <ws v-if="!main_viceFlag"></ws> -->
-                <robot_video v-if="!main_viceFlag"></robot_video>
-                <IR_video v-else></IR_video>
-              </div>
-              <!-- 机器人控制 -->
-              <div class="s2-2-2 " style="height:29%;">
-                <!-- 模型和在线状态 -->
-                <div class="" style="width:100%;height:35%;display: flex;justify-content: space-around;">
-                  <div class="img ">
-                    <img :src="modelSrc">
-                  </div>
-                  <div class="robotStatus " style="height:80%;width:55%;margin-top: 1.6vh;">
-                    <dv-border-box-12>
-                      <span class="">
-                        快速控制
-                      </span>
-                    </dv-border-box-12>
-                  </div>
-                </div>
-                <!-- 启动停止按钮 -->
-                <div class="btnCon " style="display:flex;justify-content:space-around;align-items:center">
-                  <div class="btn "></div>
-                  <div class="btn "></div>
-                </div>
-                <!-- 待定区域 -->
-              </div>
-              <div class="con s2-2-3 flex border" style="height:29%;">
-               <span>巡检模式</span>
-              </div>
-            </dv-border-box-12>
-
-          </div>
-        </div>
       </div>
-  </div>
-
+    </div>
+  </dv-full-screen-container>
 </template>
 
 <script>
@@ -185,7 +208,7 @@ export default {
         borderRadius: 8
       },
       //氧气浓度水球图配置 
-      waterConfig: { 
+      waterConfig: {
         data: [55],
         shape: 'round',
         waveHeight: 16
@@ -237,7 +260,9 @@ export default {
       //模型的图表路径的占位符
       modelSrc: require('@/assets/img/home/model/xmytjqr0001.png'),
       //主副视频的播放次序占位符
-      main_viceFlag: true
+      main_viceFlag: true,
+      //当前巡检模式的占位符
+      inspectionMode: 1
 
     };
   },
@@ -406,10 +431,15 @@ export default {
         this.modelSrc = require('@/assets/img/home/model/xmytjqr00020.png')
       }, 1900);
 
-      for(let i=0;i<20;i++){
+      for (let i = 0; i < 20; i++) {
         clearTimeout(`t${i}`)
       }
       t1 = t2 = t3 = t4 = t5 = t6 = t7 = t8 = t9 = t10 = t11 = t12 = t13 = t14 = t15 = t16 = t17 = t18 = t19 = t20 = null
+    },
+    //更改巡检模式
+    changeMode(type){
+      //alert(`更改为第${type}种巡检类型`)
+      this.inspectionMode=type
     }
   },
 };
@@ -422,6 +452,11 @@ export default {
   border: 1px solid red;
 }
 
+#dv-full-screen-container{
+  background: url('@/assets/img/BG.png');
+  background-size: cover;
+  //border: 1px solid red;
+}
 .container {
   height: 94vh;
   margin-top: 2vh;
@@ -479,7 +514,8 @@ span {
         top: 8px;
       }
 
-      .icon-connection,.icon-disconnect {
+      .icon-connection,
+      .icon-disconnect {
         position: absolute;
         left: 28%;
         top: 16%;
@@ -527,7 +563,7 @@ span {
       justify-content: space-between;
       border: 1px double #32ce8460;
       background: url('@/assets/img/home/glassBox.png') no-repeat;
-      
+
       background-size: cover;
 
       div:first-of-type {
@@ -628,9 +664,6 @@ span {
     .s2-1-3 {
       height: 100%;
       width: 40%;
-
-
-
     }
   }
 
@@ -702,8 +735,56 @@ span {
     }
 
     .s2-2-3 {
-      
+      flex-direction: column;
+      align-items: center;
 
+      .ItemCon {
+        width: 86%;
+        height: 80%;
+        margin: auto 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: space-between;
+        background: url('@/assets/img/home/inspectionBcg.jpg') no-repeat;
+        background-size: cover;
+
+        .insItem {
+          width: 100%;
+          height: 30px;
+          display: flex;
+          justify-content: space-around;
+          font-size: 20px;
+
+          //按钮部分
+          div {
+            width: 51px;
+            height: 28px;
+            overflow: hidden;
+            border-radius: 12px;
+            
+            position: relative;
+            &:hover{
+              cursor: pointer;
+            }
+
+            img {
+              width: 80px;
+              height: 28px;
+              transition: left 0.18s ease-in;
+              position: absolute;
+              //transform: translate(0px);
+              left:0
+            }
+
+            //激活的样式
+            .active{
+              left: -30px;
+              //transform: translate(-40px);
+            }
+          }
+        }
+      }
     }
 
   }

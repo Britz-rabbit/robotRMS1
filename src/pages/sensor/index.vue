@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <dv-full-screen-container ref="appRef">
       <topMenu></topMenu>
       <div class="container">
         <dv-border-box-10>
@@ -15,8 +15,8 @@
           <list :data="robotTableDate"></list>
         </dv-border-box-10>
       </div>
-
-  </div>
+  </dv-full-screen-container>
+  
 
 </template>
 
@@ -89,6 +89,13 @@ span {
   width: 100%;
   border: 1px solid red;
 }
+
+#dv-full-screen-container{
+  background: url('@/assets/img/BG.png');
+  background-size: cover;
+  //border: 1px solid red;
+}
+
 
 .bar {
   width: 100%;
