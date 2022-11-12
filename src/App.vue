@@ -8,13 +8,12 @@
 </template>
 
 <script>
-import topMenu from './components/topMenu.vue'
 import drawMixin from './utils/drawMixin';
 export default {
   mixins: [drawMixin],
   name: 'App',
   components: {
-    topMenu
+    
   },
    //初始化和销毁websocket
   created() {
@@ -25,7 +24,7 @@ export default {
     this.websocketclose();
   },
   mounted(){
-    
+    console.log('app的this',this);
   },
   watch: {
     //使用watch 监听$router的变化
@@ -43,11 +42,12 @@ export default {
      //初始化websocket函数
      initWebSocket() {
       const url = 'ws://192.168.2.91:30006';
-      this.websocket = new WebSocket(url);
-      this.websocket.onopen = this.websocketonopen;
-      this.websocket.onerror = this.websocketonerror;
-      this.websocket.onmessage = this.websocketonmessage;
-      this.websocket.onclose = this.websocketclose;
+      this.golbalWS = new WebSocket(url);
+      this.golbalWS.onopen = this.websocketonopen;
+      this.golbalWS.onerror = this.websocketonerror;
+      this.golbalWS.onmessage = this.websocketonmessage;
+      this.golbalWS.onclose = this.websocketclose;
+      console.log('全局的url:'+url);
     },
     websocketonopen() {
       //console.log("WebSocket连接成功,开始发送消息");

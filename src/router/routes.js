@@ -1,15 +1,19 @@
 import home from '@/pages/home'
-import control from '@/pages/control'
+import login from '@/pages/login'
 export default [
-    //登陆界面，用于展示或重定向
+    //登陆界面，用于展示或默认进入
     {
         path:'/login',
         meta:{
             title:'登陆界面',
             index:0
         },
-        component: () => import('../pages/login/index')
-       //component:home
+        // component: () => import('../pages/login/index')
+       component:login
+    },
+     {
+        path:'/',
+        redirect:'/login'
     },
     //首页，用于展示或重定向
     {
@@ -18,8 +22,8 @@ export default [
             title:'首页',
             index:0
         },
-        component: () => import('../pages/home/index')
-       //component:home
+        // component: () => import('../pages/home/index')
+       component:home
     },
 
     {

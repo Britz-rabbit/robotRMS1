@@ -29,9 +29,10 @@ Vue.use(Col)
 Vue.use(Form)
 
 Vue.use(Loading)
-Vue.use(MessageBox)
+Vue.component(MessageBox.name,MessageBox)
 Vue.prototype.$message=Message
 Vue.prototype.$confirm=MessageBox.confirm
+
 //顺便引入echarts的水球图插件
 import 'echarts-liquidfill'
 

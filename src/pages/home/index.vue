@@ -1,5 +1,6 @@
 <template> 
   <dv-full-screen-container ref="appRef">
+    <!-- <dv-loading v-show="isLoading">加载中</dv-loading> -->
 <topMenu></topMenu>
     <div class="container flex">
       <!-- 左侧区域-->
@@ -94,7 +95,7 @@
           <titleBar :title="'主视频窗口'"></titleBar>
           <!--主视频 -->
           <div class="session s2-1-1 " style="width:100%;height:70%;overflow: hidden;">
-            <ws v-show="main_viceFlag"></ws>
+            <ws v-show="!main_viceFlag"></ws>
             <!-- <robot_video v-if="main_viceFlag"></robot_video> -->
             <IR_video v-show="main_viceFlag"></IR_video>
           </div>
@@ -125,9 +126,9 @@
             <!-- 副视频 -->
             <div class="con s2-2-1 " @click="main_viceFlag = !main_viceFlag" 
             style="height:35%;padding-top: 3%;">
-              <!-- <ws v-if="!main_viceFlag"></ws> -->
-              <robot_video v-show="!main_viceFlag"></robot_video>
-              <IR_video v-show="main_viceFlag"></IR_video>
+              <ws v-if="main_viceFlag"></ws>
+              <!-- <robot_video v-show=" main_viceFlag"></robot_video> -->
+              <IR_video v-show="!main_viceFlag"></IR_video>
             </div>
             <!-- 机器人控制 -->
             <div class="s2-2-2 " style="height:29%;">
@@ -198,6 +199,7 @@ export default {
   name: "",
   data() {
     return {
+      isLoading:true,
       //连接状态
       isConnect: true,
       //电池进度图配置
@@ -263,7 +265,7 @@ export default {
       main_viceFlag: true,
       //当前巡检模式的占位符
       inspectionMode: 1
-
+      
     };
   },
   props: {},
@@ -273,6 +275,8 @@ export default {
   computed: {},
 
   beforeMount() {
+   
+    
     //渲染视频窗口并自动播放
     this.mainVideoPlayer = this.$video(this.$refs.mainVideo, {
       autoplay: true,
@@ -280,30 +284,35 @@ export default {
     })
   },
   mounted() {
+
+      // function timeout(ms) {
+      //   return new Promise((resolve, reject) => {
+      //     setTimeout(resolve, ms, false);
+      //   });
+      // }
+
+      // timeout(500).then((value) => {
+      //   this.isLoading=value
+      // });
+
+
     //获取近七天日期
     let recentDays = this.getRecentlyDays(7);
     this.days = recentDays;
     //检测store
     this.$store.commit("changeRobotInfo", ["test"]);
-    //设立定时器刷新数据
-    // this.timer = setInterval(() => {
-    //   this.getBatteryInfo();
-    //   this.getGasInfo();
-    // }, 3000);
-
-    //模型的循环变化
-    //内部用interval容易出现内存泄漏，咱们就用20个timeout吧
     this.changeModelSrc()
     this.modelTimer1 = setInterval(() => {
       this.changeModelSrc()
     }, 2000);
 
   },
+  updated(){
+    
+  },
   beforeDestroy() {
     this.timer = null;
-    this.modelTimer1 = null
-    this.modelTimer1_1 = null
-    this.mainVideoPlayer = this.viceVideoPlayer = null
+    clearInterval(this.modelTimer1)    
   },
   methods: {
     //用于获取近几天的信息

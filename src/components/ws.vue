@@ -1,5 +1,5 @@
 <template>
-    <img :src="rgb_msg" style="width:100%;height:100%"/>
+    <img :src="rgb_msg" style="width:100%;height:100%" />
 </template>
 
 <script>
@@ -13,9 +13,12 @@ export default {
     created() {
         this.initWebSocket()
     },
+    beforeDestroy() {
+        this.websocketclose();
+        this.websocket.close();
+    },
     destroyed() {
-        // this.websocketclose();
-        // this.websocket.close();
+
     },
     methods: {
         initWebSocket() {
@@ -31,7 +34,7 @@ export default {
             console.log("111");
         },
         websocketonerror(e) {
-            console.log( e);
+            console.log(e);
             const wsuri = 'ws://192.168.2.228:40001';
             this.websocket = new WebSocket(wsuri);
         },
@@ -47,4 +50,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 </style>
