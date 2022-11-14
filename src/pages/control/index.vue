@@ -189,6 +189,7 @@ img {
   height: 100%;
   width: 26%;
   background-color: rgba(6, 80, 109, 0.2);
+  background-color: #00296B60;
 
   .con1 {
     height: 35%;

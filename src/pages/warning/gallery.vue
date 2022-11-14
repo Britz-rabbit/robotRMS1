@@ -1,5 +1,25 @@
 <template>
   <div class='galleryCon'>
+    <!-- 左上角设备信息 -->
+    <div class="DeviceCon ">
+      <div class="devItem"></div>
+      <div class="devItem"></div>
+      <div class="devItem"></div>
+      <div class="devItem"></div>
+      <div class="devItem"></div>
+      <div class="devItem"></div>
+      <div class="devItem"></div>
+      <div class="devItem"></div>
+      <div class="devItem"></div>
+      <div class="devItem"></div>
+      <div class="devItem"></div>
+      <div class="devItem"></div>
+      <div class="devItem"></div>
+      <div class="devItem"></div>
+      <div class="devItem"></div>
+      <div class="devItem"></div>
+    </div>
+    <!-- 右上角信息框 -->
     <div class="infoBlock">
       <div v-show="choseDeviceInfo.name">
         <div class="con" style="height:25%;">
@@ -106,11 +126,13 @@ export default {
   height: 100%;
   position: relative;
 
+
+
   img {
     position: none;
-    margin-top: 36vh;  
+    margin-top: 36vh;
     width: 100%;
-    height: auto;  
+    height: auto;
   }
 
 }
@@ -137,6 +159,29 @@ export default {
 
   .error {
     color: red;
+  }
+}
+
+//左上角信息设备
+.DeviceCon {
+  position: absolute;
+  width: 70%;
+  height: 57%;
+  display: flex;
+  flex-wrap: wrap;
+  white-space: wrap;
+  align-self: flex-start;
+  //background-color: #0B326940;
+  //border: 1px solid rgb(63, 63, 214);
+ 
+  .devItem{
+    width: 120px;
+    height: 50px;
+    border: red 1px solid;
+    margin: 6px 6px;
+    &:hover{
+      cursor: pointer;
+    }
   }
 }
 

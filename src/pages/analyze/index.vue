@@ -26,16 +26,21 @@
           <!-- 中间展示区域 -->
           <div class="con reportMiddle" style="height:50%;width: 94%;margin: 0 auto;">
             <div class="item">
-              <div class="icon"
-                style="background: url('@/assets/img/analyze/sensor.png') no-repeat;background-size:contain"></div>
+              <div class="icon">
+              <img src="@/assets/img/analyze/robot.png" style="width: 100%;height:100%">
+              </div>
               <div></div>
             </div>
             <div class="item">
-              <div class="icon border"></div>
+              <div class="icon">
+                <img src="@/assets/img/analyze/device.png" style="width: 100%;height:100%">
+              </div>
               <div></div>
             </div>
             <div class="item">
-              <div class="icon"></div>
+              <div class="icon">
+                <img src="@/assets/img/analyze/sensor.png" style="width: 100%;height:100%">
+              </div>
               <div></div>
             </div>
           </div>
@@ -127,7 +132,8 @@ export default {
 .s2 {
   width: 40%;
   height: 98%;
-  //background:url('@/assets/img/analyze/reportBG.png');
+  // background-color: #00296B96;
+  background-color: #00296B60;
   .con {
     height: 16%;
   }
@@ -186,13 +192,14 @@ export default {
       width: 30%;
       height: 100%;
       border: 1px solid red;
+      background-color: #00296B70;
 
       .icon {
         margin: 0 auto;
         margin-top: 10px;
         width: 80px;
         height: 80px;
-        border: 1px solid red;
+        
       }
 
     }

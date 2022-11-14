@@ -90,6 +90,11 @@ export default {
   padding: 0;
 }
 
+#dv-full-screen-container{
+ padding-bottom: 3vh;
+}
+
+
 ::-webkit-scrollbar {display:none}
 /* 设置路由切换的动画效果 */
 

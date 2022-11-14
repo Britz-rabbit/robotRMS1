@@ -1,7 +1,7 @@
-<template> 
+<template>
   <dv-full-screen-container ref="appRef">
     <!-- <dv-loading v-show="isLoading">加载中</dv-loading> -->
-<topMenu></topMenu>
+    <topMenu></topMenu>
     <div class="container flex">
       <!-- 左侧区域-->
       <div class="session s1">
@@ -109,8 +109,7 @@
             <div class="session s2-1-3 ">
               <!-- 电机信息轮播表 -->
               <dv-border-box-6>
-                <dv-scroll-board :config="ListConfig1" 
-                style="width:96%;height:92%;margin: 0 auto;padding-top: 2%;" />
+                <dv-scroll-board :config="ListConfig1" style="width:96%;height:92%;margin: 0 auto;padding-top: 2%;" />
               </dv-border-box-6>
 
             </div>
@@ -124,8 +123,7 @@
           <dv-border-box-12>
             <titleBar :title="'副视频窗口'"></titleBar>
             <!-- 副视频 -->
-            <div class="con s2-2-1 " @click="main_viceFlag = !main_viceFlag" 
-            style="height:35%;padding-top: 3%;">
+            <div class="con s2-2-1 " @click="main_viceFlag = !main_viceFlag" style="height:35%;padding-top: 3%;">
               <ws v-if="main_viceFlag"></ws>
               <!-- <robot_video v-show=" main_viceFlag"></robot_video> -->
               <IR_video v-show="!main_viceFlag"></IR_video>
@@ -158,24 +156,24 @@
                 <div class="insItem"><span>自动巡检</span>
                   <el-tooltip>
                     <div slot="content"><span style="font-size:14px">机器人将以匀速进行往返巡检，直至电量耗尽则自动回程充电</span></div>
-                     <div class="" @click="changeMode(1)"><img :class="inspectionMode===1?'':'active'"
-                     src="@/assets/img/home/switch.png"></div>
+                    <div class="" @click="changeMode(1)"><img :class="inspectionMode === 1 ? '' : 'active'"
+                        src="@/assets/img/home/switch.png"></div>
                   </el-tooltip>
-                 
+
                 </div>
                 <div class="insItem"><span>快速巡检</span>
-                  <el-tooltip >
+                  <el-tooltip>
                     <div slot="content"><span style="font-size:14px">机器人将以较快的速度巡检一圈，便于快速检测工区情况</span></div>
-                    <div class="" @click="changeMode(2)"><img :class="inspectionMode===2?'':'active'" 
-                    src="@/assets/img/home/switch.png"></div>
+                    <div class="" @click="changeMode(2)"><img :class="inspectionMode === 2 ? '' : 'active'"
+                        src="@/assets/img/home/switch.png"></div>
                   </el-tooltip>
                 </div>
-                <div class="insItem"><span>那啥巡检</span>
+                <div class="insItem"><span>预设巡检</span>
                   <el-tooltip>
-                    <div slot="content"><span style="font-size:14px">暂时不知道这个模式咋设计</span></div>
-                    <div class="" @click="changeMode(3)"><img :class="inspectionMode===3?'':'active'"
-                     src="@/assets/img/home/switch.png"></div>
-                  </el-tooltip>                  
+                    <div slot="content"><span style="font-size:14px">机器人按照预设的时间段和速度巡检。</span></div>
+                    <div class="" @click="changeMode(3)"><img :class="inspectionMode === 3 ? '' : 'active'"
+                        src="@/assets/img/home/switch.png"></div>
+                  </el-tooltip>
                 </div>
               </div>
             </div>
@@ -199,7 +197,7 @@ export default {
   name: "",
   data() {
     return {
-      isLoading:true,
+      isLoading: true,
       //连接状态
       isConnect: true,
       //电池进度图配置
@@ -265,7 +263,7 @@ export default {
       main_viceFlag: true,
       //当前巡检模式的占位符
       inspectionMode: 1
-      
+
     };
   },
   props: {},
@@ -275,8 +273,8 @@ export default {
   computed: {},
 
   beforeMount() {
-   
-    
+
+
     //渲染视频窗口并自动播放
     this.mainVideoPlayer = this.$video(this.$refs.mainVideo, {
       autoplay: true,
@@ -285,15 +283,15 @@ export default {
   },
   mounted() {
 
-      // function timeout(ms) {
-      //   return new Promise((resolve, reject) => {
-      //     setTimeout(resolve, ms, false);
-      //   });
-      // }
+    // function timeout(ms) {
+    //   return new Promise((resolve, reject) => {
+    //     setTimeout(resolve, ms, false);
+    //   });
+    // }
 
-      // timeout(500).then((value) => {
-      //   this.isLoading=value
-      // });
+    // timeout(500).then((value) => {
+    //   this.isLoading=value
+    // });
 
 
     //获取近七天日期
@@ -307,12 +305,12 @@ export default {
     }, 2000);
 
   },
-  updated(){
-    
+  updated() {
+
   },
   beforeDestroy() {
     this.timer = null;
-    clearInterval(this.modelTimer1)    
+    clearInterval(this.modelTimer1)
   },
   methods: {
     //用于获取近几天的信息
@@ -446,9 +444,9 @@ export default {
       t1 = t2 = t3 = t4 = t5 = t6 = t7 = t8 = t9 = t10 = t11 = t12 = t13 = t14 = t15 = t16 = t17 = t18 = t19 = t20 = null
     },
     //更改巡检模式
-    changeMode(type){
+    changeMode(type) {
       //alert(`更改为第${type}种巡检类型`)
-      this.inspectionMode=type
+      this.inspectionMode = type
     }
   },
 };
@@ -461,11 +459,12 @@ export default {
   border: 1px solid red;
 }
 
-#dv-full-screen-container{
+#dv-full-screen-container {
   background: url('@/assets/img/BG.png');
   background-size: cover;
   //border: 1px solid red;
 }
+
 .container {
   height: 94vh;
   margin-top: 2vh;
@@ -507,8 +506,9 @@ span {
 
 .s1 {
   width: 20%;
-  //background-color: rgba(6, 80, 109, 0.2);
+  
   background-color: transparent;
+  background-color: #00296B60;
 
   //logo及连接
   .con1 {
@@ -660,6 +660,7 @@ span {
     height: 100%;
     flex-direction: column;
     background-color: rgba(6, 80, 109, 0.2);
+    background-color: #00296B60;
     //background-color: transparent;
 
     //底部区域
@@ -682,6 +683,7 @@ span {
     height: 100%;
     //background-color: rgba(6, 80, 109, 0.2);
     background-color: transparent;
+    background-color: #00296B60;
 
     .s2-2-2 {
       position: relative;
@@ -771,9 +773,10 @@ span {
             height: 28px;
             overflow: hidden;
             border-radius: 12px;
-            
+
             position: relative;
-            &:hover{
+
+            &:hover {
               cursor: pointer;
             }
 
@@ -783,11 +786,11 @@ span {
               transition: left 0.18s ease-in;
               position: absolute;
               //transform: translate(0px);
-              left:0
+              left: 0
             }
 
             //激活的样式
-            .active{
+            .active {
               left: -30px;
               //transform: translate(-40px);
             }
