@@ -506,9 +506,9 @@ span {
 
 .s1 {
   width: 20%;
-  
   background-color: transparent;
   background-color: #00296B60;
+  padding-bottom: 1vh;
 
   //logo及连接
   .con1 {
@@ -552,7 +552,7 @@ span {
 
   //温湿度及氧气
   .con3 {
-    justify-content: space-around;
+    justify-content: start;
     align-items: center;
     flex-wrap: wrap;
 
@@ -568,6 +568,7 @@ span {
       width: 38%;
       height: 30%;
       border-radius: 10% 0 0 10%;
+      margin-right: 41px;
       display: flex;
       justify-content: space-between;
       border: 1px double #32ce8460;
@@ -648,7 +649,7 @@ span {
   justify-content: space-between;
   width: 78%;
   background-color: transparent;
-
+  padding-bottom: 1vh;
   img {
     width: 100%;
     height: 100%;
@@ -661,6 +662,7 @@ span {
     flex-direction: column;
     background-color: rgba(6, 80, 109, 0.2);
     background-color: #00296B60;
+    
     //background-color: transparent;
 
     //底部区域

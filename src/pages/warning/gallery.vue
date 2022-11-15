@@ -2,21 +2,8 @@
   <div class='galleryCon'>
     <!-- 左上角设备信息 -->
     <div class="DeviceCon ">
-      <div class="devItem"></div>
-      <div class="devItem"></div>
-      <div class="devItem"></div>
-      <div class="devItem"></div>
-      <div class="devItem"></div>
-      <div class="devItem"></div>
-      <div class="devItem"></div>
-      <div class="devItem"></div>
-      <div class="devItem"></div>
-      <div class="devItem"></div>
-      <div class="devItem"></div>
-      <div class="devItem"></div>
-      <div class="devItem"></div>
-      <div class="devItem"></div>
-      <div class="devItem"></div>
+
+      <div v-for="(item, index) in 14" class="devItem"></div>
       <div class="devItem"></div>
     </div>
     <!-- 右上角信息框 -->
@@ -173,13 +160,14 @@ export default {
   align-self: flex-start;
   //background-color: #0B326940;
   //border: 1px solid rgb(63, 63, 214);
- 
-  .devItem{
+
+  .devItem {
     width: 120px;
     height: 50px;
     border: red 1px solid;
     margin: 6px 6px;
-    &:hover{
+
+    &:hover {
       cursor: pointer;
     }
   }

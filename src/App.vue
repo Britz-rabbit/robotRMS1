@@ -90,9 +90,9 @@ export default {
   padding: 0;
 }
 
-#dv-full-screen-container{
- padding-bottom: 3vh;
-}
+// #dv-full-screen-container{
+//  margin-bottom: 13vh;
+// }
 
 
 ::-webkit-scrollbar {display:none}

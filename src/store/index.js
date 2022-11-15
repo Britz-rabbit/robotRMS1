@@ -212,7 +212,16 @@ const store = new Vuex.Store({
         positionInfo:[],
         //用户的相关信息
         userInfo:[{
-          user:'admin',
+          user:'张明敏',
+          password:'123'
+        },{
+          user:'赵家辉',
+          password:'123'
+        },{
+          user:'陈国栋',
+          password:'123'
+        },{
+          user:'李欣',
           password:'123'
         }]
     },

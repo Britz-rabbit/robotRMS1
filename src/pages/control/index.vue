@@ -120,14 +120,12 @@ export default {
 //   border: 1px solid yellow;
 // }
 
-.chosed {
-  border: #32CE84 1px solid;
-}
 
 #dv-full-screen-container {
   background: url('@/assets/img/BG.png');
   background-size: cover;
   //border: 1px solid red;
+
 }
 
 .con {
@@ -148,9 +146,12 @@ img {
   margin-top: 1vh;
   overflow: hidden;
 
+
+
   .dv-border-box-10 {
     position: relative;
     overflow: hidden;
+    padding-bottom: 1vh;
 
     .icons {
       position: relative;
@@ -201,10 +202,17 @@ img {
     align-items: center;
     box-sizing: border-box;
 
+
     .chose {
       width: 48%;
       height: 86%;
+      border: 1px #C0C0C0 solid;
     }
+
+    .chosed {
+      border: #32CE84 1px solid;
+    }
+
   }
 
   .con3 {
