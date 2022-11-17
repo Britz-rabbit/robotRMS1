@@ -59,7 +59,7 @@ export default {
       //是否加载中
       isLoading: false,
       //要提示的信息
-      loginMsg: '登录验证失败！'
+      loginMsg: '用户名或密码错误'
     }
   },
   mounted() {

@@ -1,96 +1,121 @@
 <template>
-  <div>
-      <!-- <video class="demo-video" ref="player" muted autoplay></video> -->
-    <div style="width:600px;height:400px">
-        <img :src="rgb_msg" style="width:100%;height:100%"/>
+  <div class=''>
+    <div>Hello World</div>
+    <button id="save-btn">保存</button>
+    <div style="width:500px;height:500px;position: relative;" >
+      <div id="screenshot" >
+        <img src="@/assets/img/BG.png" style="width:100%;height:100%">
+      <!-- <IR_video></IR_video> -->
+      </div>
+      
     </div>
+
+    <button @click="sendMsg">发送请求</button>
   </div>
 </template>
+
 <script>
-import flvjs from "flv.js";
+import Html2canvas from "html2canvas";
+import axios from 'axios'
 export default {
-  data () {
-      return {
-        id: "1",
-        rtsp: "rtsp://admin:qwe,asd.@192.168.2.243:554/Streaming/channels/102",
-        player: null,
-        rgb_msg: ""
-      }
+  name: '',
+  data() {
+    return {
+
+    }
   },
-  created(){
-    this.initWebSocket()
+  props: {
   },
-  mounted () {
-    console.log('test的this',this);
-      if (flvjs.isSupported()) {
-          let video = this.$refs.player;
-          if (video) {
-              this.player = flvjs.createPlayer({
-                  type: "flv",
-                  isLive: true,
-                  url: `ws://192.168.2.103:8888/rtsp/${this.id}/?url=${this.rtsp}`
-              });
-              this.player.attachMediaElement(video);
-              try {
-                  this.player.load();
-                  this.player.play();
-              } catch (error) {
-                  console.log(error);
-              };
-          }
-          // if (video) {
-          //     this.player = flvjs.createPlayer({
-          //         type: "flv",
-          //         url: `/static/test.flv`
-          //     });
-          //     this.player.attachMediaElement(video);
-          //     try {
-          //         this.player.load();
-          //         this.player.play();
-          //     } catch (error) {
-          //         console.log(error);
-          //     };
-          // }
-      }
+  components: {
 
   },
-  beforeDestroy () {
-      this.player.destory();
-      this.websocketclose();
+  computed: {
+
   },
-  methods:{
-    initWebSocket() {
-            const wsuri = 'ws://192.168.2.228:40001';
-            this.websocket = new WebSocket(wsuri);
-            this.websocket.onopen = this.websocketonopen;
-            this.websocket.onerror = this.websocketonerror;
-            this.websocket.onmessage = this.websocketonmessage;
-            this.websocket.onclose = this.websocketclose;
-            console.log('局部的url:'+wsuri);
-        },
-        websocketonopen() {
-            console.log("WebSocket连接成功");
-            console.log("111");
-        },
-        websocketonerror(e) {
-            console.log(e);
-            //出问题后打印出对象，然后自动重连ws
-            const wsuri = 'ws://192.168.2.228:40001';
-            this.websocket = new WebSocket(wsuri);
-        },
-        websocketonmessage(e) {
-            this.rgb_msg = "data:image/jpeg;base64," + e.data;
-        },
-        websocketclose() {
-            console.log("connection closed");
-            this.websocket.close();
-        },
+  mounted() {
+    // 渲染图片
+    function Render(src, width, height, cb) {
+      const img = new Image();
+      img.src = src;
+      img.width = width;
+      img.height = height;
+      img.crossOrigin = ""; // 图像跨域时配置
+      cb && cb(img);
+    }
+
+    // 下载图片
+    function Download(url, name) {
+      const target = document.createElement("a");
+      target.href = url;
+      target.download = name;
+      const event = document.createEvent("MouseEvents");
+      event.initEvent("click", true, true);
+      target.dispatchEvent(event);
+    }
+
+
+    const btn = document.getElementById("save-btn");
+    btn.addEventListener("click", () => {
+      const screenshot = document.getElementById("screenshot");
+      // allowTaint: true, // 不能与useCORS共用
+      const opts = {
+        logging: false,
+        scale: 1,
+        useCORS: true,
+        width: screenshot.clientWidth,
+        height: screenshot.clientHeight,
+        scrollY: 0,
+        scrollX: 0,
+      };
+      Html2canvas(screenshot, opts).then(res => {
+        const { height, width } = res;
+       //console.log(height, width );
+       document.body.appendChild(res);
+        const base64 = res.toDataURL("image/png", 1);
+        Render(base64, width, height, img => {
+        document.body.appendChild(img);
+          Download(base64, "screenshot.png");
+        });
+      }, err => alert("截图失败，请重新尝试"));
+    });
+  },
+  methods: {
+    sendMsg() {
+      // axios.get({
+      //   url: 'http://192.168.2.91:18800/UserInfoQuery/zmm',
+      //   headers: {
+      //     "Content-Type": "application/octet-stream",
+      //     "Access-Control-Allow-Origin": "*",
+      //   }
+      // }).then(function (response) {
+      //   // 处理成功情况
+      //   console.log(response);
+      // })
+      //   .catch(function (error) {
+      //     // 处理错误情况
+      //     console.log(error);
+      //   })
+      //   .then(function () {
+      //     // 总是会执行
+      //   });
+
+      axios.get('http://192.168.2.91:18800/UserInfoQuery/zmm')
+        .then(function (response) {
+          // 处理成功情况
+          console.log(response);
+        })
+        .catch(function (error) {
+          // 处理错误情况
+          console.log(error);
+        })
+        .then(function () {
+          // 总是会执行
+        });
+    }
   },
 }
 </script>
-<style>
-  .demo-video {
-      max-width: 880px; 
-      max-height: 660px;
-  }
+
+<style lang='less' scoped >
+
 </style>

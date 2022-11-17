@@ -2,14 +2,14 @@
   <dv-full-screen-container ref="appRef">
     <topMenu></topMenu>
     <div class='flex container'>
-      <div class="s1 ">
+      <div class="s1 " >
         <dv-border-box-10>
           <div class="icons ">
             <i class="iconfont icon-jiqiren"></i>
             <i class="iconfont icon-dengguang"></i>
             <i class="iconfont icon-connection"></i>
           </div>
-          <div class="img">
+          <div class="img" style="position:relative">
             <ws v-show="main_viceFlag"></ws>
             <!-- <robot_video v-if="main_viceFlag"></robot_video> -->
             <IR_video v-show="!main_viceFlag"></IR_video>
@@ -22,7 +22,7 @@
         <div class="con con1">
           <ctlPanel></ctlPanel>
         </div>
-        <div class="con flex con2">
+        <div class="con flex con2" id="controlVideo">
           <div class="chose " @click="main_viceFlag = true" :class="main_viceFlag ? 'chosed' : ''">
             <ws></ws>
             <!-- <robot_video></robot_video> -->
@@ -83,7 +83,8 @@ export default {
   data() {
     return {
       //主副视频的播放次序占位符
-      main_viceFlag: true
+      main_viceFlag: true,
+
 
     }
   },
@@ -96,15 +97,43 @@ export default {
 
   },
   beforeMount() {
-
+    //this.initPageWS()
 
   },
   mounted() {
-    console.log(this);
-  },
-  methods: {
 
   },
+  methods: {
+    //pageWs的建立
+    // initPageWS() {
+    //   const url = 'ws://192.168.2.91:30006';
+    //   this.pageWs = new WebSocket(url);
+    //   this.pageWs.onopen = this.websocketonopen;
+    //   this.pageWs.onerror = this.websocketonerror;
+    //   this.pageWs.onmessage = this.websocketonmessage;
+    //   this.pageWs.onclose = this.websocketclose;
+    // },
+    // websocketonopen() {
+    //   console.log("pageWs连接成功");
+    // },
+    // websocketonerror(e) {
+    //   console.log(e);
+    // },
+    // websocketonmessage(e) {
+
+    // },
+    // websocketclose() {
+    //   console.log("pageWs关闭");
+    //   this.websocket.close();
+    // },
+
+    //处理功能发送
+
+  },
+  beforeDestroy() {
+    // console.log(this.pageWs);
+    // this.websocketclose()
+  }
 }
 </script>
 

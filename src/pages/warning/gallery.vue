@@ -3,7 +3,7 @@
     <!-- 左上角设备信息 -->
     <div class="DeviceCon ">
 
-      <div v-for="(item, index) in 14" class="devItem"></div>
+      <div v-for="(item, index) in 20" class="devItem"></div>
       <div class="devItem"></div>
     </div>
     <!-- 右上角信息框 -->
@@ -93,11 +93,14 @@ export default {
       let t3 = setTimeout(() => {
         this.imgSrc = img3
       }, 2000)
-      t1 = t2 = t3 = null
+      //t1 = t2 = t3 = null
+      clearTimeout(t1)
+      clearTimeout(t2)
+      clearTimeout(t3)
     }, 3000);
   },
   beforeDestroy() {
-    this.timer1 = null
+    clearInterval(this.timer1)
   },
   methods: {
     choseDevice(index) {
@@ -112,8 +115,6 @@ export default {
   width: 100%;
   height: 100%;
   position: relative;
-
-
 
   img {
     position: none;
@@ -164,8 +165,10 @@ export default {
   .devItem {
     width: 120px;
     height: 50px;
-    border: red 1px solid;
+    //border: red 1px solid;
     margin: 6px 6px;
+    background: url('@/assets/img/warning/barBG.png') no-repeat;
+    background-size: cover;
 
     &:hover {
       cursor: pointer;

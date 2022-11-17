@@ -13,7 +13,7 @@
         <!-- 右侧内容填充，该图标太占用性能，需要优化 -->
         <div class="s2-2 session">
           <div style="margin-left: 1vw;position: relative;">
-            <warningRadar> </warningRadar>
+            <warningRadar></warningRadar>
           </div>
         </div>
       </div>

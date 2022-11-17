@@ -1,27 +1,27 @@
 <template>
     <div class='topMenuCon '>
         <div class="time  flex">
-            <span>{{time}}</span>
+            <span>{{ time }}</span>
         </div>
 
         <div class="flex menuCon " style="margin: 0 auto;width: 86%;">
             <!-- 菜单栏左半部分 -->
             <div class="menu menuL flex ">
-                <div v-for="(item,index) in menuList1" class="menuItem itemL " @click="changePage(item)">
+                <div v-for="(item, index) in menuList1" class="menuItem itemL " @click="changePage(item)">
                     <!-- <i :class="item.icon" class="iconfont"></i> -->
-                    <span>{{item.title}}</span>
+                    <span>{{ item.title }}</span>
 
                 </div>
             </div>
             <!-- 中间logo区域 -->
             <div class="logo flex ">
-                <span>量子科技机器人管理系统</span>
+                提升工区智能巡检管理系统
             </div>
             <!-- 菜单右半部分 -->
             <div class="menu menuR flex ">
-                <div v-for="(item,index) in menuList2" class="menuItem itemR " @click="changePage(item)">
+                <div v-for="(item, index) in menuList2" class="menuItem itemR " @click="changePage(item)">
                     <!-- <i :class="item.icon" class="iconfont"></i> -->
-                    <span>{{item.title}}</span>
+                    <span>{{ item.title }}</span>
                 </div>
             </div>
         </div>
@@ -75,7 +75,7 @@ export default {
         getTime() {
             let d = new Date()
             let days = (d.getMonth() + 1) + '月' + d.getDay() + '日 '
-            let hours = d.getHours() + ':' + d.getMinutes() 
+            let hours = d.getHours() + ':' + d.getMinutes()
             return days + ' ' + hours
         },
         //进行路由跳转，外加节流
@@ -89,24 +89,24 @@ export default {
 
         },
         //退出登录
-        logOut(){
+        logOut() {
             //alert('退出登录')
             this.$confirm('是否退出登录', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          this.$message({
-            type: 'success',
-            message: '成功退出!'
-          });
-          this.$router.push('./login')
-        }).catch(() => {
-        //   this.$message({
-        //     type: 'info',
-        //     message: '已取消'
-        //   });          
-        });
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                this.$message({
+                    type: 'success',
+                    message: '成功退出!'
+                });
+                this.$router.push('./login')
+            }).catch(() => {
+                //   this.$message({
+                //     type: 'info',
+                //     message: '已取消'
+                //   });          
+            });
         }
 
     },
@@ -115,6 +115,7 @@ export default {
 
 <style lang='less' scoped >
 @import '@/assets/css/common.less';
+
 .topMenuCon {
     height: 5vh;
     position: relative;
@@ -125,7 +126,7 @@ export default {
 }
 
 .time {
-    font-size: 1.2rem;
+    font-size: 20px;
     white-space: nowrap;
     color: #ffffff;
     align-items: center;
@@ -141,21 +142,21 @@ export default {
 }
 
 .logo {
-    height: 140%;
+    height: 260px;
+    line-height: 40px;
     width: 40%;
     text-align: center;
     background: url('@/assets/img/topMenu/title.png') no-repeat;
     background-size: contain;
+    //border: 1px solid red;
     display: flex;
     justify-content: center;
-    position: relative;
+   // align-items: flex-start;
     z-index: 9;
+    color: #CDF0FF;
+    font-size: 46px;
+    font-family: '南构倩黑', '楷体', '黑体', '微软雅黑';
 
-    span {
-        color: #CDF0FF;
-        font-size: 3rem;
-        font-family: '南构倩黑', '楷体', '黑体', '微软雅黑';
-    }
 }
 
 .menu {
@@ -163,7 +164,7 @@ export default {
     display: flex;
     height: 100%;
     width: 25%;
-    font-size: 1.2rem;
+    font-size: 20px;
     justify-content: space-evenly;
     align-items: center;
     flex-wrap: nowrap;
@@ -202,7 +203,7 @@ export default {
         }
 
         .iconfont {
-            font-size: 1.8rem;
+            font-size: 22px;
             color: aqua;
         }
 
@@ -217,6 +218,7 @@ export default {
 
         background: url('@/assets/img/topMenu/unChoseR.png') no-repeat;
         background-size: cover;
+
         :active {
             background: url('@/assets/img/topMenu/choseR.png') no-repeat;
         }
@@ -231,6 +233,7 @@ export default {
 
         background: url('@/assets/img/topMenu/unChoseR.png') no-repeat;
         background-size: cover;
+
         :active {
             background: url('@/assets/img/topMenu/choseR.png') no-repeat;
         }
@@ -251,7 +254,7 @@ export default {
         white-space: nowrap;
 
         i {
-            font-size: 2.2rem;
+            font-size: 28px;
         }
 
         align-items: center;

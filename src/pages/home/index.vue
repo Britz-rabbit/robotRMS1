@@ -7,28 +7,68 @@
       <div class="session s1">
         <dv-border-box-12>
           <titleBar :title="'实时数据检测'"></titleBar>
-          <!-- logo及连接状态 -->
-          <div class="con con1" style="height: 15%;padding-top: 5%;">
-            <img src="@/assets/img/logo2.png" width="50%;height:100%;">
-            <div class="connect con con1-1">
-              <span>连接状态</span>
-              <!-- 成功或失败状态，因定位需要，未使用v-else -->
-              <i v-if="isConnect" class="success iconfont icon-connection"></i>
-              <span v-if="isConnect" class="success">已连接</span>
-
-              <i v-if="!isConnect" class="error iconfont icon-disconnect"></i>
-              <span v-if="!isConnect" class="error">未连接</span>
+          <!-- logo及电量 -->
+          <div class="con con1 " style="height: 15%;padding-top: 1%;">
+            <div class="" style="width: 36%;height: 100%;">
+              <!-- logo -->
+              <div style="height:50%;width:100%" class="">
+                <img src="@/assets/img/logo1.png" style="width:100%;height:70%;margin-top: 10px;">
+              </div>
+              <div style="height:50%;width:100%;" class="">
+                <!-- <div class="connect con con1-1">
+                  <i v-if="isConnect" class="success iconfont icon-connection"></i>
+                  <span v-if="isConnect" class="success">已连接</span>
+                  <i v-if="!isConnect" class="error iconfont icon-disconnect"></i>
+                  <span v-if="!isConnect" class="error">未连接</span>
+                </div> -->
+                <!-- 连接状态 -->
+                <div style="width: 100%;height:66px;font-size: 26px;line-height: 60px;" class="">
+                  <i v-if="isConnect" class="success iconfont icon-connection" style="font-size: 36px;"></i>
+                  <span v-if="isConnect" class="success"> 已连接</span>
+                  <i v-if="!isConnect" class="error iconfont icon-disconnect"></i>
+                  <span v-if="!isConnect" class="error"> 未连接</span>
+                </div>
+              </div>
+            </div>
+            <!-- 电池电量 -->
+            <div class="" style="width: 64%;height: 80%;margin-top: 5%;">
+              <dv-percent-pond :config="powerConfig" style="width:90%;height:74%;margin: 6% auto;" />
             </div>
           </div>
-          <!-- 电池电量 -->
-          <div class="con con2 " style="height: 15%;margin-top: 5%;">
-            <span>当前电量</span>
-            <dv-percent-pond :config="powerConfig" style="width:100%;height:80%;margin-top: 5%;" />
+           <!-- 机器人位置及速度 -->
+           <div class="con con5 " style="height:12%;">
+            <div><span>机器人当前速度</span><span>80cm/s</span></div>
+            <div><span>机器人当前位置</span><span>32m</span></div>
+
+          </div>
+          <!-- 皮带视图 -->
+          <div class="con gallery" style="height: 20%;margin-top: 5%;">
+            <dv-border-box-10>
+              <span 
+              @click="changePage('/warning')"
+              style="position:absolute;right:10px;top:10px;cursor:pointer;padding: 4px;color:skyblue;font-size:18px;border: 3px solid #103F9E;border-radius: 6px;"
+              >巡检报警</span>
+              <!-- 主要设备的预设埋点 -->
+              <el-tooltip>
+                <div slot="content"><span style="font-size:14px">撕裂检测设备</span></div>
+                <div @click="changePage('/warning')" class="deviceDot d1 success"></div>
+              </el-tooltip>
+              <el-tooltip content="多功能检测设备">
+                <div slot="content"><span style="font-size:14px">多功能检测设备</span></div>
+                <div @click="changePage('/warning')" class="deviceDot d2 success"></div>
+              </el-tooltip>
+              <!-- <div @click="changePage()" class="deviceDot d3"></div> -->
+              <!-- 机器人位置的预设埋点 -->
+              <!-- <div class="robotDot r1"></div>
+              <div class="robotDot r2"></div> -->
+              <img :src="imgSrc" style="width: 94%;height:50%;margin: 13% 3%;">
+              <!-- <img :src="imgSrc" style="width: 94%;height:40%;margin: 16% 3%;"> -->
+            </dv-border-box-10>
           </div>
           <!-- 温湿度及氧气 -->
-          <div class="con con3 " style="height:25%;margin-top: 10%;">
+          <div class="con con3 " style="height:25%;margin-top: 2%;">
 
-            <div class="con3Item ">
+            <div class="con3Item " @click="changePage('/sensor')">
               <div>
                 <span>红外温度</span>
                 <span>72°C</span>
@@ -38,7 +78,7 @@
               </div>
             </div>
 
-            <div class="con3Item ">
+            <div class="con3Item " @click="changePage('/sensor')">
               <div>
                 <span>环境温度</span>
                 <span>36°C</span>
@@ -48,7 +88,7 @@
               </div>
             </div>
 
-            <div class="con3Item ">
+            <div class="con3Item " @click="changePage('/sensor')">
               <div>
                 <span>环境湿度</span>
                 <span>44%</span>
@@ -58,7 +98,7 @@
               </div>
             </div>
 
-            <div class="con3Item">
+            <div class="con3Item" @click="changePage('/sensor')">
               <div>
                 <span>氧气浓度</span>
                 <span>36%</span>
@@ -77,12 +117,7 @@
             <!-- <dv-capsule-chart :config="PMconfig" style="width:100%;height:100%" /> -->
             <homeBar></homeBar>
           </div>
-          <!-- 机器人位置及速度 -->
-          <div class="con con5 " style="height:12%;">
-            <div><span>机器人当前速度</span><span>80cm/s</span></div>
-            <div><span>机器人当前位置</span><span>32m</span></div>
-
-          </div>
+         
         </dv-border-box-12>
 
       </div>
@@ -144,18 +179,22 @@
                 </div>
               </div>
               <!-- 启动停止按钮 -->
-              <div class="btnCon " style="display:flex;justify-content:space-around;align-items:center">
+              <div class="btnCon " 
+              style="display:flex;justify-content:space-around;align-items:center">
                 <div class="btn "></div>
                 <div class="btn "></div>
               </div>
-              <!-- 待定区域 -->
+              <!-- 机器人巡航 -->
             </div>
             <div class="con s2-2-3 flex " style="height:29%;">
-              <span style="width:100%;text-align: center;font-size: 26px;" class=""> 巡检模式 </span>
+              <span style="width:100%;text-align: center;font-size: 26px;" 
+              class=""> 巡检模式 </span>
               <div class="ItemCon ">
                 <div class="insItem"><span>自动巡检</span>
                   <el-tooltip>
-                    <div slot="content"><span style="font-size:14px">机器人将以匀速进行往返巡检，直至电量耗尽则自动回程充电</span></div>
+                    <div slot="content">
+                      <span style="font-size:14px">
+                        机器人将以匀速进行往返巡检，直至电量耗尽则自动回程充电</span></div>
                     <div class="" @click="changeMode(1)"><img :class="inspectionMode === 1 ? '' : 'active'"
                         src="@/assets/img/home/switch.png"></div>
                   </el-tooltip>
@@ -163,14 +202,16 @@
                 </div>
                 <div class="insItem"><span>快速巡检</span>
                   <el-tooltip>
-                    <div slot="content"><span style="font-size:14px">机器人将以较快的速度巡检一圈，便于快速检测工区情况</span></div>
+                    <div slot="content"><span style="font-size:14px">
+                      机器人将以较快的速度巡检一圈，便于快速检测工区情况</span></div>
                     <div class="" @click="changeMode(2)"><img :class="inspectionMode === 2 ? '' : 'active'"
                         src="@/assets/img/home/switch.png"></div>
                   </el-tooltip>
                 </div>
                 <div class="insItem"><span>预设巡检</span>
                   <el-tooltip>
-                    <div slot="content"><span style="font-size:14px">机器人按照预设的时间段和速度巡检。</span></div>
+                    <div slot="content"><span style="font-size:14px">
+                      机器人按照预设的时间段和速度巡检。</span></div>
                     <div class="" @click="changeMode(3)"><img :class="inspectionMode === 3 ? '' : 'active'"
                         src="@/assets/img/home/switch.png"></div>
                   </el-tooltip>
@@ -183,6 +224,7 @@
       </div>
     </div>
   </dv-full-screen-container>
+
 </template>
 
 <script>
@@ -197,15 +239,22 @@ export default {
   name: "",
   data() {
     return {
+      //廊道背景
+      imgSrc: require('@/assets/img/warning/tc1.png'),
+      //是否加载
       isLoading: true,
+      //廊道背景切换的interval
+      timer1: null,
       //连接状态
       isConnect: true,
       //电池进度图配置
       powerConfig: {
         value: 66,
         colors: ['#01c4f9', '#c135ff'],
-        lineDash: [60, 3],
-        borderRadius: 8
+        lineDash: [48, 4],
+        borderRadius: 8,
+        // formatter:'{value}%'
+        formatter: '电量：{value}%'
       },
       //氧气浓度水球图配置 
       waterConfig: {
@@ -273,8 +322,6 @@ export default {
   computed: {},
 
   beforeMount() {
-
-
     //渲染视频窗口并自动播放
     this.mainVideoPlayer = this.$video(this.$refs.mainVideo, {
       autoplay: true,
@@ -282,17 +329,36 @@ export default {
     })
   },
   mounted() {
-
-    // function timeout(ms) {
-    //   return new Promise((resolve, reject) => {
-    //     setTimeout(resolve, ms, false);
-    //   });
-    // }
-
-    // timeout(500).then((value) => {
-    //   this.isLoading=value
-    // });
-
+    let img1 = require('@/assets/img/warning/tc1.png')
+    let img2 = require('@/assets/img/warning/tc2.png')
+    let img3 = require('@/assets/img/warning/tc3.png')
+    //立刻执行一次
+    let t1 = setTimeout(() => {
+      this.imgSrc = img1
+    }, 0);
+    let t2 = setTimeout(() => {
+      this.imgSrc = img2
+    }, 1000)
+    let t3 = setTimeout(() => {
+      this.imgSrc = img3
+    }, 2000)
+    t1 = t2 = t3 = null
+    //3s后轮换播放背景
+    this.timer1 = setInterval(() => {
+      let t1 = setTimeout(() => {
+        this.imgSrc = img1
+      }, 0);
+      let t2 = setTimeout(() => {
+        this.imgSrc = img2
+      }, 1000)
+      let t3 = setTimeout(() => {
+        this.imgSrc = img3
+      }, 2000)
+      t1 = t2 = t3 = null
+      // clearTimeout(t1)
+      // clearTimeout(t2)
+      // clearTimeout(t3)
+    }, 3000);
 
     //获取近七天日期
     let recentDays = this.getRecentlyDays(7);
@@ -309,8 +375,8 @@ export default {
 
   },
   beforeDestroy() {
-    this.timer = null;
     clearInterval(this.modelTimer1)
+    clearInterval(this.timer1)
   },
   methods: {
     //用于获取近几天的信息
@@ -447,7 +513,11 @@ export default {
     changeMode(type) {
       //alert(`更改为第${type}种巡检类型`)
       this.inspectionMode = type
-    }
+    },
+    //快速跳转页面
+    changePage(page){
+      this.$router.push(`${page}`)
+    },
   },
 };
 </script>
@@ -481,7 +551,7 @@ export default {
   color: #32ce84;
 
   span {
-    color: #32ce84;
+    color: #32ce84 !important;
   }
 }
 
@@ -489,7 +559,7 @@ export default {
   color: red;
 
   span {
-    color: red;
+    color: red !important;
   }
 }
 
@@ -505,49 +575,91 @@ span {
 }
 
 .s1 {
-  width: 20%;
+  width: 400px;
   background-color: transparent;
   background-color: #00296B60;
   padding-bottom: 1vh;
 
-  //logo及连接
-  .con1 {
-
-    .con1-1 {
-      position: relative;
-      font-size: 18px;
-
-      span:first-of-type {
-        position: absolute;
-        left: 8px;
-        top: 8px;
-      }
-
-      .icon-connection,
-      .icon-disconnect {
-        position: absolute;
-        left: 28%;
-        top: 16%;
-        font-size: 96px;
-      }
-
-      span:last-of-type {
-        position: absolute;
-        bottom: 8px;
-        right: 8px;
-      }
-    }
+  //电池样式设置
+  /deep/ .dv-percent-pond text {
+    font-weight: 100;
+    font-size: 32px;
   }
 
-  //电池电量
-  .con2 {
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
+  //logo及连接
+  // .con1 {
+  //   .con1-1 {
+  //     position: relative;
+  //     font-size: 18px;
 
-    span {
-      font-size: 18px;
+  //     span:first-of-type {
+  //       position: absolute;
+  //       left: 8px;
+  //       top: 8px;
+  //     }
+
+  //     .icon-connection,
+  //     .icon-disconnect {
+  //       position: absolute;
+  //       left: 28%;
+  //       top: 16%;
+  //       font-size: 46px;
+  //     }
+
+  //     span:last-of-type {
+  //       position: absolute;
+  //       bottom: 8px;
+  //       right: 8px;
+  //     }
+  //   }
+  // }
+
+  //皮带视图
+  .gallery {
+
+    .success{
+      background-color: #32ce8480;
     }
+
+    .error{
+      background-color: red;
+    }
+
+    //机器人和设备的通用样式
+    .deviceDot,
+    .robotDot {
+      position: absolute;
+      //border: #a89f9f 1px solid;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      animation: shade 1.4s infinite;
+    }
+
+    //先给设施设备定位
+    .d1 {
+      //撕裂
+      left: 260px;
+      bottom: 80px;
+    }
+
+    .d2 {
+      //多功能
+      left: 290px;
+      bottom: 80px;
+    }
+
+    //再给机器人定位
+
+
+
+
+
   }
 
   //温湿度及氧气
@@ -568,11 +680,13 @@ span {
       width: 38%;
       height: 30%;
       border-radius: 10% 0 0 10%;
-      margin-right: 41px;
+      margin-left: 10px;
+      margin-right: 26px;
       display: flex;
       justify-content: space-between;
       border: 1px double #32ce8460;
       background: url('@/assets/img/home/glassBox.png') no-repeat;
+      cursor: pointer;
 
       background-size: cover;
 
@@ -584,12 +698,10 @@ span {
         align-items: center;
         justify-content: center;
 
-
-
         span:first-of-type {
           text-align: left;
           margin-left: 10%;
-          text-decoration: underline;
+          //text-decoration: underline;
         }
 
         span:last-of-type {
@@ -647,9 +759,10 @@ span {
 
 .s2 {
   justify-content: space-between;
-  width: 78%;
+  width: 1486px;
   background-color: transparent;
   padding-bottom: 1vh;
+
   img {
     width: 100%;
     height: 100%;
@@ -657,12 +770,12 @@ span {
 
   //中间区域
   .s2-1 {
-    width: 68.5%;
+    width: 1068px;
     height: 100%;
     flex-direction: column;
     background-color: rgba(6, 80, 109, 0.2);
     background-color: #00296B60;
-    
+
     //background-color: transparent;
 
     //底部区域
@@ -681,7 +794,7 @@ span {
 
   //右侧区域
   .s2-2 {
-    width: 30%;
+    width: 400px;
     height: 100%;
     //background-color: rgba(6, 80, 109, 0.2);
     background-color: transparent;
@@ -804,7 +917,19 @@ span {
   }
 }
 
-div {
-  width: 100%;
+//背景闪烁的动画
+@keyframes shade {
+  from {
+    opacity: 1;
+  }
+
+  50% {
+    //background-color: transparent;
+    opacity: 0.3;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 </style>
