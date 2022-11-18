@@ -1,6 +1,6 @@
 <template>
     <div class=''>
-        <div id="warningLine2" style="height:400px;width:480px;"></div>
+        <div id="warningLine2" style="height:400px;width:580px;"></div>
     </div>
 </template>
 

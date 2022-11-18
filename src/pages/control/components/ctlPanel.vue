@@ -97,10 +97,10 @@ export default {
             })
             //requests.defaults.headers["Content-Type"] = "application/x-www-form-urlencoded;charset=UTF-8";
 
-            let para = JSON.stringify({ "OrderID": "19851221" })
+            let para = JSON.stringify({ "OrderID": idx })
             // let para = JSON.stringify({Name:1,no:1 })            
             console.log(para);
-            requests.post('/MyServices/MyTestService/Jweb/AddOrder?jsoncallback=?', idx)
+            requests.post('/MyServices/MyTestService/Jweb/AddOrder?jsoncallback=?', para)
                 .then(function (response) {
                     // 处理成功情况
                     console.log(response);

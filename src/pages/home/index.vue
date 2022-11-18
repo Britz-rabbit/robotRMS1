@@ -39,7 +39,6 @@
            <div class="con con5 " style="height:12%;">
             <div><span>机器人当前速度</span><span>80cm/s</span></div>
             <div><span>机器人当前位置</span><span>32m</span></div>
-
           </div>
           <!-- 皮带视图 -->
           <div class="con gallery" style="height: 20%;margin-top: 5%;">
@@ -168,7 +167,8 @@
               <!-- 模型和在线状态 -->
               <div class="" style="width:100%;height:35%;display: flex;justify-content: space-around;">
                 <div class="img ">
-                  <img :src="modelSrc">
+                  <!-- <img :src="modelSrc"> -->
+                  <img src="@/assets/img/home/model.gif" alt="" srcset="">
                 </div>
                 <div class="robotStatus " style="height:80%;width:55%;margin-top: 1.6vh;">
                   <dv-border-box-12>
@@ -240,7 +240,7 @@ export default {
   data() {
     return {
       //廊道背景
-      imgSrc: require('@/assets/img/warning/tc1.png'),
+      imgSrc: require('@/assets/img/warning/tc.gif'),
       //是否加载
       isLoading: true,
       //廊道背景切换的interval
@@ -293,8 +293,6 @@ export default {
           ['二号温度', '66°C', '正常'],
         ],
       },
-      //视频源列表
-      videoList: [],
       //左侧列表的数据整合
       infoField: [
         { key: '红外测温', value: '70°C' },
@@ -306,8 +304,6 @@ export default {
       positionInfo: {},
       //数据刷新的定时器占位符
       timer: null,
-      //模型的图表路径的占位符
-      modelSrc: require('@/assets/img/home/model/xmytjqr0001.png'),
       //主副视频的播放次序占位符
       main_viceFlag: true,
       //当前巡检模式的占位符
@@ -329,37 +325,6 @@ export default {
     })
   },
   mounted() {
-    let img1 = require('@/assets/img/warning/tc1.png')
-    let img2 = require('@/assets/img/warning/tc2.png')
-    let img3 = require('@/assets/img/warning/tc3.png')
-    //立刻执行一次
-    let t1 = setTimeout(() => {
-      this.imgSrc = img1
-    }, 0);
-    let t2 = setTimeout(() => {
-      this.imgSrc = img2
-    }, 1000)
-    let t3 = setTimeout(() => {
-      this.imgSrc = img3
-    }, 2000)
-    t1 = t2 = t3 = null
-    //3s后轮换播放背景
-    this.timer1 = setInterval(() => {
-      let t1 = setTimeout(() => {
-        this.imgSrc = img1
-      }, 0);
-      let t2 = setTimeout(() => {
-        this.imgSrc = img2
-      }, 1000)
-      let t3 = setTimeout(() => {
-        this.imgSrc = img3
-      }, 2000)
-      t1 = t2 = t3 = null
-      // clearTimeout(t1)
-      // clearTimeout(t2)
-      // clearTimeout(t3)
-    }, 3000);
-
     //获取近七天日期
     let recentDays = this.getRecentlyDays(7);
     this.days = recentDays;
@@ -421,10 +386,6 @@ export default {
     //     this.videoList=videoList
     //   }
     // },
-    changeVideo() {
-      this.videoList = this.videoList.reverse()
-    },
-
     //获取电量信息
     getBatteryInfo() {
       let batteryInfo = this.$store.state.batteryInfo;
@@ -440,74 +401,6 @@ export default {
     //获取机器人位置信息
     getPositionInfo() {
       this.positionInfo = this.state.positionInfo;
-    },
-    //设置模型的定时器刷新
-    changeModelSrc() {
-      let t1 = setTimeout(() => {
-        this.modelSrc = require('@/assets/img/home/model/xmytjqr0001.png')
-      }, 100);
-      let t2 = setTimeout(() => {
-        this.modelSrc = require('@/assets/img/home/model/xmytjqr0002.png')
-      }, 200);
-      let t3 = setTimeout(() => {
-        this.modelSrc = require('@/assets/img/home/model/xmytjqr0003.png')
-      }, 300);
-      let t4 = setTimeout(() => {
-        this.modelSrc = require('@/assets/img/home/model/xmytjqr0004.png')
-      }, 400);
-      let t5 = setTimeout(() => {
-        this.modelSrc = require('@/assets/img/home/model/xmytjqr0005.png')
-      }, 500);
-      let t6 = setTimeout(() => {
-        this.modelSrc = require('@/assets/img/home/model/xmytjqr0006.png')
-      }, 600);
-      let t7 = setTimeout(() => {
-        this.modelSrc = require('@/assets/img/home/model/xmytjqr0007.png')
-      }, 700);
-      let t8 = setTimeout(() => {
-        this.modelSrc = require('@/assets/img/home/model/xmytjqr0008.png')
-      }, 800);
-      let t9 = setTimeout(() => {
-        this.modelSrc = require('@/assets/img/home/model/xmytjqr0009.png')
-      }, 900);
-      let t10 = setTimeout(() => {
-        this.modelSrc = require('@/assets/img/home/model/xmytjqr00010.png')
-      }, 1000);
-      let t11 = setTimeout(() => {
-        this.modelSrc = require('@/assets/img/home/model/xmytjqr00011.png')
-      }, 100);
-      let t12 = setTimeout(() => {
-        this.modelSrc = require('@/assets/img/home/model/xmytjqr00012.png')
-      }, 1100);
-      let t13 = setTimeout(() => {
-        this.modelSrc = require('@/assets/img/home/model/xmytjqr00013.png')
-      }, 1200);
-      let t14 = setTimeout(() => {
-        this.modelSrc = require('@/assets/img/home/model/xmytjqr00014.png')
-      }, 1300);
-      let t15 = setTimeout(() => {
-        this.modelSrc = require('@/assets/img/home/model/xmytjqr00015.png')
-      }, 1400);
-      let t16 = setTimeout(() => {
-        this.modelSrc = require('@/assets/img/home/model/xmytjqr00016.png')
-      }, 1500);
-      let t17 = setTimeout(() => {
-        this.modelSrc = require('@/assets/img/home/model/xmytjqr00017.png')
-      }, 1600);
-      let t18 = setTimeout(() => {
-        this.modelSrc = require('@/assets/img/home/model/xmytjqr00018.png')
-      }, 1700);
-      let t19 = setTimeout(() => {
-        this.modelSrc = require('@/assets/img/home/model/xmytjqr00019.png')
-      }, 1800);
-      let t20 = setTimeout(() => {
-        this.modelSrc = require('@/assets/img/home/model/xmytjqr00020.png')
-      }, 1900);
-
-      for (let i = 0; i < 20; i++) {
-        clearTimeout(`t${i}`)
-      }
-      t1 = t2 = t3 = t4 = t5 = t6 = t7 = t8 = t9 = t10 = t11 = t12 = t13 = t14 = t15 = t16 = t17 = t18 = t19 = t20 = null
     },
     //更改巡检模式
     changeMode(type) {

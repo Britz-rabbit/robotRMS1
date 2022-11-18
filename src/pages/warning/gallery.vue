@@ -45,7 +45,7 @@ export default {
   data() {
     return {
       //廊道背景
-      imgSrc: require('@/assets/img/warning/tc1.png'),
+      imgSrc: require('@/assets/img/warning/tc.gif'),
       //定时器占位符
       timer1: null,
       //廊道设施设备信息列表的占位符
@@ -68,36 +68,7 @@ export default {
   },
 
   mounted() {
-    let img1 = require('@/assets/img/warning/tc1.png')
-    let img2 = require('@/assets/img/warning/tc2.png')
-    let img3 = require('@/assets/img/warning/tc3.png')
-    //立刻执行一次
-    let t1 = setTimeout(() => {
-      this.imgSrc = img1
-    }, 0);
-    let t2 = setTimeout(() => {
-      this.imgSrc = img2
-    }, 1000)
-    let t3 = setTimeout(() => {
-      this.imgSrc = img3
-    }, 2000)
-    t1 = t2 = t3 = null
-    //3s后轮换播放背景
-    this.timer1 = setInterval(() => {
-      let t1 = setTimeout(() => {
-        this.imgSrc = img1
-      }, 0);
-      let t2 = setTimeout(() => {
-        this.imgSrc = img2
-      }, 1000)
-      let t3 = setTimeout(() => {
-        this.imgSrc = img3
-      }, 2000)
-      //t1 = t2 = t3 = null
-      clearTimeout(t1)
-      clearTimeout(t2)
-      clearTimeout(t3)
-    }, 3000);
+   
   },
   beforeDestroy() {
     clearInterval(this.timer1)

@@ -1,212 +1,185 @@
 <template>
-  <dv-full-screen-container ref="appRef">
-    <topMenu></topMenu>
-    <div class="container">
-      <div class="s1 session"></div>
-      <div class="s2 session">
-        <!-- 子路由展示区域 -->
-        <div class="s2-1 session">
-          <dv-border-box-7 style="width:100%;height:100%">
-            <router-view></router-view>
+  <div class=''>
+    <dv-full-screen-container ref="appRef">
+      <topMenu></topMenu>
+      <div class="container">
+
+        <!-- 上方区域 -->
+        <div class="topBox " style="width:100%;height:70%;display: flex;">
+          <!-- 料量 -->
+          <div class="material " style="height:100%;width:30%">
+            <dv-border-box-8>
+              <div class="infoBar ">
+                <div class="info ">
+                  <span class="">今日已进料 <span class="num">11</span> 小时</span>
+                </div>
+                <div class="info ">
+                  <span>已累计进料 <span class="num">608</span> 吨</span>
+                </div>
+              </div>
+              <div class="" style="width:100%;height:70%;margin-top: 30px;">
+                <warningLine2Vue></warningLine2Vue>
+              </div>
+            </dv-border-box-8>
+          </div>
+          <!--  -->
+          <div class="gallary" style="height:100%;width:70%">
+            <dv-border-box-2>
+
+              <img :src="imgSrc" alt="" srcset="">
+            </dv-border-box-2>
+          </div>
+
+        </div>
+
+        <!-- 下方区域-->
+        <div class="bottomBox" style="width:100%;height:30%">
+
+          <!-- 左侧皮带廊 -->
+          <div class="border" style="height: 100%;width: 70%;">
+          <dv-border-box-7>
+            <!-- 撕裂及多功能设备示意点 -->
+
+            <img src="@/assets/img/warning/tc.gif" class="" style="width: 96%;margin-left: 2%;margin-top: 40px;">
           </dv-border-box-7>
-        </div>
-        <!-- 右侧内容填充，该图标太占用性能，需要优化 -->
-        <div class="s2-2 session">
-          <div style="margin-left: 1vw;position: relative;">
-            <warningRadar></warningRadar>
+            
+ 
+
+          </div>
+
+          <!-- 右侧轮播图 -->
+          <div class="" style="height:100%;width: 30%;">
+            <dv-border-box-7>
+              <div style="width:96%;height:96%;margin:1%;cursor: pointer;">
+                <el-carousel height="258px">
+                  <el-carousel-item v-for="(item, index) in catchImgList" :key="item">
+                    <img :src="item" style="width: 100%; height: 100%" @click="showDialog(item)" />
+                  </el-carousel-item>
+                </el-carousel>
+              </div>
+            </dv-border-box-7>
           </div>
         </div>
-      </div>
-      <div class="s3 session">
-        <!-- 路由按钮 -->
-        <div class="s3-1 session">
-          <div class="flex btnCon">
-            <div class="btn" v-for="(item, index) in routeList" @click="changeRoute(item)">
-              <span>{{ item.title }}</span>
-            </div>
-          </div>
-        </div>
-        <!-- 轮播图 -->
-        <div class="s3-2 session">
-          <div class="">
-            <div class="block">
-              <el-carousel height="30vh" type="card">
-                <el-carousel-item v-for="(item, index) in imgList" :key="item">
-                  <img :src="item" style="width: 100%; height: 100%" @click="showDialog(item)" />
-                </el-carousel-item>
-              </el-carousel>
-            </div>
-          </div>
-        </div>
-        <!-- 对话框 -->
-        <el-dialog title="查看详细图" :modal="false" center :visible.sync="dialogVisible" width="50%">
+
+        <!-- 轮播图的对话框 -->
+        <el-dialog title="详细抓拍" :modal="false" center :visible.sync="dialogVisible" width="50%">
           <img :src="choseImg" alt="" style="width: 100%;height:100%;">
         </el-dialog>
-      </div>
-    </div>
-  </dv-full-screen-container>
 
+      </div>
+    </dv-full-screen-container>
+  </div>
 </template>
 
 <script>
-import warningRadar from './charts/warningRadar.vue'
+import galleryVue from './gallery.vue';
+import multifunctionVue from './multifunction.vue';
+import warningLine2Vue from './charts/warningLine2.vue';
 export default {
-  name: "",
+  name: '',
   data() {
     return {
-      //路由切换信息
-      routeList: [
-        { title: "多功能及撕裂", path: "/warning/multifunction" },
-        { title: "机器人报警检测", path: "/warning/robot" },
-        { title: "廊道设施设备", path: "/warning/gallery" },
+      //抓拍到的错误信息
+      catchImgList: [
+        require("../../assets/img/home/video1.jpeg"),
+        require("../../assets/img/home/video2.jpeg"),
+        require("../../assets/img/wrong.jpeg"),
       ],
-      //报警抓拍列表
-      imgList: ["", ""],
+      //廊道背景图
+      gallaryImg: require('@/assets/img/warning/tc.gif'),
       //是否打开对话框的标识符
       dialogVisible: false,
       //选中查看的大图路径
-      choseImg: ''
-    };
+      choseImg: '',
+      
+    }
   },
-  props: {},
+  props: {
+  },
   components: {
-    warningRadar,
+    galleryVue, multifunctionVue, warningLine2Vue
   },
-  watch: {
-    //使用watch 监听$router的变化
-    $route(to, from) {
-      //如果to索引大于from索引,判断为前进状态,反之则为后退状态
-      if (to.meta.index > from.meta.index) {
-        //设置动画名称
-        this.transitionName = "slide-left";
-      } else {
-        this.transitionName = "slide-right";
-      }
-    },
+  computed: {
+
   },
-  computed: {},
   beforeMount() {
-    this.imgList[0] = require("../../assets/img/home/video1.jpeg");
-    this.imgList[1] = require("../../assets/img/home/video2.jpeg");
-    this.imgList[2] = require("../../assets/img/wrong.jpeg");
+
   },
   mounted() {
-    this.$router.push("/warning/multifunction");
+
   },
   methods: {
-    changeRoute(item) {
-      //console.log(item);
-      if (item.path === this.$route.fullPath) return;
-      this.$router.push(item.path);
-    },
+    //显示抓拍到的大图
     showDialog(src) {
       console.log(src);
       this.dialogVisible = true
       this.choseImg = src
-    }
+    },
+    
   },
-};
+}
 </script>
 
 <style lang='less' scoped >
-@import "@/assets/css/common.css";
-
 .border {
   border: 1px solid red;
 }
 
-#dv-full-screen-container{
+#dv-full-screen-container {
   background: url('@/assets/img/BG.png');
   background-size: cover;
   //border: 1px solid red;
-}
-
-.session {
-  width: 100%;
-  //border: 1px solid yellow;
-}
-
-.con {
-  width: 100%;
 }
 
 span {
   color: #ffffff;
 }
 
-.s1 {
-  width: 100%;
-  height: 2%;
-}
+// 上方区域
+.topBox {
 
-.s2 {
-  width: 100%;
-  height: 60%;
-  display: flex;
-
-  .s2-1 {
-    height: 100%;
-    width: 50%;
-  }
-
-  .s2-2 {
-    height: 100%;
-    width: 50%;
-  }
-}
-
-.s3 {
-  width: 100%;
-  height: 30%;
-  display: flex;
-  justify-content: space-around;
-  margin-top: 2vh;
-
-  .s3-1 {
-    height: 100%;
-    width: 50%;
-
-    .btnCon {
-      width: 100%;
-      height: 50%;
-      margin-top: 10%;
+  //左侧
+  .material {
+    .infoBar {
+      padding-top: 5%;
+      height: 20%;
       display: flex;
+      //flex-direction: column;
       justify-content: space-around;
-      //align-items: center;
+      align-items: center;
 
-      .btn {
-        height: 16vh;
-        width: 16vh;
-        border: 1px solid #fff;
-        border-radius: 50%;
-        transition: all 0.3s linear;
+      .num {
+        color: aquamarine;
+        font-size: 32px;
+      }
+
+      .info {
+        width: 45%;
+        height: 48%;
         display: flex;
-        justify-content: center;
+        flex-direction: column;
+        justify-content: space-around;
         align-items: center;
-        background: url('@/assets/img/warning/icon@3x.png') no-repeat;
+        background: url('@/assets/img/comm/bracket.png') no-repeat;
         background-size: cover;
 
-        &:hover {
-          cursor: pointer;
-          height: 18vh;
-          width: 18vh;
-        }
-
         span {
-          line-height: 4vh;
-          font-size: 20px;
-          color: #ffffff;
-          //white-space: nowrap;
+          height: 60px;
+          width: 100%;
           text-align: center;
         }
-
       }
     }
   }
 
-  .s3-2 {
-    height: 100%;
-    width: 50%;
-  }
+  //右侧
+
+
+
+}
+
+.bottomBox {
+  display: flex;
+
 }
 </style>

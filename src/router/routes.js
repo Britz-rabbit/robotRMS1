@@ -48,25 +48,6 @@ export default [
             index:2
         },
         component:()=>import('../pages/warning/index'),
-        //component:warning,
-        children:[
-            {path:'robot',
-            meta:{
-                index:1
-            },
-            component:()=>import('../pages/warning/robot')},
-            {path:'gallery',
-            meta:{
-                index:2
-            },
-            component:()=>import('../pages/warning/gallery')},
-            {path:'multifunction',
-            meta:{
-                index:3
-            },
-            component:()=>import('../pages/warning/multifunction')},
-
-        ]
     },
     //传感系统
     {

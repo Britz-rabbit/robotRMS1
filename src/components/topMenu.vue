@@ -51,7 +51,7 @@ export default {
                 { icon: 'icon-kongzhi', title: '控制中心', path: '/control' },
             ],
             menuList2: [
-                { icon: 'icon-jingbao', title: '巡检警报', path: '/warning/gallery' },
+                { icon: 'icon-jingbao', title: '巡检警报', path: '/warning' },
                 { icon: 'icon-zu', title: '传感系统', path: '/sensor' },
                 { icon: 'icon-shujufenxi', title: '数据分析', path: '/analyze' }
             ]

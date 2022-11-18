@@ -9,7 +9,7 @@
             <i class="iconfont icon-dengguang"></i>
             <i class="iconfont icon-connection"></i>
           </div>
-          <div class="img" style="position:relative">
+          <div class="img">
             <ws v-show="main_viceFlag"></ws>
             <!-- <robot_video v-if="main_viceFlag"></robot_video> -->
             <IR_video v-show="!main_viceFlag"></IR_video>
@@ -38,11 +38,11 @@
               <span>机器人控制</span>
             </div>
             <div class="line line1 ">
-              <div @click="" class="btn pluse"></div>
+              <div @click="sendMsg('机器人停止')" class="btn pluse"></div>
             </div>
             <div class="line line2 ">
-              <div class="btn left"></div>
-              <div class="btn pause"></div>
+              <div @click="sendMsg('机器人左')" class="btn left"></div>
+              <div  @click="sendMsg('云台左')" class="btn pause"></div>
               <div class="btn right"></div>
             </div>
             <div class="line line1 ">
@@ -97,7 +97,7 @@ export default {
 
   },
   beforeMount() {
-    //this.initPageWS()
+    this.initPageWS()
 
   },
   mounted() {
@@ -105,34 +105,36 @@ export default {
   },
   methods: {
     //pageWs的建立
-    // initPageWS() {
-    //   const url = 'ws://192.168.2.91:30006';
-    //   this.pageWs = new WebSocket(url);
-    //   this.pageWs.onopen = this.websocketonopen;
-    //   this.pageWs.onerror = this.websocketonerror;
-    //   this.pageWs.onmessage = this.websocketonmessage;
-    //   this.pageWs.onclose = this.websocketclose;
-    // },
-    // websocketonopen() {
-    //   console.log("pageWs连接成功");
-    // },
-    // websocketonerror(e) {
-    //   console.log(e);
-    // },
-    // websocketonmessage(e) {
+    initPageWS() {
+      const url = 'ws://192.168.2.91:30006';
+      this.pageWs = new WebSocket(url);
+      this.pageWs.onopen = this.websocketonopen;
+      this.pageWs.onerror = this.websocketonerror;
+      this.pageWs.onmessage = this.websocketonmessage;
+      this.pageWs.onclose = this.websocketclose;
+    },
+    websocketonopen() {
+      console.log("pageWs连接成功");
+    },
+    websocketonerror(e) {
+      console.log(e);
+    },
+    websocketonmessage(e) {
 
-    // },
-    // websocketclose() {
-    //   console.log("pageWs关闭");
-    //   this.websocket.close();
-    // },
+    },
+    websocketclose() {
+      console.log("pageWs关闭");
+      this.websocket.close();
+    },
 
     //处理功能发送
-
+    sendMsg(msg){
+      this.pageWs.send(msg)
+    }
   },
   beforeDestroy() {
-    // console.log(this.pageWs);
-    // this.websocketclose()
+    console.log(this.pageWs);
+    this.websocketclose()
   }
 }
 </script>
