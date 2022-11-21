@@ -25,6 +25,9 @@ export default {
   },
   mounted() {
     console.log('app的this', this);
+    setInterval(() => {
+      this.golbalWS.send('getsensor')
+    }, 1000);
   },
   watch: {
     //使用watch 监听$router的变化

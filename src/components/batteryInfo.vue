@@ -8,7 +8,7 @@
                 </div>
                 <div class="flex" style="margin-top:2vh ;">
                     <span>连接状态：</span>
-                    <div v-if="isConnect" class="success" style="margin: auto;">
+                    <div v-if="isConnect" class="robot" style="margin: auto;">
                         <i class="iconfont icon-connection"></i>
                         <span>已连接</span>
                     </div>
@@ -77,7 +77,7 @@ span {
     white-space: no-warp;
 }
 
-.success {
+.robot {
 
     i,
     span {

@@ -74,7 +74,7 @@ export default {
         //获取当前时间
         getTime() {
             let d = new Date()
-            let days = (d.getMonth() + 1) + '月' + d.getDay() + '日 '
+            let days = (d.getMonth() + 1) + '月' + (d.getDate() + '日 ')
             let hours = d.getHours() + ':' + d.getMinutes()
             return days + ' ' + hours
         },
@@ -82,7 +82,7 @@ export default {
         changePage(item) {
             this._.throttle(() => {
                 if (item.path === this.$route.fullPath) return
-                if (!item.path) return
+                if (!item.path){window.open('http://39.105.146.47:8777') } 
                 //console.log('节流成功了');
                 this.$router.push(item.path)
             }, 100)()

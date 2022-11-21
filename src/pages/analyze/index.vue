@@ -191,8 +191,8 @@ export default {
     .item {
       width: 30%;
       height: 100%;
-      border: 1px solid red;
-      background-color: #00296B70;
+      border: 1px solid rgb(52, 52, 209);
+      //background-color: #00296B70;
 
       .icon {
         margin: 0 auto;

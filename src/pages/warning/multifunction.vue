@@ -24,11 +24,11 @@
         <div class="img " style="width:100%;height:60%">
           <!-- 多功能的 -->
           <div v-show="isMuti">
-            <img src="@/assets/img/warning/muti.png" width="100%;height:100%">
+            <img src="@/assets/img/warning/multi.gif" width="100%;height:100%">
           </div>
           <!-- 撕裂的 -->
           <div v-show="!isMuti">
-            <img src="@/assets/img/warning/sl.png" width="100%;height:100%">
+            <img src="@/assets/img/warning/break.gif" width="100%;height:100%">
           </div>
         </div>
         <!-- 下方标题与切换 -->

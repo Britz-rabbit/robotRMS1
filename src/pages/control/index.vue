@@ -2,7 +2,7 @@
   <dv-full-screen-container ref="appRef">
     <topMenu></topMenu>
     <div class='flex container'>
-      <div class="s1 " >
+      <div class="s1 ">
         <dv-border-box-10>
           <div class="icons ">
             <i class="iconfont icon-jiqiren"></i>
@@ -11,7 +11,7 @@
           </div>
           <div class="img">
             <ws v-show="main_viceFlag"></ws>
-            <!-- <robot_video v-if="main_viceFlag"></robot_video> -->
+            
             <IR_video v-show="!main_viceFlag"></IR_video>
           </div>
         </dv-border-box-10>
@@ -25,7 +25,7 @@
         <div class="con flex con2" id="controlVideo">
           <div class="chose " @click="main_viceFlag = true" :class="main_viceFlag ? 'chosed' : ''">
             <ws></ws>
-            <!-- <robot_video></robot_video> -->
+            
           </div>
           <div class="chose " @click="main_viceFlag = false" :class="!main_viceFlag ? 'chosed' : ''">
             <IR_video></IR_video>
@@ -34,34 +34,37 @@
         <!-- 按钮区域 -->
         <div class="con con3 flex">
           <div class="panel ">
+            <!-- 左侧控制 -->
             <div class="title">
               <span>机器人控制</span>
             </div>
             <div class="line line1 ">
-              <div @click="sendMsg('机器人停止')" class="btn pluse"></div>
+              <div @click="sendMsg('robot',3,0,'机器人加速')" class="btn pluse"></div>
             </div>
             <div class="line line2 ">
-              <div @click="sendMsg('机器人左')" class="btn left"></div>
-              <div  @click="sendMsg('云台左')" class="btn pause"></div>
-              <div class="btn right"></div>
+              <div @click="sendMsg('robot',2,0,'机器人后退')" class="btn left"></div>
+              <div @click="sendMsg('robot',5,0,'机器人停止')" class="btn pause"></div>
+              <div @click="sendMsg('robot',1,0,'机器人前进')" class="btn right"></div>
             </div>
             <div class="line line1 ">
-              <div class="btn min"></div>
+              <div @click="sendMsg('robot',4,0,'机器人减速')" class="btn min"></div>
             </div>
           </div>
+
+          <!-- 右侧控制 -->
           <div class="panel ">
             <div class="title">
               <span>云台控制</span>
             </div>
             <div class="line line1 ">
-              <div class="btn up"></div>
+              <div  @click="sendMsg('camera',1,0,'云台向上')" class="btn up"></div>
             </div>
             <div class="line line2 ">
-              <div class="btn left"></div>
-              <div class="btn right"></div>
+              <div @click="sendMsg('camera',3,0,'云台左旋')" class="btn left"></div>
+              <div @click="sendMsg('camera',4,0,'云台右旋')" class="btn right"></div>
             </div>
             <div class=" line line1 ">
-              <div class="btn down"></div>
+              <div @click="sendMsg('camera',2,0,'云台向下')" class="btn down"></div>
             </div>
           </div>
         </div>
@@ -120,17 +123,23 @@ export default {
       console.log(e);
     },
     websocketonmessage(e) {
-
+      //alert(e.data)
     },
     websocketclose() {
       console.log("pageWs关闭");
-      this.websocket.close();
+      this.pageWs.close();
     },
 
     //处理功能发送
-    sendMsg(msg){
-      this.pageWs.send(msg)
+    sendMsg(type,action,light,message) {
+      let paras=JSON.stringify({type,action,light,message})
+      console.log(paras);
+      this.pageWs.send(paras)
     }
+
+    
+
+
   },
   beforeDestroy() {
     console.log(this.pageWs);

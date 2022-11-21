@@ -15,7 +15,6 @@ export default {
     },
     beforeDestroy() {
         this.websocketclose();
-        this.websocket.close();
     },
     destroyed() {
 
@@ -23,15 +22,14 @@ export default {
     methods: {
         initWebSocket() {
             const wsuri = 'ws://192.168.2.228:40001';
-            this.websocket = new WebSocket(wsuri);
-            this.websocket.onopen = this.websocketonopen;
-            this.websocket.onerror = this.websocketonerror;
-            this.websocket.onmessage = this.websocketonmessage;
-            this.websocket.onclose = this.websocketclose;
+            this.cameraWs = new WebSocket(wsuri);
+            this.cameraWs.onopen = this.websocketonopen;
+            this.cameraWs.onerror = this.websocketonerror;
+            this.cameraWs.onmessage = this.websocketonmessage;
+            this.cameraWs.onclose = this.websocketclose;
         },
         websocketonopen() {
-            console.log("WebSocket连接成功");
-            console.log("111");
+            console.log("cameraWs连接成功");
         },
         websocketonerror(e) {
             console.log(e);
@@ -40,8 +38,8 @@ export default {
             this.rgb_msg = "data:image/jpeg;base64," + e.data;
         },
         websocketclose() {
-            console.log("connection closed");
-            this.websocket.close();
+            console.log("cameraWs connection closed");
+            this.cameraWs.close();
         },
     }
 }

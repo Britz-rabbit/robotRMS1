@@ -35,26 +35,51 @@
               <dv-percent-pond :config="powerConfig" style="width:90%;height:74%;margin: 6% auto;" />
             </div>
           </div>
-           <!-- 机器人位置及速度 -->
-           <div class="con con5 " style="height:12%;">
+          <!-- 机器人位置及速度 -->
+          <div class="con con5 " style="height:12%;">
             <div><span>机器人当前速度</span><span>80cm/s</span></div>
             <div><span>机器人当前位置</span><span>32m</span></div>
           </div>
           <!-- 皮带视图 -->
           <div class="con gallery" style="height: 20%;margin-top: 5%;">
             <dv-border-box-10>
-              <span 
-              @click="changePage('/warning')"
-              style="position:absolute;right:10px;top:10px;cursor:pointer;padding: 4px;color:skyblue;font-size:18px;border: 3px solid #103F9E;border-radius: 6px;"
-              >巡检报警</span>
+              <span @click="changePage('/warning')"
+                style="position:absolute;right:10px;top:10px;cursor:pointer;padding: 4px;color:skyblue;font-size:18px;border: 3px solid #103F9E;border-radius: 6px;">巡检报警</span>
+              <!-- 机器人位置埋点 -->
+              <div class="dot d1 " :class="{ robot: currentDot === 'd1' }"></div>
+              <div class="dot d2  " :class="{ robot: currentDot === 'd2' }"></div>
+              <div class="dot d3 " :class="{ robot: currentDot === 'd3' }"></div>
+              <div class="dot d4 " :class="{ robot: currentDot === 'd4' }"></div>
+              <div class="dot d5 " :class="{ robot: currentDot === 'd5' }"></div>
+              <div class="dot d6 " :class="{ robot: currentDot === 'd6' }"></div>
+              <div class="dot d7 " :class="{ robot: currentDot === 'd7' }"></div>
+              <div class="dot d8 " :class="{ robot: currentDot === 'd8' }"></div>
+              <div class="dot d9 " :class="{ robot: currentDot === 'd9' }"></div>
+              <div class="dot d10 " :class="{ robot: currentDot === 'd10' }"></div>
+              <div class="dot d11 " :class="{ robot: currentDot === 'd11' }"></div>
+              <div class="dot d12 " :class="{ robot: currentDot === 'd12' }"></div>
+              <div class="dot d13 " :class="{ robot: currentDot === 'd13' }"></div>
+              <div class="dot d14 " :class="{ robot: currentDot === 'd14' }"></div>
+              <div class="dot d15 " :class="{ robot: currentDot === 'd15' }"></div>
+              <div class="dot d16 " :class="{ robot: currentDot === 'd16' }"></div>
+              <div class="dot d17 " :class="{ robot: currentDot === 'd17' }"></div>
+              <div class="dot d18 " :class="{ robot: currentDot === 'd18' }"></div>
+              <div class="dot d19 " :class="{ robot: currentDot === 'd19' }"></div>
+              <div class="dot d20 " :class="{ robot: currentDot === 'd20' }"></div>
+              <div class="dot d21 " :class="{ robot: currentDot === 'd21' }"></div>
+              <div class="dot d22 " :class="{ robot: currentDot === 'd22' }"></div>
+              <div class="dot d23 " :class="{ robot: currentDot === 'd23' }"></div>
+              <div class="dot d24 " :class="{ robot: currentDot === 'd24' }"></div>
+              <div class="dot d25 " :class="{ robot: currentDot === 'd25' }"></div>
+              <div class="dot d26 " :class="{ robot: currentDot === 'd26' }"></div>
               <!-- 主要设备的预设埋点 -->
               <el-tooltip>
                 <div slot="content"><span style="font-size:14px">撕裂检测设备</span></div>
-                <div @click="changePage('/warning')" class="deviceDot d1 success"></div>
+                <div @click="changePage('/warning')" class="deviceDot break success"></div>
               </el-tooltip>
               <el-tooltip content="多功能检测设备">
                 <div slot="content"><span style="font-size:14px">多功能检测设备</span></div>
-                <div @click="changePage('/warning')" class="deviceDot d2 success"></div>
+                <div @click="changePage('/warning')" class="deviceDot mult success"></div>
               </el-tooltip>
               <!-- <div @click="changePage()" class="deviceDot d3"></div> -->
               <!-- 机器人位置的预设埋点 -->
@@ -116,7 +141,7 @@
             <!-- <dv-capsule-chart :config="PMconfig" style="width:100%;height:100%" /> -->
             <homeBar></homeBar>
           </div>
-         
+
         </dv-border-box-12>
 
       </div>
@@ -179,22 +204,21 @@
                 </div>
               </div>
               <!-- 启动停止按钮 -->
-              <div class="btnCon " 
-              style="display:flex;justify-content:space-around;align-items:center">
+              <div class="btnCon " style="display:flex;justify-content:space-around;align-items:center">
                 <div class="btn "></div>
                 <div class="btn "></div>
               </div>
               <!-- 机器人巡航 -->
             </div>
             <div class="con s2-2-3 flex " style="height:29%;">
-              <span style="width:100%;text-align: center;font-size: 26px;" 
-              class=""> 巡检模式 </span>
+              <span style="width:100%;text-align: center;font-size: 26px;" class=""> 巡检模式 </span>
               <div class="ItemCon ">
                 <div class="insItem"><span>自动巡检</span>
                   <el-tooltip>
                     <div slot="content">
                       <span style="font-size:14px">
-                        机器人将以匀速进行往返巡检，直至电量耗尽则自动回程充电</span></div>
+                        机器人将以匀速进行往返巡检，直至电量耗尽则自动回程充电</span>
+                    </div>
                     <div class="" @click="changeMode(1)"><img :class="inspectionMode === 1 ? '' : 'active'"
                         src="@/assets/img/home/switch.png"></div>
                   </el-tooltip>
@@ -203,7 +227,7 @@
                 <div class="insItem"><span>快速巡检</span>
                   <el-tooltip>
                     <div slot="content"><span style="font-size:14px">
-                      机器人将以较快的速度巡检一圈，便于快速检测工区情况</span></div>
+                        机器人将以较快的速度巡检一圈，便于快速检测工区情况</span></div>
                     <div class="" @click="changeMode(2)"><img :class="inspectionMode === 2 ? '' : 'active'"
                         src="@/assets/img/home/switch.png"></div>
                   </el-tooltip>
@@ -211,7 +235,7 @@
                 <div class="insItem"><span>预设巡检</span>
                   <el-tooltip>
                     <div slot="content"><span style="font-size:14px">
-                      机器人按照预设的时间段和速度巡检。</span></div>
+                        机器人按照预设的时间段和速度巡检。</span></div>
                     <div class="" @click="changeMode(3)"><img :class="inspectionMode === 3 ? '' : 'active'"
                         src="@/assets/img/home/switch.png"></div>
                   </el-tooltip>
@@ -232,7 +256,7 @@ import drawMixin from "@/utils/drawMixin";
 import homePie1 from './charts/homePie1.vue'
 import homePie2 from "./charts/homePie2.vue";
 import homeBar from './charts/homeBar.vue'
-import homeBar2 from './charts/homeBar2.vue'
+// import homeBar2 from './charts/homeBar2.vue'
 import ws from './components/ws.vue'
 export default {
   mixins: [drawMixin],
@@ -307,15 +331,23 @@ export default {
       //主副视频的播放次序占位符
       main_viceFlag: true,
       //当前巡检模式的占位符
-      inspectionMode: 1
+      inspectionMode: 1,
+      //机器人当前位置(测试用)
+      position:0,
+      positionTimer:null,
 
     };
   },
   props: {},
   components: {
-    homePie1, homePie2, homeBar, homeBar2, ws
+    homePie1, homePie2, homeBar, ws
   },
-  computed: {},
+  computed: {
+    //当前显示的第几个点
+    currentDot() {
+      return 'd' + Math.floor(this.position / 46)
+    }
+  },
 
   beforeMount() {
     //渲染视频窗口并自动播放
@@ -330,10 +362,13 @@ export default {
     this.days = recentDays;
     //检测store
     this.$store.commit("changeRobotInfo", ["test"]);
-    this.changeModelSrc()
-    this.modelTimer1 = setInterval(() => {
-      this.changeModelSrc()
-    }, 2000);
+   
+     //改变机器人的位置信息
+     this.positionTimer=setInterval(() => {
+      if(this.position>=1200) this.position=0
+      else this.position+=20
+      //console.log(this.currentDot);
+    }, 1000);
 
   },
   updated() {
@@ -342,6 +377,7 @@ export default {
   beforeDestroy() {
     clearInterval(this.modelTimer1)
     clearInterval(this.timer1)
+    clearInterval(THIS.positionTimer)
   },
   methods: {
     //用于获取近几天的信息
@@ -370,22 +406,7 @@ export default {
       }
       return dateArray;
     },
-    //用于切换主副视频源
-    // changeVideo(direction) {
-    //   if (direction === 'left') {
-    //     let videoList = []     
-    //     videoList[0]=this.videoList[1]
-    //     videoList[1]=this.videoList[2]
-    //     videoList[2]=this.videoList[0]
-    //     this.videoList=videoList     
-    //   } else {
-    //     let videoList = []  
-    //     videoList[0]=this.videoList[2]
-    //     videoList[1]=this.videoList[0]
-    //     videoList[2]=this.videoList[1]
-    //     this.videoList=videoList
-    //   }
-    // },
+
     //获取电量信息
     getBatteryInfo() {
       let batteryInfo = this.$store.state.batteryInfo;
@@ -408,7 +429,7 @@ export default {
       this.inspectionMode = type
     },
     //快速跳转页面
-    changePage(page){
+    changePage(page) {
       this.$router.push(`${page}`)
     },
   },
@@ -479,43 +500,168 @@ span {
     font-size: 32px;
   }
 
-  //logo及连接
-  // .con1 {
-  //   .con1-1 {
-  //     position: relative;
-  //     font-size: 18px;
-
-  //     span:first-of-type {
-  //       position: absolute;
-  //       left: 8px;
-  //       top: 8px;
-  //     }
-
-  //     .icon-connection,
-  //     .icon-disconnect {
-  //       position: absolute;
-  //       left: 28%;
-  //       top: 16%;
-  //       font-size: 46px;
-  //     }
-
-  //     span:last-of-type {
-  //       position: absolute;
-  //       bottom: 8px;
-  //       right: 8px;
-  //     }
-  //   }
-  // }
-
   //皮带视图
   .gallery {
 
-    .success{
+    .success {
       background-color: #32ce8480;
+
     }
 
-    .error{
+    .error {
       background-color: red;
+    }
+
+    .robot {
+      background-color: orange;
+      display: flex !important;
+    }
+
+    .dot {
+      position: absolute;
+      //border: #a89f9f 1px solid;
+      border-radius: 50%;
+      width: 16px;
+      height: 16px;
+      display: none;
+
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      animation: shade 1.4s infinite;
+    }
+
+    //机器人轨迹埋点
+    .d1 {
+      top: 4px;
+      left: 5px;
+    }
+
+    .d2 {
+      top: 40px;
+      left: 100px;
+    }
+
+    .d3 {
+      top: 40px;
+      left: 150px;
+    }
+
+    .d4 {
+      top: 62px;
+      left: 220px;
+    }
+
+    .d5 {
+      top: 90px;
+      left: 290px;
+    }
+
+    .d6 {
+      top: 110px;
+      left: 350px;
+    }
+
+    .d7 {
+      top: 110px;
+      left: 400px;
+    }
+
+    .d8 {
+      top: 110px;
+      left: 450px;
+    }
+
+    .d9 {
+      top: 110px;
+      left: 500px;
+    }
+
+    .d10 {
+      top: 110px;
+      left: 550px;
+    }
+
+    .d11 {
+      top: 110px;
+      left: 550px;
+    }
+
+    .d12 {
+      top: 110px;
+      left: 600px;
+    }
+
+    .d13 {
+      top: 110px;
+      left: 650px;
+    }
+
+    .d14 {
+      top: 110px;
+      left: 700px;
+    }
+
+    .d15 {
+      top: 110px;
+      left: 750px;
+    }
+
+    .d16 {
+      top: 110px;
+      left: 800px;
+    }
+
+    .d17 {
+      top: 110px;
+      left: 850px;
+    }
+
+    .d18 {
+      top: 110px;
+      left: 900px;
+    }
+
+    .d19 {
+      top: 110px;
+      left: 950px;
+    }
+
+    .d20 {
+      top: 110px;
+      left: 1000px;
+    }
+
+    .d21 {
+      top: 110px;
+      left: 1050px;
+    }
+
+    .d22 {
+      top: 110px;
+      left: 1100px;
+    }
+
+    .d23 {
+      top: 110px;
+      left: 1150px;
+    }
+
+    .d24 {
+      top: 130px;
+      left: 1200px;
+    }
+
+    .d25 {
+      top: 150px;
+      left: 1250px;
+    }
+
+    .d26 {
+      top: 180px;
+      left: 1300px;
     }
 
     //机器人和设备的通用样式
@@ -535,13 +681,13 @@ span {
     }
 
     //先给设施设备定位
-    .d1 {
+    .break {
       //撕裂
       left: 260px;
       bottom: 80px;
     }
 
-    .d2 {
+    .mult {
       //多功能
       left: 290px;
       bottom: 80px;
@@ -572,8 +718,8 @@ span {
     .con3Item {
       width: 38%;
       height: 30%;
-      border-radius: 10% 0 0 10%;
-      margin-left: 10px;
+      border-radius: 10px;
+      margin-left: 14px;
       margin-right: 26px;
       display: flex;
       justify-content: space-between;
@@ -590,6 +736,7 @@ span {
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        overflow: visible;
 
         span:first-of-type {
           text-align: left;
@@ -607,11 +754,12 @@ span {
       }
 
       div:last-of-type {
-        width: 50%;
+        width: 70px;
+        height: 70px;
         margin-right: -20%;
-        //height: 160%;
         //border: 1px solid red;
-        border-radius: 50%;
+        overflow: visible;
+        border-radius: 50% !important;
         display: flex;
         justify-content: center;
         align-items: center;
