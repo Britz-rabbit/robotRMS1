@@ -1,12 +1,13 @@
 <template>
   <div class=''>
     <!-- 机器人传感列表数据 -->
-    <div class="listCon" style="width: 100%;margin:0 auto;height: 82vh;margin-bottom: -2vh;">
-      <el-table :data="data" height="96%" highlight-current-row>
+    <div class="listCon" style="width: 100%;padding-bottom: -24px;height: 100%;">
+      <el-table :data="data" height="80vh" highlight-current-row>
         <!-- <el-table-column type="selection" width="80">
           </el-table-column> -->
         <el-table-column type="index" label="序号" width="80"> </el-table-column>
         <el-table-column prop="name" label="传感器名称"> </el-table-column>
+        <el-table-column prop="date" label="日期"> </el-table-column>
         <el-table-column prop="position" label="传感位置"> </el-table-column>
         <el-table-column prop="value" label="传感数值">
         </el-table-column>
@@ -39,7 +40,8 @@ export default {
   name: '',
   data() {
     return {
-
+      //监视窗口，改变列表高度
+      tableheight: null
     }
   },
   props: {
@@ -54,14 +56,48 @@ export default {
   computed: {
 
   },
-  mounted() {
+  //mounted() {
+  // this.tableheight = window.innerHeight - 100
+  // window.onresize = () => {
+  //   this.tableheight = window.innerHeight - 100;
+  //   console.log(this.tableheight);
 
+  // };
+
+  //挂载window.onresize事件(动态设置table高度)
+
+  // },
+
+  mounted() {
+    //挂载window.onresize事件(动态设置table高度)
+    let _this = this;
+    window.onresize = () => {
+      if (_this.resizeFlag) {
+        clearTimeout(_this.resizeFlag);
+      }
+      _this.resizeFlag = setTimeout(() => {
+        _this.getTableHeight();
+        _this.resizeFlag = null;
+      }, 100);
+    };
   },
+
+  created(){
+    this.getTableHeight()
+  },
+
   methods: {
-    //处理多选选中
-    // handleSelectionChange(val){
-    //     console.log(val);
-    // }
+    //计算table高度(动态设置table高度)
+    getTableHeight() {
+      let tableH = 600; //距离页面下方的高度
+      let tableHeightDetil = window.innerHeight - tableH;
+      if (tableHeightDetil <= 300) {
+        this.tableHeight = 300;
+      } else {
+        this.tableHeight = window.innerHeight - tableH;
+      }
+    },
+
   },
 }
 </script>
@@ -74,13 +110,13 @@ export default {
 
 }
 
- .el-table {
+.el-table {
   //color: #4EACE7;
   color: #ffffff;
   background-color: transparent !important;
   //font-size: 14px;
 
-   .cell {
+  .cell {
     color: aliceblue;
     font-size: 17px;
     background-color: transparent !important;
@@ -97,17 +133,17 @@ export default {
   }
 
   //鼠标触发行
-   .hover-row {
+  .hover-row {
     background-color: rgba(120, 178, 218, 0.3) !important;
   }
 
   // 表头
-   th {
+  th {
     background-color: transparent !important;
   }
 
   //表格列
-   td {
+  td {
     background-color: transparent !important;
   }
 }

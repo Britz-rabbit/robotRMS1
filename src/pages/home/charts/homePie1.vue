@@ -13,7 +13,8 @@ export default {
             //定时器占位符
             timer: null,
             //输入的数组
-            val: 10
+            val: 10,
+            myChart : null
         }
     },
     props: {
@@ -25,6 +26,7 @@ export default {
 
     },
     mounted() {
+        this.myChart=echarts.init(document.getElementById('homePie1'))
         //输入的数值
        this.timer= setInterval(() => {
             this.val = Math.random() * 100
@@ -38,7 +40,8 @@ export default {
     },
     methods: {
         changeVal() {
-            let myChart = echarts.init(document.getElementById('homePie1'))
+            //var myChart = echarts.init(document.getElementById('homePie1'))
+            let myChart=this.myChart//为了让控制台没有echart的烦人警告
             var dataArr = [{
                 //指针指向
                 value: this.val,

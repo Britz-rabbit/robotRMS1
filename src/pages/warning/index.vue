@@ -355,10 +355,10 @@ span {
         }
         .devItem {
           width: 120px;
-          height: 50px;
-          line-height: 50px;
+          height:56px;
+          line-height: 56px;
           text-align: center;
-          background: url('@/assets/img/warning/barBG.png') no-repeat;
+          background: url('@/assets/img/warning/deviceButton.png') no-repeat;
           background-size: cover;
           margin-left: 12px;
           margin-top: 16px;

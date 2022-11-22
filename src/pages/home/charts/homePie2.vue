@@ -11,7 +11,8 @@ export default {
     data() {
         return {
             val:96,
-            timer:null
+            timer:null,
+            myChart :null
         }
     },
     props: {
@@ -24,7 +25,7 @@ export default {
     },
 
     mounted() {
-
+       this.myChart = echarts.init(document.getElementById('homePie2'))
        this.timer= setInterval(() => {
             this.val= Math.floor(Math.random()*10+90) 
             this.changeVal()
@@ -234,8 +235,10 @@ export default {
                     }
                 ]
             };
+ 
 
-            let myChart = echarts.init(document.getElementById('homePie2'))
+            //var myChart = echarts.init(document.getElementById('homePie2'))
+            let myChart =this.myChart
 
             myChart.setOption(option)
 

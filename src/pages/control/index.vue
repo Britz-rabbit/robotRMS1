@@ -10,8 +10,8 @@
             <i class="iconfont icon-connection"></i>
           </div>
           <div class="img">
-            <ws v-show="main_viceFlag"></ws>
-            
+            <!-- <ws v-show="main_viceFlag"></ws> -->
+            <img v-show="main_viceFlag" :src="rgb_msg" style="width:100%;height:100%" />
             <IR_video v-show="!main_viceFlag"></IR_video>
           </div>
         </dv-border-box-10>
@@ -20,12 +20,22 @@
       <div class="s2 session">
         <titleBar :title="'控制面板'"></titleBar>
         <div class="con con1">
-          <ctlPanel></ctlPanel>
+          <!-- <ctlPanel></ctlPanel> -->
+          <div class='ctlPanelCon'>
+            <!-- 图标矩阵，图取自element UI -->
+            <div class="iconRect">
+              <div v-for="(item, index) in iconList" class="iconCon ani1" @mouseenter="addAni" @mouseleave="removeAni"
+                @click="contrlBack(index)">
+                <i :class="item.icon"></i>
+                <span>{{ item.title }}</span>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="con flex con2" id="controlVideo">
           <div class="chose " @click="main_viceFlag = true" :class="main_viceFlag ? 'chosed' : ''">
-            <ws></ws>
-            
+            <!-- <ws></ws> -->
+            <img :src="rgb_msg" style="width:100%;height:100%" />
           </div>
           <div class="chose " @click="main_viceFlag = false" :class="!main_viceFlag ? 'chosed' : ''">
             <IR_video></IR_video>
@@ -39,15 +49,15 @@
               <span>机器人控制</span>
             </div>
             <div class="line line1 ">
-              <div @click="sendMsg('robot',3,0,'机器人加速')" class="btn pluse"></div>
+              <div @click="sendMsg('robot', 3, 0, '机器人加速')" class="btn pluse"></div>
             </div>
             <div class="line line2 ">
-              <div @click="sendMsg('robot',2,0,'机器人后退')" class="btn left"></div>
-              <div @click="sendMsg('robot',5,0,'机器人停止')" class="btn pause"></div>
-              <div @click="sendMsg('robot',1,0,'机器人前进')" class="btn right"></div>
+              <div @click="sendMsg('robot', 2, 0, '机器人后退')" class="btn left"></div>
+              <div @click="sendMsg('robot', 5, 0, '机器人停止')" class="btn pause"></div>
+              <div @click="sendMsg('robot', 1, 0, '机器人前进')" class="btn right"></div>
             </div>
             <div class="line line1 ">
-              <div @click="sendMsg('robot',4,0,'机器人减速')" class="btn min"></div>
+              <div @click="sendMsg('robot', 4, 0, '机器人减速')" class="btn min"></div>
             </div>
           </div>
 
@@ -57,14 +67,14 @@
               <span>云台控制</span>
             </div>
             <div class="line line1 ">
-              <div  @click="sendMsg('camera',1,0,'云台向上')" class="btn up"></div>
+              <div @click="sendMsg('camera', 1, 0, '云台向上')" class="btn up"></div>
             </div>
             <div class="line line2 ">
-              <div @click="sendMsg('camera',3,0,'云台左旋')" class="btn left"></div>
-              <div @click="sendMsg('camera',4,0,'云台右旋')" class="btn right"></div>
+              <div @click="sendMsg('camera', 3, 0, '云台左旋')" class="btn left"></div>
+              <div @click="sendMsg('camera', 4, 0, '云台右旋')" class="btn right"></div>
             </div>
             <div class=" line line1 ">
-              <div @click="sendMsg('camera',2,0,'云台向下')" class="btn down"></div>
+              <div @click="sendMsg('camera', 2, 0, '云台向下')" class="btn down"></div>
             </div>
           </div>
         </div>
@@ -72,21 +82,31 @@
     </div>
 
   </dv-full-screen-container>
-
-
-
-
 </template>
 
 <script>
-import ws from './components/ws.vue'
-import ctlPanel from './components/ctlPanel.vue'
+// import ws from './components/ws.vue'
+// import ctlPanel from './components/ctlPanel.vue'
 export default {
   name: '',
   data() {
     return {
       //主副视频的播放次序占位符
       main_viceFlag: true,
+      //控制按钮的图标列表
+      iconList: [
+        { icon: 'iconfont icon-back', title: '全程巡航' },
+        { icon: 'iconfont icon-chongdian', title: '回程充电' },
+        { icon: 'iconfont icon-xiala', title: '语音播报' },
+        { icon: 'iconfont icon-dengguang', title: '补光灯关' },
+        { icon: 'iconfont icon-zhongzhi-', title: '故障复位' },
+        { icon: 'iconfont icon-dengpao', title: '补光灯开' },
+        { icon: 'iconfont icon-jiaoju', title: '焦距回零' },
+        { icon: 'iconfont icon-jujiao', title: '自动聚焦' },
+        { icon: 'iconfont icon-jietu', title: '快速截图' },
+      ],
+      //机器人视频
+      rgb_msg: "",
 
 
     }
@@ -94,21 +114,30 @@ export default {
   props: {
   },
   components: {
-    ws, ctlPanel
+
   },
   computed: {
 
   },
+  beforeCreate() {
+    if (this.cameraWs) this.cameraWs = null
+  },
+
   beforeMount() {
-    this.initPageWS()
+    
 
   },
   mounted() {
-
+    this.initPageWS()
+    this.initWebCameraWs()
+  },
+  beforeDestroy() {
+    this.websocketclose();
   },
   methods: {
-    //pageWs的建立
+    //pageWs的一系列方法
     initPageWS() {
+      //pageWs的建立
       const url = 'ws://192.168.2.91:30006';
       this.pageWs = new WebSocket(url);
       this.pageWs.onopen = this.websocketonopen;
@@ -116,28 +145,63 @@ export default {
       this.pageWs.onmessage = this.websocketonmessage;
       this.pageWs.onclose = this.websocketclose;
     },
-    websocketonopen() {
-      console.log("pageWs连接成功");
+    PageWSonopen() {
+      console.log("pageWs与cameraWs连接成功");
     },
-    websocketonerror(e) {
+    PageWSonerror(e) {
       console.log(e);
     },
-    websocketonmessage(e) {
+    PageWSonmessage(e) {
       //alert(e.data)
     },
-    websocketclose() {
+    PageWSclose() {
       console.log("pageWs关闭");
       this.pageWs.close();
     },
 
+
+    //视频的一系列ws方法
+    initWebCameraWs() {
+      const wsuri = 'ws://192.168.2.228:40001';
+      //创建一个ws实例，并将对应状态的ws处理都写好集中
+      this.cameraWs = new WebSocket(wsuri);
+      this.cameraWs.onopen = this.cameraWsOnopen;
+      this.cameraWs.onerror = this.cameraWsOnerror;
+      this.cameraWs.onmessage = this.cameraWsOnmessage;
+      this.cameraWs.onclose = this.cameraWsClose;
+    },
+    cameraWsOnopen() {
+      console.log("cameraWs连接成功");
+    },
+    cameraWsOnerror(e) {
+      console.log(e);
+    },
+    cameraWsOnmessage(e) {
+      this.rgb_msg = "data:image/jpeg;base64," + e.data;
+    },
+    cameraWsClose() {
+      console.log("cameraWs connection closed");
+      this.cameraWs.close();
+    },
+
+
     //处理功能发送
-    sendMsg(type,action,light,message) {
-      let paras=JSON.stringify({type,action,light,message})
+    sendMsg(type, action, light, message) {
+      let paras = JSON.stringify({ type, action, light, message })
       console.log(paras);
       this.pageWs.send(paras)
-    }
+    },
 
-    
+    //鼠标进入添加动画类名
+    addAni(e) {
+      e.currentTarget.className = 'iconCon ani2'
+    },
+    //鼠标离开移除动画类名
+    removeAni(e) {
+      e.currentTarget.className = 'iconCon ani1'
+    },
+
+
 
 
   },
@@ -234,6 +298,123 @@ img {
 
   .con1 {
     height: 35%;
+
+    .flex {
+      display: flex;
+    }
+
+    // 上方功能矩阵的组件容器
+    .ctlPanelCon {
+      width: 100%;
+      height: 100%;
+      min-width: 240px;
+      box-sizing: border-box;
+      background-color: transparent;
+      display: flex;
+      flex-direction: column;
+    }
+
+    //上方图标矩阵区域
+    .iconRect {
+      display: flex;
+      width: 80%;
+      height: 90%;
+      flex-wrap: wrap;
+      margin: auto;
+    }
+
+    .iconCon {
+      display: flex;
+      background-color: #27519D;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+      width: 30%;
+      height: 30%;
+      border: 2px solid #1C8AD2;
+      border-radius: 8px;
+      box-sizing: border-box;
+      margin: 0.2vw;
+      color: #4FABFD;
+
+      i {
+        text-align: center;
+        font-size: 36px;
+        //color: rgb(8, 61, 50);
+        margin-top: 8px;
+      }
+
+      span {
+        font-size: 22px;
+      }
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      &:active {
+        color: rgb(16, 209, 209);
+
+        i {
+          color: rgb(16, 209, 209);
+        }
+      }
+
+    }
+
+    //图标的移入动画效果
+    .ani1 {
+      position: relative;
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border: 2px solid #f8f8f8;
+        border-radius: 8px;
+        animation: clippath 5s infinite linear;
+      }
+    }
+
+    .ani2 {
+      position: relative;
+      transform: scale(1.06);
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border: 4px solid #f8f8f8;
+        border-radius: 8px;
+        animation: clippath 5s infinite linear;
+      }
+    }
+
+    @keyframes clippath {
+
+      0%,
+      100% {
+        clip-path: inset(0 0 95% 0);
+      }
+
+      25% {
+        clip-path: inset(0 95% 0 0);
+      }
+
+      50% {
+        clip-path: inset(95% 0 0 0);
+      }
+
+      75% {
+        clip-path: inset(0 0 0 95%);
+      }
+    }
   }
 
   .con2 {

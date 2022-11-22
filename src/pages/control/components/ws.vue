@@ -33,6 +33,11 @@ export default {
         },
         websocketonerror(e) {
             console.log(e);
+            //发生error后，等半秒自动重连
+            setTimeout(() => {
+                this.websocketonopen()
+            }, 500);
+
         },
         websocketonmessage(e) {
             this.rgb_msg = "data:image/jpeg;base64," + e.data;

@@ -3,35 +3,35 @@
     <topMenu></topMenu>
     <div class="container">
       <dv-border-box-10>
-        <!-- 上方筛选框 -->
-        <div class="bar" style="position:relative;">
+        <!-- 第一部分 -->
+        <div class=" bar" style="width: 100%;height:6%;position: relative;">
           <el-button type="success" size="mini" @click="changeData('all')">全部设备</el-button>
           <el-badge :value="sensorDangerNum" class="item">
             <el-button type="danger" size="mini" @click="changeData('danger')">异常设备</el-button>
           </el-badge>
-          
           <!-- 时间选择器 -->
-          <div  v-show="!current_historyFlag" style="position: relative;left: 40px;" class="">
+          <div style="position: relative;left: 40px;" class="">
             <el-date-picker v-model="dateValue" type="daterange" align="right" value-format="timestamp" unlink-panels
               range-separator="至" start-placeholder="查询起始" end-placeholder="查询终止" :picker-options="pickerOptions">
             </el-date-picker>
           </div>
-
+          <el-button type="warning" size="mini" @click="changeData('history')"
+            style="margin-left: 50px;position: relative;z-index: 9;">确定查询
+          </el-button>
         </div>
-        <!-- 列表，作为组件需要将数据传入 -->
-        <list v-show="current_historyFlag" :data="robotTableDate"></list>
-        <list v-show="!current_historyFlag" :data="robotTableDate"></list>
-        <div  v-show="!current_historyFlag" class="" style="display: flex;justify-content: flex-end;margin-right: 26px;">
-          <el-pagination @current-change="changePage" background :current-page.sync="currentPage3" :page-size="100"
-            layout="prev, pager, next" :total="1000">
+        <!-- 第二部分 -->
+        <div class="" style="width: 100%;height:86%">
+          <list :data="robotTableData"></list>
+        </div>
+        <!-- 第三部分 -->
+        <div class="" style="width: 98%;height:10%;display: flex;justify-content: flex-end;margin-right: 2%;">
+          <el-pagination @current-change="changePage" background :current-page.sync="currentPage" :page-size="15"
+            layout="prev, pager, next" :total="$store.state.sensorInfo.length + 1">
           </el-pagination>
         </div>
-
       </dv-border-box-10>
     </div>
   </dv-full-screen-container>
-
-
 </template>
 
 <script>
@@ -43,13 +43,12 @@ export default {
     return {
       //tabs的激活页占位符
       activeName: 'first',
-      //传感器的数据的占位符
-      robotTableDate: [],
+      //传感器数据列表
+      robotTableData: [],
       //当前的传感器异常且未确认的数量数量
       sensorDangerNum: 0,
       //历史查询与实时数据的标识符，默认显示实时数据
-      current_historyFlag: false,
-      //与服务器交互的查询日期，以时间戳形式
+      //与服务器交互的查询日期，以时间戳形式。下标0是起始事件，下标1是截至时间
       dateValue: '',
       //日期选择器的快速选择选项
       pickerOptions: {
@@ -81,6 +80,8 @@ export default {
       },
       //分页器的当前页面
       currentPage: 1,
+      //对应页数的数据，每页15个数据
+      currentTableData: null
     }
   },
   props: {
@@ -95,33 +96,61 @@ export default {
     this.changeData('all')
   },
   methods: {
-    //对多选按钮的回调处理
-    handleSelectionChange(val) {
-      this.multipleSelection = val;
-    },
     //点击改变列表数据的回调
     changeData(type) {
       switch (type) {
+        //当前的全部数据
         case 'all':
-         
-          //this.current_historyFlag=true
-          this.robotTableDate = this.$store.state.sensorInfo
+          this.robotTableData = this.$store.state.sensorInfo
           this.sensorDangerNum = this.$store.state.sensorInfo.filter((item) => !item.isConfirm).length
           break;
-        case 'danger':
-         
-          //this.current_historyFlag=true
-          this.robotTableDate = this.$store.state.sensorInfo.filter((item) => item.isDanger)
+        //当前的异常数据
+        case 'danger':         
+          this.robotTableData = this.$store.state.sensorInfo.filter((item) => item.isDanger)
           this.sensorDangerNum = this.$store.state.sensorInfo.filter((item) => !item.isConfirm).length
+          break;
+        //历史查询数据
+        case 'history':         
+          console.log(this.filterTime(this.dateValue[0]));
+          console.log(this.filterTime(this.dateValue[1]));
           break;
         default:
           break;
       }
     },
-    //更改页面
-    changePage() {
-
+    //时间戳转化为年月日
+    filterTime(time) {
+      const date = new Date(time)
+      const Y = date.getFullYear()
+      const M = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1
+      const D = date.getDate()
+      return `${Y}-${M}-${D}`
     },
+    //修改分页器当前页，并显示对应页数的数据
+    changePage() {
+      //先将整个数据分成15个一份的二位数组，再取对应的数据。实际上线后不必如此
+      this.robotTableData=this.divideArr(this.$store.state.sensorInfo,15)[this.currentPage-1]
+    },
+    //将数组分割成num个一份的二维数组
+    divideArr(arr,num) {
+      var newArr=[]//分割后的二维数组
+      var Flag=0//分割前数组元素的计数符
+      for (let i = 0; i < Math.ceil(arr.length / 15); i++) {
+        let temArr=[]//临时存贮的小数组
+        for (let j = 0; j < num; j++) {
+          if(!arr[Flag]) break
+          temArr.push(arr[Flag])
+          Flag++
+        }
+        newArr.push(temArr)
+      }
+      console.log(newArr);
+      return newArr
+    },
+
+
+
+
   },
   watch: {
 
@@ -152,29 +181,29 @@ span {
   //border: 1px solid red;
 }
 
-//时间选择器的样式
-// .el-date-editor--daterange.el-input,
-// .el-date-editor--daterange.el-input__inner,
-// .el-date-editor--timerange.el-input,
-// .el-date-editor--timerange.el-input__inner{
-//   background-color: rgba(38, 118, 172, 0.3) ;
- 
-// }
-
 .bar {
   width: 100%;
-  height: 5vh;
-  margin: 1vh;
-  padding-top: 2vh;
+  height: 60px;
+
+  padding-top: 26px;
   display: flex;
   // justify-content: center;
   align-items: center;
 
   .el-button {
-    margin-left: 1.2vw;
+    margin-left: 26px;
     height: 38px;
     font-size: 18px;
   }
 }
+</style>
 
+<style lang="less">
+//修改分页器背景
+.el-pagination.is-background .btn-next,
+.el-pagination.is-background .btn-prev,
+.el-pagination.is-background .el-pager li {
+  background-color: #114388 !important;
+  color: #409EFF;
+}
 </style>

@@ -69,9 +69,7 @@
               <div class="dot d21 " :class="{ robot: currentDot === 'd21' }"></div>
               <div class="dot d22 " :class="{ robot: currentDot === 'd22' }"></div>
               <div class="dot d23 " :class="{ robot: currentDot === 'd23' }"></div>
-              <div class="dot d24 " :class="{ robot: currentDot === 'd24' }"></div>
-              <div class="dot d25 " :class="{ robot: currentDot === 'd25' }"></div>
-              <div class="dot d26 " :class="{ robot: currentDot === 'd26' }"></div>
+
               <!-- 主要设备的预设埋点 -->
               <el-tooltip>
                 <div slot="content"><span style="font-size:14px">撕裂检测设备</span></div>
@@ -154,8 +152,8 @@
           <titleBar :title="'主视频窗口'"></titleBar>
           <!--主视频 -->
           <div class="session s2-1-1 " style="width:100%;height:70%;overflow: hidden;">
-            <ws v-show="!main_viceFlag"></ws>
-            <!-- <robot_video v-if="main_viceFlag"></robot_video> -->
+            <!-- <ws v-show="!main_viceFlag"></ws> -->
+            <img v-show="!main_viceFlag" :src="rgb_msg" style="width:100%;height:100%" />
             <IR_video v-show="main_viceFlag"></IR_video>
           </div>
           <!-- 中间底部图表 -->
@@ -183,8 +181,8 @@
             <titleBar :title="'副视频窗口'"></titleBar>
             <!-- 副视频 -->
             <div class="con s2-2-1 " @click="main_viceFlag = !main_viceFlag" style="height:35%;padding-top: 3%;">
-              <ws v-if="main_viceFlag"></ws>
-              <!-- <robot_video v-show=" main_viceFlag"></robot_video> -->
+              <!-- <ws v-show="main_viceFlag"></ws> -->
+              <img v-show="main_viceFlag" :src="rgb_msg" style="width:100%;height:100%" />
               <IR_video v-show="!main_viceFlag"></IR_video>
             </div>
             <!-- 机器人控制 -->
@@ -257,7 +255,7 @@ import homePie1 from './charts/homePie1.vue'
 import homePie2 from "./charts/homePie2.vue";
 import homeBar from './charts/homeBar.vue'
 // import homeBar2 from './charts/homeBar2.vue'
-import ws from './components/ws.vue'
+// import ws from './components/ws.vue'
 export default {
   mixins: [drawMixin],
   name: "",
@@ -333,19 +331,21 @@ export default {
       //当前巡检模式的占位符
       inspectionMode: 1,
       //机器人当前位置(测试用)
-      position:0,
-      positionTimer:null,
+      position: 0,
+      positionTimer: null,
+      //机器人视频
+      rgb_msg: "",
 
     };
   },
   props: {},
   components: {
-    homePie1, homePie2, homeBar, ws
+    homePie1, homePie2, homeBar,
   },
   computed: {
     //当前显示的第几个点
     currentDot() {
-      return 'd' + Math.floor(this.position / 46)
+      return 'd' + Math.floor(this.position / 52)
     }
   },
 
@@ -362,22 +362,21 @@ export default {
     this.days = recentDays;
     //检测store
     this.$store.commit("changeRobotInfo", ["test"]);
-   
-     //改变机器人的位置信息
-     this.positionTimer=setInterval(() => {
-      if(this.position>=1200) this.position=0
-      else this.position+=20
+    //改变机器人的位置信息
+    this.positionTimer = setInterval(() => {
+      if (this.position >= 1200) this.position = 0
+      else this.position += 20
       //console.log(this.currentDot);
     }, 1000);
-
-  },
-  updated() {
+    //获取视频
+    this.initWebCameraWs()
 
   },
   beforeDestroy() {
     clearInterval(this.modelTimer1)
     clearInterval(this.timer1)
     clearInterval(THIS.positionTimer)
+    this.cameraWsClose();
   },
   methods: {
     //用于获取近几天的信息
@@ -431,6 +430,31 @@ export default {
     //快速跳转页面
     changePage(page) {
       this.$router.push(`${page}`)
+    },
+
+    //视频的一系列ws方法
+    initWebCameraWs() {
+      const wsuri = 'ws://192.168.2.228:40001';
+      //创建一个ws实例，并将对应状态的ws处理都写好集中
+      this.cameraWs = new WebSocket(wsuri);
+      this.cameraWs.onopen = this.cameraWsOnopen;
+      this.cameraWs.onerror = this.cameraWsOnerror;
+      this.cameraWs.onmessage = this.cameraWsOnmessage;
+      this.cameraWs.onclose = this.cameraWsClose;
+    },
+    cameraWsOnopen() {
+      console.log("cameraWs连接成功");
+    },
+    cameraWsOnerror(e) {
+      console.log(e);
+      //发生error后，等半秒自动重连
+    },
+    cameraWsOnmessage(e) {
+      this.rgb_msg = "data:image/jpeg;base64," + e.data;
+    },
+    cameraWsClose() {
+      console.log("cameraWs connection closed");
+      this.cameraWs.close();
     },
   },
 };
@@ -523,7 +547,7 @@ span {
       border-radius: 50%;
       width: 16px;
       height: 16px;
-      display: none;
+      //display: none;
 
 
       &:hover {
@@ -535,134 +559,121 @@ span {
 
     //机器人轨迹埋点
     .d1 {
-      top: 4px;
-      left: 5px;
+      top: 40px;
+      left: 15px;
     }
 
     .d2 {
       top: 40px;
-      left: 100px;
+      left: 30px;
     }
 
     .d3 {
-      top: 40px;
-      left: 150px;
+      top: 48px;
+      left: 45px;
     }
 
     .d4 {
-      top: 62px;
-      left: 220px;
+      top: 58px;
+      left: 60px;
     }
 
     .d5 {
-      top: 90px;
-      left: 290px;
+      top: 68px;
+      left: 75px;
     }
 
     .d6 {
-      top: 110px;
-      left: 350px;
+      top: 78px;
+      left: 90px;
     }
 
     .d7 {
-      top: 110px;
-      left: 400px;
+      top: 78px;
+      left: 105px;
     }
 
     .d8 {
-      top: 110px;
-      left: 450px;
+      top: 78px;
+      left: 120px;
     }
 
     .d9 {
-      top: 110px;
-      left: 500px;
+      top: 78px;
+      left: 135px;
     }
 
     .d10 {
-      top: 110px;
-      left: 550px;
+      top: 78px;
+      left: 150px;
     }
 
     .d11 {
-      top: 110px;
-      left: 550px;
+      top: 78px;
+      left: 165px;
     }
 
     .d12 {
-      top: 110px;
-      left: 600px;
+      top: 78px;
+      left: 180px;
     }
 
     .d13 {
-      top: 110px;
-      left: 650px;
+      top: 78px;
+      left: 195px;
     }
 
     .d14 {
-      top: 110px;
-      left: 700px;
+      top: 78px;
+      left: 210px;
     }
 
     .d15 {
-      top: 110px;
-      left: 750px;
+      top: 78px;
+      left: 230px;
     }
 
     .d16 {
-      top: 110px;
-      left: 800px;
+      top: 78px;
+      left: 245px;
     }
 
     .d17 {
-      top: 110px;
-      left: 850px;
+      top: 78px;
+      left: 260px;
     }
 
     .d18 {
-      top: 110px;
-      left: 900px;
+      top: 78px;
+      left: 275px;
     }
 
     .d19 {
-      top: 110px;
-      left: 950px;
+      top: 78px;
+      left: 290px;
     }
 
     .d20 {
-      top: 110px;
-      left: 1000px;
+      top: 78px;
+      left: 305px;
     }
 
     .d21 {
-      top: 110px;
-      left: 1050px;
+      top: 86px;
+      left: 320px;
     }
 
     .d22 {
-      top: 110px;
-      left: 1100px;
+      top: 96px;
+      left: 335px;
     }
 
     .d23 {
-      top: 110px;
-      left: 1150px;
+      top: 106px;
+      left: 350px;
     }
 
-    .d24 {
-      top: 130px;
-      left: 1200px;
-    }
 
-    .d25 {
-      top: 150px;
-      left: 1250px;
-    }
-
-    .d26 {
-      top: 180px;
-      left: 1300px;
-    }
 
     //机器人和设备的通用样式
     .deviceDot,

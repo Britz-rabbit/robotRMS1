@@ -22,8 +22,8 @@ export default [
             title:'首页',
             index:0
         },
-        // component: () => import('../pages/home/index')
-       component:home
+         component: () => import('../pages/home/index')
+       //component:home
     },
 
     {

@@ -15,7 +15,7 @@ const store = new Vuex.Store({
               //名称
               name: '烟雾传感器',
               //时间
-              date: 123658652,
+              date: '2022-11-16',
               //根据不同传感器添加不同单位，value同理
               position: `32米`,
               value: `160`,
@@ -28,6 +28,8 @@ const store = new Vuex.Store({
             },
             {
               name: '烟雾传感器',
+               //时间
+               date: '2022-11-16',
               //根据不同传感器添加不同单位，value同理
               position: `32米`,
               value: `160`,
@@ -40,6 +42,8 @@ const store = new Vuex.Store({
             },
             {
               name: '烟雾传感器',
+               //时间
+               date: '2022-11-16',
               //根据不同传感器添加不同单位，value同理
               position: `32米`,
               value: `160`,
@@ -52,6 +56,8 @@ const store = new Vuex.Store({
             },
             {
               name: '烟雾传感器',
+               //时间
+               date: '2022-11-16',
               //根据不同传感器添加不同单位，value同理
               position: `32米`,
               value: `160`,
@@ -64,6 +70,8 @@ const store = new Vuex.Store({
             },
             {
               name: '烟雾传感器',
+               //时间
+               date: '2022-11-16',
               //根据不同传感器添加不同单位，value同理
               position: `32米`,
               value: `160`,
@@ -76,6 +84,8 @@ const store = new Vuex.Store({
             },
             {
               name: '烟雾传感器',
+               //时间
+               date: '2022-11-16',
               //根据不同传感器添加不同单位，value同理
               position: `32米`,
               value: `160`,
@@ -88,6 +98,8 @@ const store = new Vuex.Store({
             },
             {
               name: '烟雾传感器',
+               //时间
+               date: '2022-11-16',
               //根据不同传感器添加不同单位，value同理
               position: `32米`,
               value: `160`,
@@ -100,6 +112,8 @@ const store = new Vuex.Store({
             },
             {
               name: '烟雾传感器',
+               //时间
+               date: '2022-11-16',
               //根据不同传感器添加不同单位，value同理
               position: `32米`,
               value: `160`,
@@ -112,6 +126,8 @@ const store = new Vuex.Store({
             },
             {
               name: '烟雾传感器',
+               //时间
+               date: '2022-11-16',
               //根据不同传感器添加不同单位，value同理
               position: `32米`,
               value: `160`,
@@ -124,6 +140,8 @@ const store = new Vuex.Store({
             },
             {
               name: '烟雾传感器',
+               //时间
+               date: '2022-11-16',
               //根据不同传感器添加不同单位，value同理
               position: `32米`,
               value: `160`,
@@ -136,6 +154,8 @@ const store = new Vuex.Store({
             },
             {
               name: '烟雾传感器',
+               //时间
+               date: '2022-11-16',
               //根据不同传感器添加不同单位，value同理
               position: `32米`,
               value: `160`,
@@ -148,6 +168,8 @@ const store = new Vuex.Store({
             },
             {
               name: '烟雾传感器',
+               //时间
+               date: '2022-11-16',
               //根据不同传感器添加不同单位，value同理
               position: `32米`,
               value: `160`,
@@ -160,6 +182,8 @@ const store = new Vuex.Store({
             },
             {
               name: '烟雾传感器',
+               //时间
+               date: '2022-11-16',
               //根据不同传感器添加不同单位，value同理
               position: `32米`,
               value: `160`,
@@ -172,6 +196,8 @@ const store = new Vuex.Store({
             },
             {
               name: '烟雾传感器',
+               //时间
+               date: '2022-11-16',
               //根据不同传感器添加不同单位，value同理
               position: `32米`,
               value: `160`,
@@ -184,6 +210,8 @@ const store = new Vuex.Store({
             },
             {
               name: '烟雾传感器',
+               //时间
+               date: '2022-11-16',
               //根据不同传感器添加不同单位，value同理
               position: `32米`,
               value: `160`,
@@ -196,6 +224,78 @@ const store = new Vuex.Store({
             },
             {
               name: '烟雾传感器',
+               //时间
+               date: '2022-11-16',
+              //根据不同传感器添加不同单位，value同理
+              position: `32米`,
+              value: `160`,
+              //是否异常
+              isDanger: false,
+              //是否确认
+              isConfirm: true,
+              //详细情况
+              detail: {}
+            },
+            {
+              name: '烟雾传感器',
+               //时间
+               date: '2022-11-16',
+              //根据不同传感器添加不同单位，value同理
+              position: `32米`,
+              value: `160`,
+              //是否异常
+              isDanger: true,
+              //是否确认
+              isConfirm: true,
+              //详细情况
+              detail: {}
+            },
+            {
+              name: '烟雾传感器',
+               //时间
+               date: '2022-11-16',
+              //根据不同传感器添加不同单位，value同理
+              position: `32米`,
+              value: `160`,
+              //是否异常
+              isDanger: true,
+              //是否确认
+              isConfirm: true,
+              //详细情况
+              detail: {}
+            },
+            {
+              name: '烟雾传感器',
+               //时间
+               date: '2022-11-16',
+              //根据不同传感器添加不同单位，value同理
+              position: `32米`,
+              value: `160`,
+              //是否异常
+              isDanger: true,
+              //是否确认
+              isConfirm: false,
+              //详细情况
+              detail: {}
+            },
+            {
+              name: '烟雾传感器',
+               //时间
+               date: '2022-11-16',
+              //根据不同传感器添加不同单位，value同理
+              position: `32米`,
+              value: `160`,
+              //是否异常
+              isDanger: false,
+              //是否确认
+              isConfirm: true,
+              //详细情况
+              detail: {}
+            },
+            {
+              name: '烟雾传感器',
+               //时间
+               date: '2022-11-16',
               //根据不同传感器添加不同单位，value同理
               position: `32米`,
               value: `160`,

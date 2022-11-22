@@ -75,7 +75,8 @@ export default {
         getTime() {
             let d = new Date()
             let days = (d.getMonth() + 1) + '月' + (d.getDate() + '日 ')
-            let hours = d.getHours() + ':' + d.getMinutes()
+            //let hours = d.getHours() + ':' + (d.getMinutes())+':'+(d.getSeconds())
+            let hours = d.getHours() + ':' + (d.getMinutes())
             return days + ' ' + hours
         },
         //进行路由跳转，外加节流

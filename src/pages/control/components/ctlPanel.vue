@@ -15,7 +15,6 @@
 
 <script>
 import axios from 'axios'
-import Html2canvas from 'html2canvas'
 export default {
     name: '',
     data() {

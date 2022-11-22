@@ -16,12 +16,14 @@ import topMenu from './components/topMenu'
 import waterBall from './components/ehcarts/waterBall'
 import IR_video from './components/IR_video'
 import robot_video from './components/robot_video'
+//import ws from './components/ws'
 
 Vue.component('titleBar',titleBar)
 Vue.component('waterBall',waterBall)
 Vue.component('topMenu',topMenu)
 Vue.component('IR_video',IR_video)
 Vue.component('robot_video',robot_video)
+//Vue.component('ws',ws)
 
 
 //创建并挂载$bus
