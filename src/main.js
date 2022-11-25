@@ -18,30 +18,37 @@ import IR_video from './components/IR_video'
 import robot_video from './components/robot_video'
 //import ws from './components/ws'
 
-Vue.component('titleBar',titleBar)
-Vue.component('waterBall',waterBall)
-Vue.component('topMenu',topMenu)
-Vue.component('IR_video',IR_video)
-Vue.component('robot_video',robot_video)
+Vue.component('titleBar', titleBar)
+Vue.component('waterBall', waterBall)
+Vue.component('topMenu', topMenu)
+Vue.component('IR_video', IR_video)
+Vue.component('robot_video', robot_video)
 //Vue.component('ws',ws)
 
 
 //创建并挂载$bus
 class Bus {
-  constructor(){
+  constructor() {
     this.callbacks = {}
   }
-  $on(name, fn){
+  $on(name, fn) {
     this.callbacks[name] = this.callbacks[name] || []
     this.callbacks[name].push(fn)
   }
-  $emit(name, args){
-    if(this.callbacks[name]){
+  $emit(name, args) {
+    if (this.callbacks[name]) {
       this.callbacks[name].forEach(cb => cb(args))
     }
   }
 }
 Vue.prototype.$bus = new Bus();
+
+// 处理笔记本系统默认系统比例为150%带来的布局影响
+// import { detectZoom } from '@/utils/detectZoom.js';
+// const m = detectZoom();
+// document.body.style.zoom = 100 / Number(m);
+
+
 
 //引入websocket
 //import websocket from './utils/websocket'

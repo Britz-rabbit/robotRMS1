@@ -2,7 +2,7 @@ import Vue from 'vue';
 import {Icon,Table,TableColumn,Button,Carousel,CarouselItem,
     Dialog,Card,Select,Option,Tooltip,Calendar,Badge,Popover,Tag,
     Tabs,TabPane,Switch,Input,Row,FormItem,Col,Form,Loading,MessageBox,Message,
-    DatePicker,Pagination
+    DatePicker,Pagination,TimePicker
 } from 'element-ui';
 
 Vue.use(Icon)
@@ -30,6 +30,7 @@ Vue.use(Col)
 Vue.use(Form)
 Vue.use(DatePicker)
 Vue.use(Pagination)
+Vue.use(TimePicker)
 
 Vue.use(Loading)
 Vue.component(MessageBox.name,MessageBox)

@@ -240,6 +240,33 @@
                 </div>
               </div>
             </div>
+
+            <!-- 预设巡检的设定对话框 -->
+            <el-dialog title="预设巡检" top="25vh" :modal="false" :visible.sync="isPlaningPatrol">
+              <!-- 时间选择器 -->
+              <el-time-picker v-model="planingPatrolInfo.startTime" :picker-options="{
+                selectableRange: '00:00:00 - 23:59:59'
+              }" placeholder="巡检起始时间">
+              </el-time-picker>
+              &nbsp;—————&nbsp;
+              <el-time-picker v-model="planingPatrolInfo.endTime" :picker-options="{
+                selectableRange: '00:00:00 - 23:59:59'
+              }" placeholder="巡检终止时间">
+              </el-time-picker>
+
+              <div style="height:40px"></div>
+              <!-- 巡检速度 -->
+              <el-select width="100" v-model="planingPatrolInfo.speed" placeholder="请选择巡检速度">
+                <el-option v-for="item in speedOpt" :key="item.value" :label="item.label" :value="item.label">
+                </el-option>
+              </el-select>
+
+              <div slot="footer" class="dialog-footer">
+                <el-button @click="isPlaningPatrol = false">取 消</el-button>
+                <el-button type="primary" @click="isPlaningPatrol = false">设 定</el-button>
+              </div>
+            </el-dialog>
+
           </dv-border-box-12>
 
         </div>
@@ -329,12 +356,55 @@ export default {
       //主副视频的播放次序占位符
       main_viceFlag: true,
       //当前巡检模式的占位符
-      inspectionMode: 1,
+      inspectionMode: 0,
       //机器人当前位置(测试用)
       position: 0,
       positionTimer: null,
       //机器人视频
       rgb_msg: "",
+      //预设巡检的对话框标识符
+      isPlaningPatrol: false,
+      //几个基础的速度选择
+      speedOpt: [{
+        value: '选项1',
+        label: '0.5m/s'
+      }, {
+        value: '选项2',
+        label: '0.6m/s'
+      }, {
+        value: '选项3',
+        label: '0.7m/s'
+      }, {
+        value: '选项4',
+        label: '0.8m/s'
+      }, {
+        value: '选项5',
+        label: '0.9m/s'
+      }, {
+        value: '选项6',
+        label: '1.0m/s'
+      }, {
+        value: '选项7',
+        label: '1.1m/s'
+      }, {
+        value: '选项8',
+        label: '1.2m/s'
+      }, {
+        value: '选项9',
+        label: '1.3m/s'
+      }, {
+        value: '选项10',
+        label: '1.4m/s'
+      }, {
+        value: '选项11',
+        label: '1.5m/s'
+      }],
+      //预设巡检的信息
+      planingPatrolInfo: {
+        startTime: '',//巡检初始时间
+        endTime: '',//巡检结束时间
+        speed: '请选择巡检速度',//机器人的巡检速度
+      }
 
     };
   },
@@ -425,7 +495,11 @@ export default {
     //更改巡检模式
     changeMode(type) {
       //alert(`更改为第${type}种巡检类型`)
-      this.inspectionMode = type
+      if (this.inspectionMode === type) this.inspectionMode = 0
+      else this.inspectionMode = type
+
+      if (this.inspectionMode === 3) this.isPlaningPatrol = true
+
     },
     //快速跳转页面
     changePage(page) {

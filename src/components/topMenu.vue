@@ -83,7 +83,7 @@ export default {
         changePage(item) {
             this._.throttle(() => {
                 if (item.path === this.$route.fullPath) return
-                if (!item.path){window.open('http://39.105.146.47:8777') } 
+                if (!item.path) { window.open('http://39.105.146.47:8777') }
                 //console.log('节流成功了');
                 this.$router.push(item.path)
             }, 100)()
@@ -152,7 +152,7 @@ export default {
     //border: 1px solid red;
     display: flex;
     justify-content: center;
-   // align-items: flex-start;
+    // align-items: flex-start;
     z-index: 9;
     color: #CDF0FF;
     font-size: 46px;

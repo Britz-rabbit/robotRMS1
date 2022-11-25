@@ -1,6 +1,6 @@
 <template>
     <div class=''>
-        <div id="analyzeRadar" style="width:460px;height:300px"></div>
+        <div id="analyzeRadar" style="width:400px;height:200px"></div>
     </div>
 </template>
 
@@ -22,203 +22,130 @@ export default {
 
     },
     mounted() {
-        var legendData = ['数据1', '数据2', '数据3']; //图例
+        let datas = [
+            { value: 20, name: '比率1', rate: '20%' },
+            { value: 10, name: '比率2', rate: '10%' },
+            { value: 22, name: '比率3', rate: '22%' },
+            { value: 11, name: '比率4', rate: '11%' },
+            { value: 13, name: '比率5', rate: '13%' },
+        ];
 
-        var indicator = [{
-            text: '指标1',
-            max: 30
-        },
-        {
-            text: '指标2',
-            max: 30
-        },
-        {
-            text: '指标3',
-            max: 30
-        },
-        {
-            text: '指标4',
-            max: 30,
+        datas=datas.sort((a,b)=>a.value-b.value)
+
+        let datap = [];
+        let colorList = ['#3399ff', '#85c285', '#ffc266', '#ff8585', '#c299ff',];
+        let color = colorList.splice(0, datas.length);
+        for (let i = 0; i < datas.length; i++) {
+            datap.push({
+                value: datas[i].value,
+                //name: 'rosetemp' + i,
+            });
+            color.push('transparent');
         }
+        datap = datas.concat(datap);
 
-        ];
-        var dataArr = [
-            {
-                value: [25, 29, 29, 27],
-              
-                name: legendData[0],
-                itemStyle: {
-                    normal: {
-                        lineStyle: {
-                            color: '#00D7FF',
-                            // shadowColor: '#4BFFFC',
-                            // shadowBlur: 10,
-                        },
-                        shadowColor: '#00D7FF',
-                        shadowBlur: 10,
-                    },
-                },
-                areaStyle: {
-                    normal: { // 单项区域填充样式
-                        color: {
-                            type: 'linear',
-                            x: 0, //右
-                            y: 0, //下
-                            x2: 1, //左
-                            y2: 1, //上
-                            colorStops: [{
-                                offset: 0,
-                                color: '#00D7FF'
-                            }, {
-                                offset: 0.5,
-                                color: 'rgba(0,0,0,0)'
-                            }, {
-                                offset: 1,
-                                color: '#00D7FF'
-                            }],
-                            globalCoord: false
-                        },
-                        opacity: 1 // 区域透明度
-                    }
-                }
-            },
-            {
-                value: [10, 11, 5, 5],
-                name: legendData[1],
-                itemStyle: {
-                    normal: {
-                        lineStyle: {
-                            color: '#C000FF',
-                            // shadowColor: '#4A99FF',
-                            // shadowBlur: 10,
-                        },
-                        shadowColor: '#C000FF',
-                        shadowBlur: 10,
-                    },
-                },
-                areaStyle: {
-                    normal: { // 单项区域填充样式
-                        color: {
-                            type: 'linear',
-                            x: 0, //右
-                            y: 0, //下
-                            x2: 1, //左
-                            y2: 1, //上
-                            colorStops: [{
-                                offset: 0,
-                                color: '#C000FF'
-                            }, {
-                                offset: 0.5,
-                                color: 'rgba(0,0,0,0)'
-                            }, {
-                                offset: 1,
-                                color: '#C000FF'
-                            }
-                            ],
-                            globalCoord: false
-                        },
-                        opacity: 1 // 区域透明度
-                    }
-                }
-            },
-            {
-                value: [23, 23, 29, 29],
-                name: legendData[2],
-                itemStyle: {
-                    normal: {
-                        lineStyle: {
-                            color: '#00FFB4',
-                            // shadowColor: '#4BFFFC',
-                            // shadowBlur: 10,
-                        },
-                        shadowColor: '#00FFB4',
-                        shadowBlur: 10,
-                    },
-                },
-                areaStyle: {
-                    normal: { // 单项区域填充样式
-                        color: {
-                            type: 'linear',
-                            x: 0, //右
-                            y: 0, //下
-                            x2: 1, //左
-                            y2: 1, //上
-                            colorStops: [{
-                                offset: 0,
-                                color: '#00FFB4'
-                            }, {
-                                offset: 0.5,
-                                color: 'rgba(0,0,0,0)'
-                            }, {
-                                offset: 1,
-                                color: '#00FFB4'
-                            }],
-                            globalCoord: false
-                        },
-                        opacity: 1 // 区域透明度
-                    }
-                }
-            }
-
-        ];
-        var colorArr = ['#00D7FF', '#C000FF', '#00FFB4']; //颜色
         let option = {
-            backgroundColor: '',
-            color: colorArr,
-         
+            backgroundColor: "",
             legend: {
+                bottom: '25%',
+                left: '1%',
                 orient: 'vertical',
-                icon: 'squareRatio', //图例形状
-                data: legendData,
-                bottom: '35%',
-                right: '5%',
-                itemWidth: 14, // 图例标记的图形宽度。[ default: 25 ]
-                itemHeight: 14, // 图例标记的图形高度。[ default: 14 ]
-                itemGap: 21, // 图例每项之间的间隔。[ default: 10 ]横向布局时为水平间隔，纵向布局时为纵向间隔。
+                data: datas,
+                icon: 'circle',
+                itemWith: 8,
+                itemHeight: 8,
+                itemGap: 10,
+                // padding: [5, 10, 5, 0],
+                // formatter(name) {
+                //     const item = datas.filter((item) => item.name === name)[0];
+                //     return `{name|${name}}{value| ${parseInt(item.value).toLocaleString()}}${item.rate}`;
+                // },
                 textStyle: {
-                    fontSize: 14,
-                    color: '#fff',
+                    rich: {
+                        name: {
+                            color: '#595959',
+                            fontSize: 24,
+                            width: 150,
+                        },
+                        value: {
+                            color: '#595959',
+                            fontSize: 24,
+                            width: 120,
+                        },
+                    }, 
                 },
             },
-            radar: {
-                // shape: 'circle',
-                name: {
-                    textStyle: {
-                        color: '#fff',
-                        fontSize: 16
+            title: {
+                text: '',
+                top: '47%',
+                textAlign: 'center',
+                left: '49.5%',
+                textStyle: {
+                    color: '#262626',
+                    fontSize: 22,
+                    fontWeight: '400',
+                },
+            },
+            color: color,
+            series: [
+                //大背景
+                // {
+                //     name: 'Nightingale Chart',
+                //     type: 'pie',
+                //     radius: [40, 200],
+                //     center: ['50%', '50%'],
+                //     roseType: 'radius',
+                //     silent: true,
+                //     startAngle: 180,
+                //     legendHoverLink: false,
+                //     itemStyle: {
+                //         borderRadius: 0,
+                //     },
+                //     label: {
+                //         show: false,
+                //     },
+                //     emphasis: {
+                //         label: {
+                //             show: false,
+                //         },
+                //     },
+                //     color: ['#f6f8fe', '#ffffff'],
+                //     data: [
+                //         { value: 10, name: 'r' },
+                //         { value: 10, name: 'ro' },
+                //     ],
+                // },
+                {
+                    name: 'Nightingale Chart',
+                    type: 'pie',
+                    radius: [20, 190],
+                    center: ['50%', '86%'],
+                    roseType: 'radius',
+                    startAngle: 180,
+                    minAngle:90,
+                    legendHoverLink: false,
+                    itemStyle: {
+                        borderRadius: 1,
+                        borderColor: '#fff',
+                        borderWidth: 0,
+                        fontSize:22
                     },
+                    label: {
+                        show: true,
+                        position: 'inside',
+                        color: '#fff',
+                        formatter(params) {
+                            return params.data.rate;
+                        },
+                    },
+                    emphasis: {
+                        label: {
+                            show: true,
+                        },
+                    },
+                    data: datap,
                 },
-                center: ["40%", "50%"],
-                indicator: indicator,
-                splitArea: { // 坐标轴在 grid 区域中的分隔区域，默认不显示。
-                    show: true,
-                    areaStyle: { // 分隔区域的样式设置。
-                        color: ['rgba(255,255,255,0)', 'rgba(255,255,255,0)'], // 分隔区域颜色。分隔区域会按数组中颜色的顺序依次循环设置颜色。默认是一个深浅的间隔色。
-                    }
-                },
-                axisLine: { //指向外圈文本的分隔线样式
-                    lineStyle: {
-                        color: '#153269'
-                    }
-                },
-                splitLine: {
-                    lineStyle: {
-                        color: '#113865', // 分隔线颜色
-                        width: 1, // 分隔线线宽
-                    }
-                },
-            },
-            tooltip: {
-                show: true,
-                trigger: "item"
-
-            },
-            series: [{
-                type: 'radar',
-                symbolSize: 8,
-                // symbol: 'angle',
-                data: dataArr
-            }]
+            ],
         };
 
         let myChart = echarts.init(document.getElementById('analyzeRadar'))
