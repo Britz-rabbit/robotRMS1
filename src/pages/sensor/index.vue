@@ -10,13 +10,16 @@
             <el-button type="danger" size="mini" @click="changeData('danger')">异常设备</el-button>
           </el-badge>
           <!-- 时间选择器 -->
-          <div style="position: relative;left: 40px;" class="">
+          <div style="position: relative;left: 20px;" class="">
             <el-date-picker v-model="dateValue" type="daterange" align="right" value-format="timestamp" unlink-panels
               range-separator="至" start-placeholder="查询起始" end-placeholder="查询终止" :picker-options="pickerOptions">
             </el-date-picker>
           </div>
           <el-button type="warning" size="mini" @click="changeData('history')"
-            style="margin-left: 50px;position: relative;z-index: 9;">确定查询
+            style="margin-left: 30px;position: relative;z-index: 9;">确定查询
+          </el-button>
+          <el-button type="success" size="mini" @click="changeData('history')"
+            style="margin-left: 10px;position: relative;z-index: 9;">生成报表
           </el-button>
         </div>
         <!-- 第二部分 -->
@@ -94,6 +97,7 @@ export default {
   },
   mounted() {
     this.changeData('all')
+    this.changePage()
   },
   methods: {
     //点击改变列表数据的回调
@@ -135,7 +139,7 @@ export default {
     divideArr(arr,num) {
       var newArr=[]//分割后的二维数组
       var Flag=0//分割前数组元素的计数符
-      for (let i = 0; i < Math.ceil(arr.length / 15); i++) {
+      for (let i = 0; i < Math.ceil(arr.length / num); i++) {
         let temArr=[]//临时存贮的小数组
         for (let j = 0; j < num; j++) {
           if(!arr[Flag]) break
@@ -176,7 +180,7 @@ span {
 }
 
 #dv-full-screen-container {
-  background: url('@/assets/img/BG.png');
+  background: url('@/assets/img/background.png');
   background-size: cover;
   //border: 1px solid red;
 }
@@ -184,14 +188,13 @@ span {
 .bar {
   width: 100%;
   height: 60px;
-
   padding-top: 26px;
   display: flex;
   // justify-content: center;
   align-items: center;
 
   .el-button {
-    margin-left: 26px;
+    margin-left: 10px;
     height: 38px;
     font-size: 18px;
   }

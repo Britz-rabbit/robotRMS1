@@ -25,7 +25,7 @@
             <!-- 图标矩阵，图取自element UI -->
             <div class="iconRect">
               <div v-for="(item, index) in iconList" class="iconCon ani1" @mouseenter="addAni" @mouseleave="removeAni"
-                @click="contrlBack(index)">
+                @click="sendMsg('funLib', 1, 0, item.title)">
                 <i :class="item.icon"></i>
                 <span>{{ item.title }}</span>
               </div>
@@ -226,9 +226,9 @@ export default {
 
 
 #dv-full-screen-container {
-  background: url('@/assets/img/BG.png');
+  background: url('@/assets/img/background.png');
   background-size: cover;
-  //border: 1px solid red;
+  
 
 }
 

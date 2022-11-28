@@ -1,6 +1,6 @@
 <template>
     <div class=''>
-        <div id="warningLine2" style="height:400px;width:580px;"></div>
+        <div id="warningLine2" style="height:400px;width:620px;"></div>
     </div>
 </template>
 
@@ -130,8 +130,8 @@ export default {
             },
             grid: {
                 top: '15%',
-                left: '10%',
-                right: '5%',
+                left: '12%',
+                right: '4%',
                 bottom: '15%',
                 // containLabel: true
             },

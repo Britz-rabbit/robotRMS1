@@ -243,27 +243,67 @@
 
             <!-- 预设巡检的设定对话框 -->
             <el-dialog title="预设巡检" top="25vh" :modal="false" :visible.sync="isPlaningPatrol">
-              <!-- 时间选择器 -->
-              <el-time-picker v-model="planingPatrolInfo.startTime" :picker-options="{
-                selectableRange: '00:00:00 - 23:59:59'
-              }" placeholder="巡检起始时间">
-              </el-time-picker>
-              &nbsp;—————&nbsp;
-              <el-time-picker v-model="planingPatrolInfo.endTime" :picker-options="{
-                selectableRange: '00:00:00 - 23:59:59'
-              }" placeholder="巡检终止时间">
-              </el-time-picker>
+              <!-- 巡检表头：时间选择器，巡检速度，巡检次数-->
+              <div style="display:flex;justify-content: space-between;margin:10px auto;width: 90%;">
+                <el-time-picker v-model="planingPatrolInfo.startTime" :picker-options="{
+                  selectableRange: '00:00:00 - 23:59:59'
+                }" placeholder="巡检起始时间" value-format="timestamp">
+                </el-time-picker>
 
-              <div style="height:40px"></div>
-              <!-- 巡检速度 -->
-              <el-select width="100" v-model="planingPatrolInfo.speed" placeholder="请选择巡检速度">
-                <el-option v-for="item in speedOpt" :key="item.value" :label="item.label" :value="item.label">
-                </el-option>
-              </el-select>
+                <div style="height:10px"></div>
+                <el-select width="100" v-model="planingPatrolInfo.type" placeholder="请选择巡检方案">
+                  <el-option v-for="item in dislogPotions.typeOpt" :key="item.value" :label="item.label"
+                    :value="item.value">
+                  </el-option>
+                </el-select>
 
-              <div slot="footer" class="dialog-footer">
-                <el-button @click="isPlaningPatrol = false">取 消</el-button>
-                <el-button type="primary" @click="isPlaningPatrol = false">设 定</el-button>
+                <div style="height:10px"></div>
+                <el-select v-model="planingPatrolInfo.times" placeholder="请选择巡检次数">
+                  <el-option label="巡检一次" value="1"></el-option>
+                  <el-option label="巡检两次" value="2"></el-option>
+                  <el-option label="巡检三次" value="3"></el-option>
+                </el-select>
+              </div>
+
+
+              <!-- 预设点位 -->
+              <el-form :model="planingPatrolInfo.plans.points" ref="pointsForm" label-width="100px">
+                <el-form-item v-for="(point, index) in planingPatrolInfo.plans.points" :label="'点位' + index"
+                  :key="point.position" :rules="{
+                    required: true, message: '点位信息不能为空', trigger: 'blur'
+                  }">
+                  <el-input placeholder="速度" style="width: 40%;margin-left:10px;" type="number"
+                    oninput="if(value>1.5)value=1.5;if(value<0.2)value=0.2" step="0.1" v-model="point.speed">
+                    <template slot="append">m/s</template>
+                  </el-input>
+
+                  <el-input placeholder="位置" style="width: 40%;margin-left:10px;" type="number"
+                    oninput="if(value>1200)value=1200;if(value<0)value=0" step="1" v-model="point.location">
+                    <template slot="append">m</template>
+                  </el-input>
+
+                  <el-input placeholder="偏航" style="width: 40%;margin-left:10px;margin-top: 10px;" type="number"
+                    oninput="if(value>360)value=360;if(value<0)value=0" step="1" v-model="point.yaw">
+                    <template slot="append">°</template>
+                  </el-input>
+
+                  <el-input placeholder="俯仰" style="width: 40%;margin-left:10px;margin-top: 10px;" type="number"
+                    oninput="if(value>194)value=194;if(value<95)value=95" step="1" v-model="point.pitch">
+                    <template slot="append">°</template>
+                  </el-input>
+
+                  <el-button style="margin-left:10px;" type="danger" @click.prevent="removePoint(point)">删除</el-button>
+                </el-form-item>
+                <el-form-item>
+                  <el-button @click="addPoint">新增点位</el-button>
+
+                </el-form-item>
+              </el-form>
+
+              <div slot="footer" class="dialog-footer" style="margin-bottom:90px;position: relative;">
+                <el-button style="position: absolute; right: 30%;" @click="isPlaningPatrol = false">取 消</el-button>
+                <el-button style="position: absolute; left: 30%;" type="primary" @click="isPlaningPatrol = false">设 定
+                </el-button>
               </div>
             </el-dialog>
 
@@ -365,45 +405,42 @@ export default {
       //预设巡检的对话框标识符
       isPlaningPatrol: false,
       //几个基础的速度选择
-      speedOpt: [{
-        value: '选项1',
-        label: '0.5m/s'
-      }, {
-        value: '选项2',
-        label: '0.6m/s'
-      }, {
-        value: '选项3',
-        label: '0.7m/s'
-      }, {
-        value: '选项4',
-        label: '0.8m/s'
-      }, {
-        value: '选项5',
-        label: '0.9m/s'
-      }, {
-        value: '选项6',
-        label: '1.0m/s'
-      }, {
-        value: '选项7',
-        label: '1.1m/s'
-      }, {
-        value: '选项8',
-        label: '1.2m/s'
-      }, {
-        value: '选项9',
-        label: '1.3m/s'
-      }, {
-        value: '选项10',
-        label: '1.4m/s'
-      }, {
-        value: '选项11',
-        label: '1.5m/s'
-      }],
+      dislogPotions: {
+        typeOpt: [
+          {
+            value: '1',
+            label: '预设方案1'
+          }, {
+            value: '2',
+            label: '预设方案2'
+          }, {
+            value: '3',
+            label: '预设方案3'
+          }, {
+            value: '4',
+            label: '预设方案4'
+          }
+        ],
+
+      },
       //预设巡检的信息
       planingPatrolInfo: {
         startTime: '',//巡检初始时间
-        endTime: '',//巡检结束时间
-        speed: '请选择巡检速度',//机器人的巡检速度
+        times: "",//巡检次数
+        type: '',//机器人的巡检方案
+        // 当前预设的方案配置
+        plans: { // index 1,2,3表示预设方案，4表示临时方案
+          index: 4,
+          //该方案的具体点位
+          points: [
+            {
+              speed: '',
+              location: '',
+              yaw: '',
+              pitch: ''
+            }
+          ]
+        }
       }
 
     };
@@ -530,6 +567,26 @@ export default {
       console.log("cameraWs connection closed");
       this.cameraWs.close();
     },
+    //巡检点位的相关设置
+    resetPoints() {
+      this.planingPatrolInfo.plans.points = []
+      this.$refs[pointsForm].resetFields();
+    },
+    removePoint(item) {
+      var index = this.planingPatrolInfo.plans.points.indexOf(item)
+      if (index !== -1) {
+        this.planingPatrolInfo.plans.points.splice(index, 1)
+      }
+    },
+    addPoint() {
+      this.planingPatrolInfo.plans.points.push({
+        speed: '',
+        location: '',
+        yaw: '',
+        pitch: ''
+      });
+    }
+
   },
 };
 </script>
@@ -542,7 +599,7 @@ export default {
 }
 
 #dv-full-screen-container {
-  background: url('@/assets/img/BG.png');
+  background: url('@/assets/img/background.png');
   background-size: cover;
   //border: 1px solid red;
 }
@@ -769,26 +826,20 @@ span {
     .break {
       //撕裂
       left: 260px;
-      bottom: 80px;
+      bottom: 46%;
     }
 
     .mult {
       //多功能
       left: 290px;
-      bottom: 80px;
+      bottom: 46%;
     }
-
-    //再给机器人定位
-
-
-
-
 
   }
 
   //温湿度及氧气
   .con3 {
-    justify-content: start;
+    justify-content: space-start;
     align-items: center;
     flex-wrap: wrap;
 
@@ -871,8 +922,19 @@ span {
     div {
       display: flex;
       margin: 0 auto;
-      width: 86%;
+      width: 90%;
+      height: 42px;
+      margin-top: 8px;
+      padding: 0 10px;
+      line-height: 40px;
       justify-content: space-between;
+      background: url('@/assets/img/home/homeBar.png') no-repeat;
+      background-size: cover;
+
+      // span:nth-child(2){
+      //   background: url('@/assets/img/home/glassBox.png');
+      //   background-size: contain;
+      // }
     }
 
     span {

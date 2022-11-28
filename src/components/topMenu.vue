@@ -148,6 +148,7 @@ export default {
     width: 40%;
     text-align: center;
     background: url('@/assets/img/topMenu/title.png') no-repeat;
+    background: url('@/assets/img/topMenu/titlenew.png') no-repeat;
     background-size: contain;
     //border: 1px solid red;
     display: flex;

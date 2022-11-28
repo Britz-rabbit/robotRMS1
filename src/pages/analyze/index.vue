@@ -91,7 +91,7 @@ export default {
 }
 
 #dv-full-screen-container {
-  background: url('@/assets/img/BG.png');
+  background: url('@/assets/img/background.png');
   background-size: cover;
   //border: 1px solid red;
 }
