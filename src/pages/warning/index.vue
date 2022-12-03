@@ -98,6 +98,7 @@
                 <div><span>机器人当前速度</span><span>80cm/s</span></div>
                 <div><span>机器人当前位置</span><span>32m</span></div>
               </div>
+              <div class="dot d0 " :class="{ success: currentDot === 'd0' }"></div>
               <div class="dot d1 " :class="{ success: currentDot === 'd1' }"></div>
               <div class="dot d2  " :class="{ success: currentDot === 'd2' }"></div>
               <div class="dot d3 " :class="{ success: currentDot === 'd3' }"></div>
@@ -268,7 +269,7 @@ span {
       }
 
       .info {
-        width: 45%;
+        width: 42%;
         height: 56%;
         display: flex;
         flex-direction: column;
@@ -480,12 +481,11 @@ span {
   //机器人和设备的通用样式
   .dot {
     position: absolute;
-    //border: #a89f9f 1px solid;
+    border: #a89f9f 1px solid;
     border-radius: 50%;
-    width: 30px;
-    height: 30px;
+    width: 34px;
+    height: 34px;
     display: none;
-
 
     &:hover {
       cursor: pointer;
@@ -494,131 +494,138 @@ span {
     animation: shade 1.4s infinite;
   }
 
-  //机器人轨迹埋点
-  .d1 {
-    top: 40px;
-    left: 50px;
-  }
+  //定义每个之间的距离
+  @distance:(60/25);
 
-  .d2 {
-    top: 40px;
-    left: 100px;
-  }
+//机器人轨迹埋点
+.d0 {
+  top: 42%;
+  left: 24%+ @distance*0%;
+}
+.d1 {
+  top: 42%;
+  left: 24%+ @distance*1%;
+}
 
-  .d3 {
-    top: 40px;
-    left: 150px;
-  }
+.d2 {
+  top: 42%;
+  left: 24% + @distance*2%;
+}
 
-  .d4 {
-    top: 62px;
-    left: 220px;
-  }
+.d3 {
+  top: 42%;
+  left:24% + @distance*3%;
+}
 
-  .d5 {
-    top: 90px;
-    left: 290px;
-  }
+.d4 {
+  top: 42%;
+  left: 26% + @distance*4%;
+}
 
-  .d6 {
-    top: 110px;
-    left: 350px;
-  }
+.d5 {
+  top: 42%;
+  left: 24% + @distance*5%;
+}
 
-  .d7 {
-    top: 110px;
-    left: 400px;
-  }
+.d6 {
+  top: 42%;
+  left: 24% + @distance*6%;
+}
 
-  .d8 {
-    top: 110px;
-    left: 450px;
-  }
+.d7 {
+  top: 42%;
+  left: 24% + @distance*7%;
+}
 
-  .d9 {
-    top: 110px;
-    left: 500px;
-  }
+.d8 {
+  top: 42%;
+  left: 24% + @distance*8%;
+}
 
-  .d10 {
-    top: 110px;
-    left: 550px;
-  }
+.d9 {
+  top: 42%;
+  left: 24% + @distance*9%;
+}
 
-  .d11 {
-    top: 110px;
-    left: 550px;
-  }
+.d10 {
+  top: 42%;
+  left: 24% + @distance*10%;
+}
 
-  .d12 {
-    top: 110px;
-    left: 600px;
-  }
+.d11 {
+  top: 42%;
+  left: 24% + @distance*11%;
+}
 
-  .d13 {
-    top: 110px;
-    left: 650px;
-  }
+.d12 {
+  top: 42%;
+  left: 24% + @distance*12%;
+}
 
-  .d14 {
-    top: 110px;
-    left: 700px;
-  }
+.d13 {
+  top: 42%;
+  left: 24% + @distance*13%;
+}
 
-  .d15 {
-    top: 110px;
-    left: 750px;
-  }
+.d14 {
+  top: 42%;
+  left: 24% + @distance*14%;
+}
 
-  .d16 {
-    top: 110px;
-    left: 800px;
-  }
+.d15 {
+  top: 42%;
+  left: 24% + @distance*15%;
+}
 
-  .d17 {
-    top: 110px;
-    left: 850px;
-  }
+.d16 {
+  top: 42%;
+  left: 24% + @distance*16%;
+}
 
-  .d18 {
-    top: 110px;
-    left: 900px;
-  }
+.d17 {
+  top: 42%;
+  left: 24% + @distance*17%;
+}
 
-  .d19 {
-    top: 110px;
-    left: 950px;
-  }
+.d18 {
+  top: 42%;
+  left: 24% + @distance*18%;
+}
 
-  .d20 {
-    top: 110px;
-    left: 1000px;
-  }
+.d19 {
+  top: 42%;
+  left: 24% + @distance*19%;
+}
 
-  .d21 {
-    top: 110px;
-    left: 1050px;
-  }
+.d20 {
+  top: 42%;
+  left: 24% + @distance*20%;
+}
 
-  .d22 {
-    top: 110px;
-    left: 1100px;
-  }
+.d21 {
+  top: 42%;
+  left: 24% + @distance*21%;
+}
 
-  .d23 {
-    top: 120px;
-    left: 1140px;
-  }
+.d22 {
+  top: 42%;
+  left: 24% + @distance*22%;
+}
 
-  .d24 {
-    top: 140px;
-    left: 1190px;
-  }
+.d23 {
+  top: 42%;
+  left: 24% + @distance*23%;
+}
 
-  .d25 {
-    top: 160px;
-    left: 1240px;
-  }
+.d24{
+  top: 42%;
+  left: 24% + @distance*23%;
+}
+
+.d25{
+  top: 42%;
+  left: 24% + @distance*25%;
+}
 }
 
 //背景闪烁的动画

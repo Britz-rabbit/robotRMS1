@@ -50,6 +50,11 @@
             </div>
             <div class="line line1 ">
               <div @click="sendMsg('robot', 3, 0, '机器人加速')" class="btn pluse"></div>
+              <!-- 控制机器人亮度 -->
+              <div class="light" style="position:absolute;">
+                <div @click="sendMsg('robot', 0, 'plus', '机器人亮度增加')">亮度+</div>
+                <div @click="sendMsg('robot', 0, 'min', '机器人亮度减少')">亮度-</div>
+              </div>
             </div>
             <div class="line line2 ">
               <div @click="sendMsg('robot', 2, 0, '机器人后退')" class="btn left"></div>
@@ -68,6 +73,11 @@
             </div>
             <div class="line line1 ">
               <div @click="sendMsg('camera', 1, 0, '云台向上')" class="btn up"></div>
+              <!-- 控制云台亮度 -->
+              <div class="light">
+                <div @click="sendMsg('camera', 0, 'plus', '云台亮度增加')">亮度+</div>
+                <div @click="sendMsg('camera', 0, 'min', '云台亮度减少')">亮度-</div>
+              </div>
             </div>
             <div class="line line2 ">
               <div @click="sendMsg('camera', 3, 0, '云台左旋')" class="btn left"></div>
@@ -98,9 +108,9 @@ export default {
         { icon: 'iconfont icon-back', title: '全程巡航' },
         { icon: 'iconfont icon-chongdian', title: '回程充电' },
         { icon: 'iconfont icon-xiala', title: '语音播报' },
-        { icon: 'iconfont icon-dengguang', title: '补光灯关' },
+        { icon: 'iconfont icon-dengguang', title: '机器人灯' },
         { icon: 'iconfont icon-zhongzhi-', title: '故障复位' },
-        { icon: 'iconfont icon-dengpao', title: '补光灯开' },
+        { icon: 'iconfont icon-dengpao', title: '云台灯光' },
         { icon: 'iconfont icon-jiaoju', title: '焦距回零' },
         { icon: 'iconfont icon-jujiao', title: '自动聚焦' },
         { icon: 'iconfont icon-jietu', title: '快速截图' },
@@ -124,7 +134,7 @@ export default {
   },
 
   beforeMount() {
-    
+
 
   },
   mounted() {
@@ -228,7 +238,7 @@ export default {
 #dv-full-screen-container {
   background: url('@/assets/img/background.png');
   background-size: cover;
-  
+
 
 }
 
@@ -452,6 +462,7 @@ img {
       justify-content: center;
       align-items: center;
 
+
       span {
         color: #32CE84;
         font-size: 20px;
@@ -480,6 +491,43 @@ img {
 
       .line1 {
         justify-content: center;
+        position: relative;
+
+        .light {
+          position: absolute;
+          width: 60px;
+          height: 60px;
+          //border: 1px solid red;
+          right: 18px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+
+          div {
+            width: 100%;
+            height: 40%;
+            //border: 1px solid yellow;
+            color: #4FABFD;
+            border-radius: 6px;
+            text-align: center;
+            background-color: #27519D;
+            cursor: pointer;
+            padding-bottom: 2px;
+            transition: all 0.3s;
+
+            &:active {
+              color: rgb(16, 209, 209)
+            }
+
+            &:hover {
+              width: 110%;
+              height: 44%;
+            }
+
+          }
+
+
+        }
       }
 
       .line2 {

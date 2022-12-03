@@ -2,13 +2,20 @@
   <dv-full-screen-container ref="appRef">
     <topMenu></topMenu>
     <div class='container flex ' style="justify-content: space-around;overflow: visible;position: relative;">
-      
+      <!-- <div class="AnalyzeL">
+
+      </div> -->
+
       <!-- 报表部分，连接打印功能，请勿随意修改样式，包括位置。要在旁边增添元素全用绝对定位 -->
       <div class="reportCon" id="screenshot" style="width: 840px;height:1188px;overflow: visible;margin: 0 auto;">
         <reportVue></reportVue>
       </div>
-      <el-button type="success" size="mini" @click="saveReport" id="sava-btn" style="height: 30px;">保存</el-button>
+      <el-button type="success" size="mini" @click="saveReport" id="sava-btn" style="height: 30px;z-index: 9;">保存</el-button>
       <!-- <analyzeRadarVue></analyzeRadarVue> -->
+
+      <!-- <div class="AnalyzeR">
+
+      </div> -->
     </div>
   </dv-full-screen-container>
 
@@ -16,7 +23,6 @@
 
 <script>
 //引入模块
-import analyzeChartCom from './charts/chartCom.vue'
 import analyzeRadarVue from './charts/analyzeRadar.vue';
 import reportVue from './components/report.vue';
 
@@ -33,7 +39,7 @@ export default {
   props: {
   },
   components: {
-    analyzeChartCom, reportVue,analyzeRadarVue
+    reportVue, analyzeRadarVue
   },
   computed: {
 
@@ -50,8 +56,8 @@ export default {
         logging: false,
         scale: 2,
         useCORS: true,
-        width: screenshot.clientWidth-42,
-        height: screenshot.clientWidth * 1.41429-24,//a4纸张比例
+        width: screenshot.clientWidth - 42,
+        height: screenshot.clientWidth * 1.41429 - 24,//a4纸张比例
         scrollY: -66,
         scrollX: -502,
       };
@@ -61,7 +67,7 @@ export default {
         const base64 = res.toDataURL('image/jpeg', 2);
         const PDF = new JsPDF('', 'px', [width, height]);
         PDF.addImage(base64, 'JPEG', 0, 0, width, height);
-        let time=this.getTime()
+        let time = this.getTime()
         PDF.save(`提升工区报表${time}` + '.pdf');
       }, err => alert("截图失败，请重新尝试"));
     },
@@ -71,7 +77,7 @@ export default {
       let days = (d.getMonth() + 1) + '月' + (d.getDate() + '日 ')
       //let hours = d.getHours() + ':' + (d.getMinutes())+':'+(d.getSeconds())
       let hours = d.getHours() + ':' + (d.getMinutes())
-      return days 
+      return days
     },
 
   },
@@ -96,18 +102,20 @@ export default {
   //border: 1px solid red;
 }
 
-.s1 {
-  width: 60%;
+.AnalyzeL{
+  position: absolute;
   height: 100%;
+  width: 24%;
+  left: 20px;
+  border: 1px solid red;
+}
 
-  .s1-1 {
-    width: 100%;
-    height: 50%;
-  }
+.AnalyzeR{
+ position: absolute;
+ height: 100%;
+ width: 24%;
+ border: 1px solid red;
+ right: 20px;
 
-  .s1-2 {
-    width: 100%;
-    height: 50%;
-  }
 }
 </style>

@@ -46,6 +46,7 @@
               <span @click="changePage('/warning')"
                 style="position:absolute;right:10px;top:10px;cursor:pointer;padding: 4px;color:skyblue;font-size:18px;border: 3px solid #103F9E;border-radius: 6px;">巡检报警</span>
               <!-- 机器人位置埋点 -->
+              <div class="dot d0 " :class="{ robot: currentDot === 'd0' }"></div>
               <div class="dot d1 " :class="{ robot: currentDot === 'd1' }"></div>
               <div class="dot d2  " :class="{ robot: currentDot === 'd2' }"></div>
               <div class="dot d3 " :class="{ robot: currentDot === 'd3' }"></div>
@@ -329,7 +330,7 @@ export default {
   data() {
     return {
       //廊道背景
-      imgSrc: require('@/assets/img/warning/tc.gif'),
+      imgSrc: require('@/assets/img/tisheng.gif'),
       //是否加载
       isLoading: true,
       //廊道背景切换的interval
@@ -477,6 +478,16 @@ export default {
     }, 1000);
     //获取视频
     this.initWebCameraWs()
+    //给机器人位置埋点
+    // let points=document.getElementsByClassName('dot')
+    // let distance=58/23//每个点之间的间隔：单位%
+    // for (let i = 0; i < points.length; i++) {
+    //   // points[i].style.left=(i+1)*distance+'%'
+    //   // points[i].style.top='45%'
+    //   console.log(points[i]);
+    // }
+    // console.log(points);
+
 
   },
   beforeDestroy() {
@@ -534,7 +545,6 @@ export default {
       //alert(`更改为第${type}种巡检类型`)
       if (this.inspectionMode === type) this.inspectionMode = 0
       else this.inspectionMode = type
-
       if (this.inspectionMode === 3) this.isPlaningPatrol = true
 
     },
@@ -586,6 +596,8 @@ export default {
         pitch: ''
       });
     }
+
+    //
 
   },
 };
@@ -660,7 +672,6 @@ span {
 
     .success {
       background-color: #32ce8480;
-
     }
 
     .error {
@@ -685,123 +696,131 @@ span {
         cursor: pointer;
       }
 
-      animation: shade 1.4s infinite;
+      //animation: shade 1.4s infinite;
     }
 
+    //定义每个之间的距离
+    @distance:(58/23);
+
     //机器人轨迹埋点
+    .d0 {
+      top: 45%;
+      left: 24%+ @distance*0%;
+    }
     .d1 {
-      top: 40px;
-      left: 15px;
+      top: 45%;
+      left: 24%+ @distance*1%;
     }
 
     .d2 {
-      top: 40px;
-      left: 30px;
+      top: 45%;
+      left: 24% + @distance*2%;
     }
 
     .d3 {
-      top: 48px;
-      left: 45px;
+      top: 45%;
+      left:24% + @distance*3%;
     }
 
     .d4 {
-      top: 58px;
-      left: 60px;
+      top: 45%;
+      left: 26% + @distance*4%;
     }
 
     .d5 {
-      top: 68px;
-      left: 75px;
+      top: 45%;
+      left: 24% + @distance*5%;
     }
 
     .d6 {
-      top: 78px;
-      left: 90px;
+      top: 45%;
+      left: 24% + @distance*6%;
     }
 
     .d7 {
-      top: 78px;
-      left: 105px;
+      top: 45%;
+      left: 24% + @distance*7%;
     }
 
     .d8 {
-      top: 78px;
-      left: 120px;
+      top: 45%;
+      left: 24% + @distance*8%;
     }
 
     .d9 {
-      top: 78px;
-      left: 135px;
+      top: 45%;
+      left: 24% + @distance*9%;
     }
 
     .d10 {
-      top: 78px;
-      left: 150px;
+      top: 45%;
+      left: 24% + @distance*10%;
     }
 
     .d11 {
-      top: 78px;
-      left: 165px;
+      top: 45%;
+      left: 24% + @distance*11%;
     }
 
     .d12 {
-      top: 78px;
-      left: 180px;
+      top: 45%;
+      left: 24% + @distance*12%;
     }
 
     .d13 {
-      top: 78px;
-      left: 195px;
+      top: 45%;
+      left: 24% + @distance*13%;
     }
 
     .d14 {
-      top: 78px;
-      left: 210px;
+      top: 45%;
+      left: 24% + @distance*14%;
     }
 
     .d15 {
-      top: 78px;
-      left: 230px;
+      top: 45%;
+      left: 24% + @distance*15%;
     }
 
     .d16 {
-      top: 78px;
-      left: 245px;
+      top: 45%;
+      left: 24% + @distance*16%;
     }
 
     .d17 {
-      top: 78px;
-      left: 260px;
+      top: 45%;
+      left: 24% + @distance*17%;
     }
 
     .d18 {
-      top: 78px;
-      left: 275px;
+      top: 45%;
+      left: 24% + @distance*18%;
     }
 
     .d19 {
-      top: 78px;
-      left: 290px;
+      top: 45%;
+      left: 24% + @distance*19%;
     }
 
     .d20 {
-      top: 78px;
-      left: 305px;
+      top: 45%;
+      left: 24% + @distance*20%;
     }
 
     .d21 {
-      top: 86px;
-      left: 320px;
+      top: 45%;
+      left: 24% + @distance*21%;
     }
 
     .d22 {
-      top: 96px;
-      left: 335px;
+      top: 45%;
+      left: 24% + @distance*22%;
     }
 
     .d23 {
-      top: 106px;
-      left: 350px;
+      top: 45%;
+      left: 24% + @distance*23%;
+      // border: 1px solid red;
     }
 
 
@@ -1060,7 +1079,8 @@ span {
         flex-direction: column;
         justify-content: space-around;
         align-items: space-between;
-        background: url('@/assets/img/home/inspectionBcg.jpg') no-repeat;
+        //background: url('@/assets/img/home/inspectionBcg.jpg') no-repeat;
+        background: url('@/assets/img/home/inspectionBcg.png') no-repeat;
         background-size: cover;
 
         .insItem {
